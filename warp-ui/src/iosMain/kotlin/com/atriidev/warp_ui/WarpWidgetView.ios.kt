@@ -28,7 +28,7 @@ import warpWidgetKit.WarpSwiftUIView as NativeWarpSwiftUIView
  * ```
  */
 @OptIn(ExperimentalForeignApi::class)
-fun registerWarpClicks(handlers: List<WarpClickHandler<*>>) {
+fun registerWarpClicks(handlers: List<WarpActionHandler<*>>) {
     WarpClicksRegistry.register(handlers)
     WarpIosBridge.installClickHandler()
 }

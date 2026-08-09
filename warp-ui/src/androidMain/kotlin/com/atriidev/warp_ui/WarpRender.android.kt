@@ -8,7 +8,7 @@ import com.atriidev.warp_ui.glance.internal.WarpRegistryActionCallback
 import com.atriidev.warp_ui.glance.internal.clickActionFor
 
 @Composable
-actual fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>) {
+actual fun WarpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>) {
     SideEffect {
         WarpClicksRegistry.register(handlers)
     }
@@ -17,7 +17,7 @@ actual fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>) {
     }
 }
 
-actual fun warpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>): WarpSwiftUIView {
+actual fun warpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>): WarpSwiftUIView {
     error("warpRender returns a SwiftUI view and is iOS-only. Use WarpRender() for Jetpack Glance on Android.")
 }
 

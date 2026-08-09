@@ -11,7 +11,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
  * Prefer [warpRender] / [registerWarpClicks] + [warpWidgetJson] for WidgetKit hosts.
  */
 @Composable
-actual fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>) {
+actual fun WarpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>) {
     SideEffect {
         warpRender(node, handlers)
     }
@@ -25,7 +25,7 @@ actual fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>) {
  * `WarpSwiftUIRootView` directly (pure SwiftUI — no `UIViewControllerRepresentable`).
  */
 @OptIn(ExperimentalForeignApi::class)
-actual fun warpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>): WarpSwiftUIView {
+actual fun warpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>): WarpSwiftUIView {
     registerWarpClicks(handlers)
     return warpWidgetView(node, useIntents = true)
 }

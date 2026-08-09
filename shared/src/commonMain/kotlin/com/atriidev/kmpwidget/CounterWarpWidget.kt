@@ -28,7 +28,7 @@ import com.atriidev.warp_runtime.nodes.style.WarpTextStyle
 import com.atriidev.warp_runtime.nodes.style.WarpVerticalAlignment
 import com.atriidev.warp_runtime.unit.dp
 import com.atriidev.warp_runtime.unit.sp
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 import com.atriidev.warp_widget.WarpWidget
 import com.atriidev.warp_widget.WarpWidgetSession
 import com.atriidev.warp_widget.WarpWidgetStateScope
@@ -37,7 +37,6 @@ import com.atriidev.warp_widget.api.isAndroid
 import com.atriidev.warp_widget.ui.WarpAdaptiveContent
 import com.atriidev.warp_widget.ui.WarpAdaptiveSize
 import com.atriidev.warp_widget.ui.WarpTheme
-import com.atriidev.warp_widget.ui.adaptiveSize
 import com.atriidev.warp_widget.ui.adaptiveValue
 import com.atriidev.warp_widget.ui.isMediumAdaptive
 import com.atriidev.warp_widget.ui.rememberWarpAdaptiveSize
@@ -153,8 +152,8 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
         }
     }
 
-    override fun clickHandlers(session: WarpWidgetSession): List<WarpClickHandler<*>> =
-        listOf(CounterWarpClickHandler(session))
+    override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> =
+        listOf(CounterWarpActionHandler(session))
 }
 
 @Composable
@@ -615,9 +614,9 @@ private fun TodoRow(
 /**
  * Persists [CounterState] via [updateWarpWidgetState] (Glance prefs / UserDefaults + reload).
  */
-class CounterWarpClickHandler(
+class CounterWarpActionHandler(
     private val session: WarpWidgetSession,
-) : WarpClickHandler<CounterActions>(CounterActions.serializer()) {
+) : WarpActionHandler<CounterActions>(CounterActions.serializer()) {
 
     override suspend fun onAction(action: CounterActions) {
         updateWarpWidgetState(session, CounterWarpWidget) { state ->

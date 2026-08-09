@@ -1,7 +1,7 @@
 package com.atriidev.warp_ui
 
 /**
- * Registry of wire `actionId` → [WarpClickHandler] dispatch targets.
+ * Registry of wire `actionId` → [WarpActionHandler] dispatch targets.
  *
  * Populated by [WarpRender] (or iOS `registerWarpClicks`). Platform callbacks call [dispatch]:
  * - **Android:** Glance `ActionCallback`
@@ -14,7 +14,7 @@ object WarpClicksRegistry {
     private val handlers = mutableMapOf<String, suspend (Map<String, String>) -> Unit>()
 
     /** Replaces all handlers (clears previous widget’s actions). */
-    fun register(handlers: List<WarpClickHandler<*>>) {
+    fun register(handlers: List<WarpActionHandler<*>>) {
         this.handlers.clear()
         handlers.forEach(::registerOne)
         WarpLogger.d(TAG, "Registered ${this.handlers.size} click action handler(s): ${this.handlers.keys}")
@@ -43,7 +43,7 @@ object WarpClicksRegistry {
         return true
     }
 
-    private fun registerOne(handler: WarpClickHandler<*>) {
+    private fun registerOne(handler: WarpActionHandler<*>) {
         handler.registerEntries { wireId, entryHandler ->
             handlers[wireId] = entryHandler
         }

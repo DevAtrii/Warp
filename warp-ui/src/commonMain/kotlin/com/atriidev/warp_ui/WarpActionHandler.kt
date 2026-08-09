@@ -15,7 +15,7 @@ import kotlinx.serialization.KSerializer
  * ### Android
  * Glance `ActionCallback` → registry → [onAction].
  */
-abstract class WarpClickHandler<A : Any>(
+abstract class WarpActionHandler<A : Any>(
     serializer: KSerializer<A>,
 ) {
     private val family: WarpActionFamily<A> = warpActionFamily(serializer)

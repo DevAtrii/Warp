@@ -16,7 +16,7 @@ import com.atriidev.warp_runtime.nodes.WarpNode
  * ```
  */
 @Composable
-expect fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>)
+expect fun WarpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>)
 
 /**
  * Builds a native widget view from a [WarpNode] tree.
@@ -32,6 +32,6 @@ expect fun WarpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>)
  * )
  * ```
  */
-expect fun warpRender(node: WarpNode, handlers: List<WarpClickHandler<*>>): WarpSwiftUIView
+expect fun warpRender(node: WarpNode, handlers: List<WarpActionHandler<*>>): WarpSwiftUIView
 
 

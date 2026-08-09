@@ -1,6 +1,6 @@
 package com.atriidev.warp_widget
 
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 import com.atriidev.warp_ui.WarpClicksRegistry
 import com.atriidev.warp_ui.registerWarpClicks
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 import warpWidgetKit.WarpClickBridge
 
 @OptIn(ExperimentalForeignApi::class)
-internal actual fun platformRegisterClickHandlers(handlers: List<WarpClickHandler<*>>) {
+internal actual fun platformRegisterClickHandlers(handlers: List<WarpActionHandler<*>>) {
     ensureWarpWidgetKitSharedInstalled()
     registerWarpClicks(handlers)
 }

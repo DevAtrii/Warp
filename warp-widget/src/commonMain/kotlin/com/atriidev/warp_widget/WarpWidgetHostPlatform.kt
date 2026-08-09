@@ -1,6 +1,6 @@
 package com.atriidev.warp_widget
 
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 
 /**
  * Platform hooks for [WarpWidgetHost.prepare] / [WarpWidgetHost.dispatchClick].
@@ -8,7 +8,7 @@ import com.atriidev.warp_ui.WarpClickHandler
  * - **iOS:** [registerWarpClicks] + [WarpClickBridge] prepare; AppIntent → [dispatchWarpClick]
  * - **Android:** [WarpClicksRegistry] only (Glance uses [com.atriidev.warp_ui.WarpRender])
  */
-internal expect fun platformRegisterClickHandlers(handlers: List<WarpClickHandler<*>>)
+internal expect fun platformRegisterClickHandlers(handlers: List<WarpActionHandler<*>>)
 
 internal expect fun platformInstallPrepareHandler(reprepare: () -> Unit)
 

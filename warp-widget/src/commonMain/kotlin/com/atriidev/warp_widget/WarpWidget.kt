@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import com.atriidev.warp_runtime.compose.composeWarp
 import com.atriidev.warp_runtime.compose.toJson
 import com.atriidev.warp_runtime.nodes.WarpNode
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 import com.atriidev.warp_widget.api.PlatformContext
 import com.atriidev.warp_widget.api.WidgetEnvironment
 import kotlinx.coroutines.runBlocking
@@ -40,7 +40,7 @@ interface WarpWidgetHostApi {
     val id: String
     val iosGroupId: String
 
-    fun clickHandlers(session: WarpWidgetSession): List<WarpClickHandler<*>>
+    fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>>
 
     @Composable
     fun ComposeContent(env: WidgetEnvironment, preferences: WarpWidgetPreferences)
@@ -113,7 +113,7 @@ abstract class WarpWidget<S : Any>(
      *
      * Prefer [updateWarpWidgetState] with a `(S) -> S` transform.
      */
-    override fun clickHandlers(session: WarpWidgetSession): List<WarpClickHandler<*>> = emptyList()
+    override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> = emptyList()
 
     /** Decode [S] from prefs (key = [id]); falls back to [defaultState]. */
     suspend fun decodeState(preferences: WarpWidgetPreferences): S {
@@ -201,7 +201,7 @@ object WarpWidgetHost {
     fun handlers(
         widget: WarpWidgetHostApi,
         session: WarpWidgetSession,
-    ): List<WarpClickHandler<*>> = widget.clickHandlers(session)
+    ): List<WarpActionHandler<*>> = widget.clickHandlers(session)
 
     fun prepare(widget: WarpWidgetHostApi, session: WarpWidgetSession) {
         WarpLogger.d("WarpWidgetHost", "prepare: registering handlers for widget ${widget.id}")

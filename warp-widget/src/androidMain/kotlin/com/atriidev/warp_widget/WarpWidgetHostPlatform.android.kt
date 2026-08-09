@@ -1,11 +1,11 @@
 package com.atriidev.warp_widget
 
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 import com.atriidev.warp_ui.WarpClicksRegistry
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 
-internal actual fun platformRegisterClickHandlers(handlers: List<WarpClickHandler<*>>) {
+internal actual fun platformRegisterClickHandlers(handlers: List<WarpActionHandler<*>>) {
     WarpClicksRegistry.register(handlers)
 }
 
