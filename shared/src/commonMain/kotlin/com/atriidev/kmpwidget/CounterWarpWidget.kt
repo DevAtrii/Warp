@@ -8,6 +8,7 @@ import com.atriidev.warp_runtime.compose.WarpButton
 import com.atriidev.warp_runtime.compose.WarpColumn
 import com.atriidev.warp_runtime.compose.WarpDivider
 import com.atriidev.warp_runtime.compose.WarpImage
+import com.atriidev.warp_runtime.compose.WarpLazyRow
 import com.atriidev.warp_runtime.compose.WarpProgressIndicator
 import com.atriidev.warp_runtime.compose.WarpRow
 import com.atriidev.warp_runtime.compose.WarpSpacer
@@ -39,6 +40,7 @@ import com.atriidev.warp_widget.ui.WarpTheme
 import com.atriidev.warp_widget.ui.adaptiveSize
 import com.atriidev.warp_widget.ui.adaptiveValue
 import com.atriidev.warp_widget.ui.isMediumAdaptive
+import com.atriidev.warp_widget.ui.rememberWarpAdaptiveSize
 import com.atriidev.warp_widget.updateWarpWidgetState
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -189,7 +191,7 @@ private fun CounterWidgetContent(
 ) {
     val colors = WarpTheme.colors
     val isMedium = env.isMediumAdaptive()
-    val isLarge = spacious || env.adaptiveSize() == WarpAdaptiveSize.Large
+    val isLarge = spacious || rememberWarpAdaptiveSize(env) == WarpAdaptiveSize.Large
     val todoCompact = compact || (state.mode == WidgetMode.Todo && isMedium)
     val outerPadding = when {
         spacious -> 16
@@ -261,7 +263,7 @@ private fun MoodsSection() {
             maxLines = 1,
         )
         WarpSpacer(modifier = WarpModifier.height(4))
-        WarpRow(
+        WarpLazyRow(
             modifier = WarpModifier
                 .fillMaxWidth()
         ) {
@@ -333,7 +335,7 @@ private fun AdaptiveSizeLabel(
     compact: Boolean = false,
 ) {
     val colors = WarpTheme.colors
-    val label = when (env.adaptiveSize()) {
+    val label = when (rememberWarpAdaptiveSize(env)) {
         WarpAdaptiveSize.Small -> "small"
         WarpAdaptiveSize.Medium -> "medium"
         WarpAdaptiveSize.Large -> "large"
@@ -483,7 +485,9 @@ private fun TodoBody(
     val total = state.todos.size
     val progress = if (total == 0) 0f else doneCount.toFloat() / total
     val maxVisible = env.adaptiveValue(small = 2, medium = 2, large = 10)
-    val visibleTodos = if (isLarge) state.todos else state.todos.take(maxVisible)
+    val size = rememberWarpAdaptiveSize(env)
+    val visibleTodos =
+        if (isLarge && env.platform.isAndroid) state.todos else state.todos.take(maxVisible)
 
     WarpColumn(modifier = WarpModifier.fillMaxWidth()) {
         if (visibleTodos.isNotEmpty())

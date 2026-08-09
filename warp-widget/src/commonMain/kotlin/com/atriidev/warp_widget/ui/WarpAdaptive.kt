@@ -22,7 +22,7 @@ enum class WarpAdaptiveSize {
 }
 
 /** Default dp breakpoints for [adaptiveSizeFrom] (Android launcher columns). */
-object WarpAdaptiveThresholds {
+private object WarpAdaptiveThresholds {
     /** ~2 columns (e.g. 179dp) → [WarpAdaptiveSize.Small]. */
     const val SMALL_MAX_WIDTH_DP = 250f
 
@@ -46,7 +46,7 @@ typealias WarpAdaptiveCalc = (widthDp: Float, heightDp: Float) -> WarpAdaptiveSi
  * val bucket = adaptiveSizeFrom(env.size?.widthDp ?: 0f, env.size?.heightDp ?: 0f)
  * ```
  */
-fun adaptiveSizeFrom(widthDp: Float, heightDp: Float): WarpAdaptiveSize = when {
+private fun adaptiveSizeFrom(widthDp: Float, heightDp: Float): WarpAdaptiveSize = when {
     widthDp < WarpAdaptiveThresholds.SMALL_MAX_WIDTH_DP -> WarpAdaptiveSize.Small
     widthDp >= WarpAdaptiveThresholds.LARGE_MIN_WIDTH_DP ||
         heightDp >= WarpAdaptiveThresholds.LARGE_MIN_HEIGHT_DP -> WarpAdaptiveSize.Large
@@ -69,13 +69,41 @@ fun rememberWarpAdaptiveSize(
     val heightDp = environment.size?.heightDp ?: 0f
     return remember(widthDp, heightDp) { calc(widthDp, heightDp) }
 }
-
+/**
+ * Returns a remembered [WarpAdaptiveSize] for the current widget size.
+ *
+ * The value is derived from [environment]'s width and height and is
+ * automatically recomputed whenever the widget dimensions change
+ * (for example, when the user resizes the widget).
+ *
+ * If the platform cannot determine the widget size, `0 × 0 dp` is used.
+ *
+ * Example:
+ * ```
+ * @Composable
+ * fun MyWidget(environment: WidgetEnvironment) {
+ *     val adaptiveSize = rememberWarpAdaptiveSize(environment)
+ *
+ *     if (adaptiveSize == WarpAdaptiveSize.MEDIUM) {
+ *         // Medium/Large layout
+ *     } else {
+ *         // Small layout
+ *     }
+ * }
+ * ```
+ */
+@Composable
+fun rememberWarpAdaptiveSize(
+    environment: WidgetEnvironment,
+): WarpAdaptiveSize {
+    return environment.adaptiveSize()
+}
 /**
  * Current adaptive bucket for this render.
  *
  * Prefer [WarpAdaptiveContent] in composables; use this for non-UI branching.
  */
-fun WidgetEnvironment.adaptiveSize(): WarpAdaptiveSize = when {
+private fun WidgetEnvironment.adaptiveSize(): WarpAdaptiveSize = when {
     platform.isIos -> when (widgetFamily) {
         WarpWidgetFamily.SYSTEM_SMALL -> WarpAdaptiveSize.Small
         WarpWidgetFamily.SYSTEM_MEDIUM -> WarpAdaptiveSize.Medium

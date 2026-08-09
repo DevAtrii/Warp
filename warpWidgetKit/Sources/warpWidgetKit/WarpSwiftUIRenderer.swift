@@ -67,15 +67,23 @@ public struct WarpSwiftUIRootView: View {
     }
 
     public var body: some View {
-        if let parsed = WarpNodeParser.parseRoot(json: json) {
-            WarpNodeView(
-                node: parsed.node,
-                useIntents: useIntents,
-                widgetId: widgetId,
-                warpWidgetId: parsed.warpWidgetId
-            )
-        } else {
-            Text("Invalid WARP node JSON")
+        GeometryReader { geo in
+            if let parsed = WarpNodeParser.parseRoot(json: json) {
+                WarpNodeView(
+                    node: parsed.node,
+                    useIntents: useIntents,
+                    widgetId: widgetId,
+                    warpWidgetId: parsed.warpWidgetId
+                )
+                .frame(
+                    width: geo.size.width,
+                    height: geo.size.height,
+                    alignment: parsed.node.resolvedContentAlignment
+                )
+            } else {
+                Text("Invalid WARP node JSON")
+                    .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+            }
         }
     }
 }
@@ -118,7 +126,7 @@ private struct WarpNodeView: View {
             }
 
         case .lazyColumn:
-            LazyVStack(alignment: node.horizontalAlignment.stackAlignment, spacing: 0) {
+            VStack(alignment: node.horizontalAlignment.stackAlignment, spacing: 0) {
                 ForEach(Array(node.children.enumerated()), id: \.offset) { _, child in
                     WarpNodeView(node: child, useIntents: useIntents, widgetId: widgetId, warpWidgetId: warpWidgetId)
                 }
@@ -132,7 +140,7 @@ private struct WarpNodeView: View {
             }
 
         case .lazyRow:
-            LazyHStack(alignment: node.verticalAlignment.stackAlignment, spacing: 0) {
+            HStack(alignment: node.verticalAlignment.stackAlignment, spacing: 0) {
                 ForEach(Array(node.children.enumerated()), id: \.offset) { _, child in
                     WarpNodeView(node: child, useIntents: useIntents, widgetId: widgetId, warpWidgetId: warpWidgetId)
                 }
@@ -335,10 +343,10 @@ private struct WarpStyleModifier: ViewModifier {
             view = AnyView(view.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentFrameAlignment))
         } else {
             if style.fillMaxWidth {
-                view = AnyView(view.frame(maxWidth: .infinity, alignment: horizontalFrameAlignment))
+                view = AnyView(view.frame(maxWidth: .infinity, alignment: contentFrameAlignment))
             }
             if style.fillMaxHeight {
-                view = AnyView(view.frame(maxHeight: .infinity, alignment: verticalFrameAlignment))
+                view = AnyView(view.frame(maxHeight: .infinity, alignment: contentFrameAlignment))
             }
         }
         if style.wrapContentWidth {
@@ -353,7 +361,7 @@ private struct WarpStyleModifier: ViewModifier {
         if style.weight != nil {
             // Glance defaultWeight: expand; content Start unless textAlign set.
             view = AnyView(
-                view.frame(maxWidth: .infinity, alignment: weightContentAlignment)
+                view.frame(maxWidth: .infinity, alignment: contentFrameAlignment)
             )
         }
 
