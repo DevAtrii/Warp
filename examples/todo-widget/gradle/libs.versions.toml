@@ -16,7 +16,7 @@ material3 = "1.11.0-alpha07"
 kotlinx-serialization-json = "1.11.0"
 glanceAppwidget = "1.1.1"
 
-warp = "0.1.2"
+warp = "0.1.4"
 
 [libraries]
 warp-ui = { group = "io.github.devatrii", name = "warp-ui",version.ref="warp" }

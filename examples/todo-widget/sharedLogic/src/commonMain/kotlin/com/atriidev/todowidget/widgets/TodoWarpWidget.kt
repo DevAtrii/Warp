@@ -12,6 +12,7 @@ import com.atriidev.warp_runtime.compose.WarpSpacer
 import com.atriidev.warp_runtime.compose.WarpText
 import com.atriidev.warp_runtime.log.WarpLogger
 import com.atriidev.warp_runtime.log.WarpLoggerLevel
+import com.atriidev.warp_runtime.nodes.actions.asClickAction
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.assets.WarpAssetId
 import com.atriidev.warp_runtime.nodes.modifiers.WarpModifier
@@ -21,6 +22,8 @@ import com.atriidev.warp_runtime.nodes.style.WarpHorizontalAlignment
 import com.atriidev.warp_runtime.nodes.style.WarpProgressIndicatorStyle
 import com.atriidev.warp_runtime.nodes.style.WarpTextStyle
 import com.atriidev.warp_runtime.nodes.style.WarpVerticalAlignment
+import com.atriidev.warp_runtime.unit.dp
+import com.atriidev.warp_runtime.unit.sp
 import com.atriidev.warp_ui.WarpClickHandler
 import com.atriidev.warp_widget.WarpWidget
 import com.atriidev.warp_widget.WarpWidgetSession
@@ -109,9 +112,7 @@ object TodoWarpWidget :
     override val iosGroupId: String
         get() = APPLE_GROUP_ID
 
-    override val defaultState: TodoWidgetState
-        get() = TodoWidgetState()
-//        get() = sampleTodoWidgetState
+    override suspend fun defaultState() = TodoWidgetState() // sampleTodoWidgetState
 
     override val stateScope: WarpWidgetStateScope
         get() = WarpWidgetStateScope.Shared
@@ -208,9 +209,9 @@ private fun TodoWidgetContent(
                     modifier = WarpModifier.weight(1f),
                     style = WarpTextStyle(
                         fontSize = when {
-                            spacious -> 18f
-                            isMedium -> 14f
-                            else -> 10f
+                            spacious -> 18.sp
+                            isMedium -> 14.sp
+                            else -> 10.sp
                         }
                     )
                 )
@@ -235,7 +236,7 @@ private fun TodoWidgetContent(
 
             WarpDivider(
                 modifier = WarpModifier.fillMaxWidth(),
-                thickness = 1,
+                thickness = 1.dp,
                 color = colors.outline,
             )
 
@@ -278,7 +279,7 @@ private fun IconButton(
             .background(bg)
             .cornerRadius(20)
             .padding(horizontal = chipPaddingH, vertical = chipPaddingV)
-            .clickable(action),
+            .clickable(action.asClickAction()),
         verticalAlignment = WarpVerticalAlignment.Center,
     ) {
         WarpImage(
@@ -312,7 +313,7 @@ private fun TodoBody(
                 text = "$doneCount / $total done",
                 style = WarpTextStyle(
                     color = colors.onSurfaceVariant,
-                    fontSize = 12f,
+                    fontSize = 12.sp,
                     fontWeight = WarpFontWeight.Medium,
                 ),
                 maxLines = 1,
@@ -337,7 +338,7 @@ private fun TodoBody(
                     text = "+${total - visibleTodos.size} more",
                     style = WarpTextStyle(
                         color = colors.onSurfaceVariant,
-                        fontSize = 11f,
+                        fontSize = 11.sp,
                         fontWeight = WarpFontWeight.Medium,
                     ),
                     maxLines = 1,
@@ -381,7 +382,7 @@ private fun EmptyTodoBody() {
             WarpText(
                 text = "No todos",
                 style = WarpTextStyle(
-                    fontSize = 16f,
+                    fontSize = 16.sp,
                     fontWeight = WarpFontWeight.Semibold,
                     color = colors.onSurface,
                 ),
@@ -392,7 +393,7 @@ private fun EmptyTodoBody() {
             WarpText(
                 text = "Tap + to add a sample task",
                 style = WarpTextStyle(
-                    fontSize = 12f,
+                    fontSize = 12.sp,
                     color = colors.onSurfaceVariant,
                 ),
                 maxLines = 2,
@@ -434,7 +435,7 @@ private fun TodoRow(
             modifier = WarpModifier.weight(),
             style = WarpTextStyle(
                 color = titleColor,
-                fontSize = titleSize,
+                fontSize = titleSize.sp,
                 fontWeight = if (todo.done) WarpFontWeight.Normal else WarpFontWeight.Medium,
             ),
             maxLines = 1,

@@ -346,7 +346,7 @@ private fun ModeChip(
             .background(bg)
             .cornerRadius(20.dp)
             .padding(horizontal = chipPaddingH, vertical = chipPaddingV)
-            .clickable(action.asClickAction()),
+            .clickable(action),
         verticalAlignment = WarpVerticalAlignment.Center,
     ) {
         WarpImage(

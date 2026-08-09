@@ -39,7 +39,6 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.androidx.glance.appwidget)
         }
         commonMain.dependencies {
             // put your Multiplatform dependencies here

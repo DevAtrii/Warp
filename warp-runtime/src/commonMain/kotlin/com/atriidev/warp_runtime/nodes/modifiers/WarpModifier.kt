@@ -45,7 +45,12 @@ data class WarpModifier(
             end: Number,
             top: Number,
             bottom: Number,
-        ): WarpModifier = Default.padding(start.toFloat().dp, end.toFloat().dp, top.toFloat().dp, bottom.toFloat().dp)
+        ): WarpModifier = Default.padding(
+            start.toFloat().dp,
+            end.toFloat().dp,
+            top.toFloat().dp,
+            bottom.toFloat().dp
+        )
 
         fun padding(
             horizontal: Dp = 0.dp,
@@ -69,11 +74,13 @@ data class WarpModifier(
 
         fun border(width: Dp, color: WarpColor): WarpModifier =
             Default.border(width, color)
+
         fun border(width: Number, color: WarpColor): WarpModifier =
             Default.border(width.toFloat().dp, color)
 
         fun border(width: Dp, hex: String): WarpModifier =
             Default.border(width, hex)
+
         fun border(width: Number, hex: String): WarpModifier =
             Default.border(width.toFloat().dp, hex)
 
@@ -104,7 +111,8 @@ data class WarpModifier(
         fun size(size: Number): WarpModifier = Default.size(size.toFloat().dp)
 
         fun size(width: Dp, height: Dp): WarpModifier = Default.size(width, height)
-        fun size(width: Number, height: Number): WarpModifier = Default.size(width.toFloat().dp, height.toFloat().dp)
+        fun size(width: Number, height: Number): WarpModifier =
+            Default.size(width.toFloat().dp, height.toFloat().dp)
 
         fun weight(weight: Float = 1f): WarpModifier = Default.weight(weight)
 
@@ -144,7 +152,8 @@ data class WarpModifier(
         end: Number,
         top: Number,
         bottom: Number,
-    ): WarpModifier = padding(start.toFloat().dp, end.toFloat().dp, top.toFloat().dp, bottom.toFloat().dp)
+    ): WarpModifier =
+        padding(start.toFloat().dp, end.toFloat().dp, top.toFloat().dp, bottom.toFloat().dp)
 
     fun padding(
         horizontal: Dp = 0.dp,
@@ -186,7 +195,7 @@ data class WarpModifier(
     fun border(width: Number, hex: String): WarpModifier =
         border(width.toFloat().dp, hex)
 
-    fun clickable(action: Any): WarpModifier =
+    inline fun <reified T : Any> clickable(action: T): WarpModifier =
         then(WarpClickableElement(action.asClickAction()))
 
     @Deprecated(
@@ -241,7 +250,7 @@ data class WarpModifier(
 
     // region Resolved (for renderers)
 
-   internal fun resolvedPadding(): WarpPadding =
+    internal fun resolvedPadding(): WarpPadding =
         elements.filterIsInstance<WarpPaddingElement>()
             .fold(WarpPadding.Zero) { acc, pad ->
                 acc + WarpPadding(pad.start, pad.end, pad.top, pad.bottom)
