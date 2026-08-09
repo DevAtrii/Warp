@@ -37,6 +37,7 @@ kotlin {
     ).forEach { target ->
         target.binaries.framework {
             baseName = xcfName
+            isStatic = true
         }
         target.compilations.getByName("main") {
             cinterops.create(bridgeCinterop)
