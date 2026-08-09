@@ -4,6 +4,7 @@ https://github.com/user-attachments/assets/6bcdd802-41fc-4ac7-8629-e9711f0fb1f8
 ## WARP
 
 > **Alpha Stage** — APIs and architecture are in alpha. Follow [@dev_atrii on X](https://x.com/dev_atrii) for updates.
+> **Dummy Docs** - currently public docs are dummy, i'm writing please wait
 
 **WARP** (**W**idget **A**bstraction, **R**endering **P**ipeline) is a unified API for creating home-screen widgets in **Kotlin Multiplatform**.
 
