@@ -20,3 +20,5 @@ node_modules/
 .build
 androidApp/release
 .maven-libs
+.venv
+site

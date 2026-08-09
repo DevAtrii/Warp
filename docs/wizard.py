@@ -2,7 +2,7 @@ import os
 import json
 
 WIDGET_DIR = "iosApp/CounterWidget"
-HTML_OUTPUT = "site/wizard.html"
+HTML_OUTPUT = "docs/wizard.html"
 
 # Files to copy (excluding Assets.xcassets and CounterWidget.entitlements)
 files_to_copy = [
