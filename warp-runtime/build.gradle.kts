@@ -28,6 +28,7 @@ kotlin {
         }
 
         optimization {
+            consumerKeepRules.publish = true
             val file = project.file("proguard-rules.pro")
             consumerKeepRules.files.add(file)
         }

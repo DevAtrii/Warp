@@ -26,6 +26,10 @@ kotlin {
             jvmTarget = JvmTarget.JVM_17
         }
 
+        optimization {
+            val file = project.file("proguard-rules.pro")
+            consumerKeepRules.files.add(file)
+        }
     }
 
     val xcfName = "warp-uiKit"
