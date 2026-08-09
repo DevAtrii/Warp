@@ -51,7 +51,7 @@ kotlin {
 }
 ```
 
-> 🪄 **Interactive Setup Wizard**: Easily customize dependency snippets and project setups for Android & iOS at [warp.atherio.dev](https://warp.atherio.dev/).
+> 🪄 **Interactive Setup Wizard**: Easily customize dependency snippets and project setups for iOS at [warp.atherio.dev](https://warp.atherio.dev/).
 
 ---
 
