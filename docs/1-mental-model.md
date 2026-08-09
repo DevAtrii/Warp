@@ -4,6 +4,7 @@ Understanding WARP requires understanding its core paradigm: **State → AST Tre
 
 WARP decouples your Kotlin widget code from native platform UI frameworks (Android Glance & iOS SwiftUI / WidgetKit) by producing a lightweight, serializable Abstract Syntax Tree (AST) called **`WarpNode`**.
 
+
 ---
 
 ## The Core Pipeline

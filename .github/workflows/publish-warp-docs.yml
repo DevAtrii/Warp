@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Generate Wizard HTML
-        run: python site/wizard.py
+        run: python docs/wizard.py
       - name: Build Docs Site with Zensical
         run: |
           pip install zensical
