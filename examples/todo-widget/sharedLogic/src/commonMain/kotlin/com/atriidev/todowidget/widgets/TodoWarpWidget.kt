@@ -420,7 +420,7 @@ private fun TodoRow(
             .background(colors.surfaceVariant)
             .cornerRadius(10)
             .padding(horizontal = 10, vertical = rowPaddingV)
-            .clickable(TodoActions.Toggle(todo.id)),
+            .clickable(TodoActions.Toggle(todo.id).asClickAction()),
         verticalAlignment = WarpVerticalAlignment.Center,
     ) {
         WarpImage(
