@@ -8,7 +8,6 @@ import com.atriidev.warp_runtime.compose.WarpButton
 import com.atriidev.warp_runtime.compose.WarpColumn
 import com.atriidev.warp_runtime.compose.WarpDivider
 import com.atriidev.warp_runtime.compose.WarpImage
-import com.atriidev.warp_runtime.compose.WarpLazyRow
 import com.atriidev.warp_runtime.compose.WarpProgressIndicator
 import com.atriidev.warp_runtime.compose.WarpRow
 import com.atriidev.warp_runtime.compose.WarpSpacer
@@ -262,7 +261,7 @@ private fun MoodsSection() {
             maxLines = 1,
         )
         WarpSpacer(modifier = WarpModifier.height(4))
-        WarpLazyRow(
+        WarpRow(
             modifier = WarpModifier
                 .fillMaxWidth()
         ) {
@@ -425,9 +424,9 @@ private fun CounterBody(
                     fontSize = if (spacious) 20.sp else 18.sp,
                     fontWeight = WarpFontWeight.Bold,
                 ),
-                colors = WarpButtonColors (
+                colors = WarpButtonColors(
                     backgroundColor = WarpColor.Red600,
-                    contentColor= WarpColor.White
+                    contentColor = WarpColor.White
                 )
             )
             WarpText(

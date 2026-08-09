@@ -21,5 +21,12 @@ data class WarpButtonColors(
             backgroundColor = backgroundColor?.let(::WarpColor),
             contentColor = contentColor?.let(::WarpColor),
         )
+        fun of(
+            backgroundColor: Long? = null,
+            contentColor: Long? = null,
+        ): WarpButtonColors = WarpButtonColors(
+            backgroundColor = backgroundColor?.let(::WarpColor),
+            contentColor = contentColor?.let(::WarpColor),
+        )
     }
 }

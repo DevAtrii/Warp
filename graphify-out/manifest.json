@@ -1,0 +1,1082 @@
+{
+  "Package.swift": {
+    "mtime": 1786182135.5208635,
+    "ast_hash": "88bb2496485df66df08e514b955c6482",
+    "semantic_hash": "88bb2496485df66df08e514b955c6482"
+  },
+  "androidApp/build.gradle.kts": {
+    "mtime": 1786180182.821972,
+    "ast_hash": "94506c13a647f1b12e54dd0ea0b7dfc6",
+    "semantic_hash": "94506c13a647f1b12e54dd0ea0b7dfc6"
+  },
+  "androidApp/src/main/kotlin/com/atriidev/kmpwidget/MainActivity.kt": {
+    "mtime": 1786073744.1274414,
+    "ast_hash": "f2f16dc3029c528b83b345ae942cae86",
+    "semantic_hash": "f2f16dc3029c528b83b345ae942cae86"
+  },
+  "build-logic/build.gradle.kts": {
+    "mtime": 1786179900.0070543,
+    "ast_hash": "8a0ce784acdcd071676db57c282f4772",
+    "semantic_hash": "8a0ce784acdcd071676db57c282f4772"
+  },
+  "build-logic/plugins/build.gradle.kts": {
+    "mtime": 1786179904.038765,
+    "ast_hash": "ff8cefad49e9c74a9b1f8b35b7e12f84",
+    "semantic_hash": "ff8cefad49e9c74a9b1f8b35b7e12f84"
+  },
+  "build-logic/plugins/src/main/kotlin/KmpLibraryPublishPlugin.kt": {
+    "mtime": 1786180013.894768,
+    "ast_hash": "4dd794bb612b5691548545e2663188bd",
+    "semantic_hash": "4dd794bb612b5691548545e2663188bd"
+  },
+  "build-logic/settings.gradle": {
+    "mtime": 1786179940.3287961,
+    "ast_hash": "15e2678d713319521d42c9326ba33ce1",
+    "semantic_hash": "15e2678d713319521d42c9326ba33ce1"
+  },
+  "build.gradle.kts": {
+    "mtime": 1786180075.3656993,
+    "ast_hash": "da82488be7d0b8e4c78b55227859bd63",
+    "semantic_hash": "da82488be7d0b8e4c78b55227859bd63"
+  },
+  "examples/todo-widget/androidApp/build.gradle.kts": {
+    "mtime": 1786186619.0532346,
+    "ast_hash": "8619b423a691dd4370081236d7ebebc7",
+    "semantic_hash": "8619b423a691dd4370081236d7ebebc7"
+  },
+  "examples/todo-widget/androidApp/src/main/kotlin/com/atriidev/todowidget/MainActivity.kt": {
+    "mtime": 1786186782.0902793,
+    "ast_hash": "4b86e26f5b778987d0d8a2dddf0d8d6c",
+    "semantic_hash": "4b86e26f5b778987d0d8a2dddf0d8d6c"
+  },
+  "examples/todo-widget/androidApp/src/main/kotlin/com/atriidev/todowidget/widgets/TodoWarpGlanceWidget.kt": {
+    "mtime": 1786191924.4552698,
+    "ast_hash": "a6f6ca0650d5344676d3481a4d4ba63a",
+    "semantic_hash": "a6f6ca0650d5344676d3481a4d4ba63a"
+  },
+  "examples/todo-widget/build.gradle.kts": {
+    "mtime": 1786184151.0,
+    "ast_hash": "87269b509d339a294874123afc38009a",
+    "semantic_hash": "87269b509d339a294874123afc38009a"
+  },
+  "examples/todo-widget/gradlew": {
+    "mtime": 1786184151.0,
+    "ast_hash": "780b1d3e23a3b82154795f73df943a14",
+    "semantic_hash": "780b1d3e23a3b82154795f73df943a14"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/Assets.xcassets/AccentColor.colorset/Contents.json": {
+    "mtime": 1786184235.765483,
+    "ast_hash": "55019f7265dde0a78318b0807f98e847",
+    "semantic_hash": "55019f7265dde0a78318b0807f98e847"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1786184236.474237,
+    "ast_hash": "cbe75704b2680422c4156009a528e292",
+    "semantic_hash": "cbe75704b2680422c4156009a528e292"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/Assets.xcassets/Contents.json": {
+    "mtime": 1786184235.766102,
+    "ast_hash": "9deb2ada1cc834bbebf8bbad9c8978a1",
+    "semantic_hash": "9deb2ada1cc834bbebf8bbad9c8978a1"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/Assets.xcassets/WidgetBackground.colorset/Contents.json": {
+    "mtime": 1786184235.7644267,
+    "ast_hash": "55019f7265dde0a78318b0807f98e847",
+    "semantic_hash": "55019f7265dde0a78318b0807f98e847"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/TodoInstanceEntity.swift": {
+    "mtime": 1786190668.0753345,
+    "ast_hash": "bee4def2fec0edf3ffa9cf0c648b2a10",
+    "semantic_hash": "bee4def2fec0edf3ffa9cf0c648b2a10"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/TodoWidget.swift": {
+    "mtime": 1786190668.0805888,
+    "ast_hash": "ec2a35c46473f72a8fc668dca8f113cf",
+    "semantic_hash": "ec2a35c46473f72a8fc668dca8f113cf"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/TodoWidgetBundle.swift": {
+    "mtime": 1786190773.0655725,
+    "ast_hash": "11dc34b1dac48dd90a979671218a5e8d",
+    "semantic_hash": "11dc34b1dac48dd90a979671218a5e8d"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/TodoWidgetClickIntent.swift": {
+    "mtime": 1786190779.607494,
+    "ast_hash": "6409fc40ea0f2c2d670b8320979777b2",
+    "semantic_hash": "6409fc40ea0f2c2d670b8320979777b2"
+  },
+  "examples/todo-widget/iosApp/TodoWidget/TodoWidgetView.swift": {
+    "mtime": 1786190786.6450894,
+    "ast_hash": "644b8aa18cd2db7089289b0305994ba1",
+    "semantic_hash": "644b8aa18cd2db7089289b0305994ba1"
+  },
+  "examples/todo-widget/iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json": {
+    "mtime": 1786184151.0,
+    "ast_hash": "88cd26db3e6a44fc46b1d81444089bbc",
+    "semantic_hash": "88cd26db3e6a44fc46b1d81444089bbc"
+  },
+  "examples/todo-widget/iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1786184151.0,
+    "ast_hash": "0b0e0edf5d5b6f98aa035c617a1afb60",
+    "semantic_hash": "0b0e0edf5d5b6f98aa035c617a1afb60"
+  },
+  "examples/todo-widget/iosApp/iosApp/Assets.xcassets/Contents.json": {
+    "mtime": 1786184151.0,
+    "ast_hash": "afeb3bfa4cfb0884ca431ffe27a35432",
+    "semantic_hash": "afeb3bfa4cfb0884ca431ffe27a35432"
+  },
+  "examples/todo-widget/iosApp/iosApp/ContentView.swift": {
+    "mtime": 1786190039.816026,
+    "ast_hash": "42db79f795ed33297145557536516a61",
+    "semantic_hash": "42db79f795ed33297145557536516a61"
+  },
+  "examples/todo-widget/iosApp/iosApp/Preview Content/Preview Assets.xcassets/Contents.json": {
+    "mtime": 1786184151.0,
+    "ast_hash": "afeb3bfa4cfb0884ca431ffe27a35432",
+    "semantic_hash": "afeb3bfa4cfb0884ca431ffe27a35432"
+  },
+  "examples/todo-widget/iosApp/iosApp/iOSApp.swift": {
+    "mtime": 1786184151.0,
+    "ast_hash": "f6a01e7c9aa7a979c4ef926df57fe088",
+    "semantic_hash": "f6a01e7c9aa7a979c4ef926df57fe088"
+  },
+  "examples/todo-widget/settings.gradle.kts": {
+    "mtime": 1786212746.1816564,
+    "ast_hash": "e96f94d99b3bd5962184b3d0da16ad43",
+    "semantic_hash": "e96f94d99b3bd5962184b3d0da16ad43"
+  },
+  "examples/todo-widget/sharedLogic/build.gradle.kts": {
+    "mtime": 1786190938.225919,
+    "ast_hash": "7c2330a62ea17569871afc3a20e2e8f2",
+    "semantic_hash": "7c2330a62ea17569871afc3a20e2e8f2"
+  },
+  "examples/todo-widget/sharedLogic/src/commonMain/kotlin/com/atriidev/todowidget/widgets/TodoWarpWidget.kt": {
+    "mtime": 1786212546.1931782,
+    "ast_hash": "b4d4d43699e95f317bd15ce9f69a48b9",
+    "semantic_hash": "b4d4d43699e95f317bd15ce9f69a48b9"
+  },
+  "examples/todo-widget/sharedUI/build.gradle.kts": {
+    "mtime": 1786185886.020701,
+    "ast_hash": "1ce8e2bcbbfb35c0fb678c5ffa6053ad",
+    "semantic_hash": "1ce8e2bcbbfb35c0fb678c5ffa6053ad"
+  },
+  "examples/todo-widget/sharedUI/src/commonMain/kotlin/com/atriidev/todowidget/App.kt": {
+    "mtime": 1786186048.111818,
+    "ast_hash": "6f6e21f32f3d00634d23011a63d914a7",
+    "semantic_hash": "6f6e21f32f3d00634d23011a63d914a7"
+  },
+  "gradlew": {
+    "mtime": 1786183058.6275198,
+    "ast_hash": "a43be8432bac3ffd05b3769aa42fe996",
+    "semantic_hash": "a43be8432bac3ffd05b3769aa42fe996"
+  },
+  "iosApp/CounterWidget/Assets.xcassets/AccentColor.colorset/Contents.json": {
+    "mtime": 1786012871.2686443,
+    "ast_hash": "55019f7265dde0a78318b0807f98e847",
+    "semantic_hash": "55019f7265dde0a78318b0807f98e847"
+  },
+  "iosApp/CounterWidget/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1786012872.303013,
+    "ast_hash": "cbe75704b2680422c4156009a528e292",
+    "semantic_hash": "cbe75704b2680422c4156009a528e292"
+  },
+  "iosApp/CounterWidget/Assets.xcassets/Contents.json": {
+    "mtime": 1786012871.2691987,
+    "ast_hash": "9deb2ada1cc834bbebf8bbad9c8978a1",
+    "semantic_hash": "9deb2ada1cc834bbebf8bbad9c8978a1"
+  },
+  "iosApp/CounterWidget/Assets.xcassets/WidgetBackground.colorset/Contents.json": {
+    "mtime": 1786012871.2674193,
+    "ast_hash": "55019f7265dde0a78318b0807f98e847",
+    "semantic_hash": "55019f7265dde0a78318b0807f98e847"
+  },
+  "iosApp/CounterWidget/CounterInstanceEntity.swift": {
+    "mtime": 1786177852.183932,
+    "ast_hash": "214567aaa311ce5d30f377a3f2ecc76c",
+    "semantic_hash": "214567aaa311ce5d30f377a3f2ecc76c"
+  },
+  "iosApp/CounterWidget/CounterWidget.swift": {
+    "mtime": 1786136797.568128,
+    "ast_hash": "084945f6bf6cdf66523679a0b8c8c409",
+    "semantic_hash": "084945f6bf6cdf66523679a0b8c8c409"
+  },
+  "iosApp/CounterWidget/CounterWidgetBundle.swift": {
+    "mtime": 1786136797.3462348,
+    "ast_hash": "add1aee6bd7e21ae77acd2def4eba606",
+    "semantic_hash": "add1aee6bd7e21ae77acd2def4eba606"
+  },
+  "iosApp/CounterWidget/CounterWidgetClickIntent.swift": {
+    "mtime": 1786177852.1840768,
+    "ast_hash": "c1834fa9c6ec6c632805186f22f54bc6",
+    "semantic_hash": "c1834fa9c6ec6c632805186f22f54bc6"
+  },
+  "iosApp/CounterWidget/CounterWidgetView.swift": {
+    "mtime": 1786177852.18434,
+    "ast_hash": "c18eefcefcec64bd46f55a9eceb68eaa",
+    "semantic_hash": "c18eefcefcec64bd46f55a9eceb68eaa"
+  },
+  "iosApp/iosApp/Assets.xcassets/AccentColor.colorset/Contents.json": {
+    "mtime": 1785943492.0,
+    "ast_hash": "88cd26db3e6a44fc46b1d81444089bbc",
+    "semantic_hash": "88cd26db3e6a44fc46b1d81444089bbc"
+  },
+  "iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1785943492.0,
+    "ast_hash": "807b26573e0d8b35fa8fea89f5fc713e",
+    "semantic_hash": "807b26573e0d8b35fa8fea89f5fc713e"
+  },
+  "iosApp/iosApp/Assets.xcassets/Contents.json": {
+    "mtime": 1785943492.0,
+    "ast_hash": "afeb3bfa4cfb0884ca431ffe27a35432",
+    "semantic_hash": "afeb3bfa4cfb0884ca431ffe27a35432"
+  },
+  "iosApp/iosApp/ContentView.swift": {
+    "mtime": 1786012074.6247294,
+    "ast_hash": "98af3cccceea66790cc3878d73a00816",
+    "semantic_hash": "98af3cccceea66790cc3878d73a00816"
+  },
+  "iosApp/iosApp/Preview Content/Preview Assets.xcassets/Contents.json": {
+    "mtime": 1785943492.0,
+    "ast_hash": "afeb3bfa4cfb0884ca431ffe27a35432",
+    "semantic_hash": "afeb3bfa4cfb0884ca431ffe27a35432"
+  },
+  "iosApp/iosApp/iOSApp.swift": {
+    "mtime": 1785943492.0,
+    "ast_hash": "f6a01e7c9aa7a979c4ef926df57fe088",
+    "semantic_hash": "f6a01e7c9aa7a979c4ef926df57fe088"
+  },
+  "settings.gradle.kts": {
+    "mtime": 1786179882.9324434,
+    "ast_hash": "62e7985c5625c2be6c86a1959342d266",
+    "semantic_hash": "62e7985c5625c2be6c86a1959342d266"
+  },
+  "shared/build.gradle.kts": {
+    "mtime": 1786184033.8750772,
+    "ast_hash": "fea0ac33dcf8ebeb104bf11d54b8ae80",
+    "semantic_hash": "fea0ac33dcf8ebeb104bf11d54b8ae80"
+  },
+  "shared/src/androidMain/kotlin/com/atriidev/kmpwidget/CounterWidgetGlance.kt": {
+    "mtime": 1786188867.0340362,
+    "ast_hash": "dab6a8ade0b778d6d25030e5d8011277",
+    "semantic_hash": "dab6a8ade0b778d6d25030e5d8011277"
+  },
+  "shared/src/androidMain/kotlin/com/atriidev/kmpwidget/KmpDataStore.android.kt": {
+    "mtime": 1785945311.91829,
+    "ast_hash": "7b5038961bcb268a4cc5b9e7d8905224",
+    "semantic_hash": "7b5038961bcb268a4cc5b9e7d8905224"
+  },
+  "shared/src/androidMain/kotlin/com/atriidev/kmpwidget/WidgetUpdater.android.kt": {
+    "mtime": 1786177852.1849566,
+    "ast_hash": "311209dfbba43fbaa956712ed43e4812",
+    "semantic_hash": "311209dfbba43fbaa956712ed43e4812"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/App.kt": {
+    "mtime": 1786177852.185247,
+    "ast_hash": "e4f97b1bf52b7ab5d3fb6d20daefe75e",
+    "semantic_hash": "e4f97b1bf52b7ab5d3fb6d20daefe75e"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/AppGroup.kt": {
+    "mtime": 1786074404.277048,
+    "ast_hash": "030b5e01851e149c112ca8199fbaa842",
+    "semantic_hash": "030b5e01851e149c112ca8199fbaa842"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/CounterWarpWidget.kt": {
+    "mtime": 1786218463.213862,
+    "ast_hash": "3671adc1dba43627bd258d25a2a3e021",
+    "semantic_hash": "3671adc1dba43627bd258d25a2a3e021"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/CounterWidgetState.kt": {
+    "mtime": 1786210581.3565254,
+    "ast_hash": "56078a3135ecba567a8aa8ec1836f510",
+    "semantic_hash": "56078a3135ecba567a8aa8ec1836f510"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/KmpDataStore.kt": {
+    "mtime": 1786023753.560293,
+    "ast_hash": "623df45448b84cf784ebb15208123169",
+    "semantic_hash": "623df45448b84cf784ebb15208123169"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/WarpWidget.kt": {
+    "mtime": 1785987223.6401622,
+    "ast_hash": "628cc9cefa33e8138ecb4af34a0177d5",
+    "semantic_hash": "628cc9cefa33e8138ecb4af34a0177d5"
+  },
+  "shared/src/commonMain/kotlin/com/atriidev/kmpwidget/WidgetUpdater.kt": {
+    "mtime": 1786023752.8099518,
+    "ast_hash": "7672ce6bdb152c1a97c360c8d13a5111",
+    "semantic_hash": "7672ce6bdb152c1a97c360c8d13a5111"
+  },
+  "shared/src/iosMain/kotlin/com/atriidev/kmpwidget/KmpDataStore.ios.kt": {
+    "mtime": 1786023752.1355212,
+    "ast_hash": "99254f0a87f5fb7a3a8d1dcb6bd17971",
+    "semantic_hash": "99254f0a87f5fb7a3a8d1dcb6bd17971"
+  },
+  "shared/src/iosMain/kotlin/com/atriidev/kmpwidget/MainViewController.kt": {
+    "mtime": 1786178727.1941113,
+    "ast_hash": "eb928b43799d94604f0ae081dea0a232",
+    "semantic_hash": "eb928b43799d94604f0ae081dea0a232"
+  },
+  "shared/src/iosMain/kotlin/com/atriidev/kmpwidget/WidgetUpdater.ios.kt": {
+    "mtime": 1786177852.1861413,
+    "ast_hash": "10b771968305b409b5e32bb20348b72d",
+    "semantic_hash": "10b771968305b409b5e32bb20348b72d"
+  },
+  "warp-runtime/build.gradle.kts": {
+    "mtime": 1786187833.3277647,
+    "ast_hash": "1db0d60168cd9847b57a4947f5686d4a",
+    "semantic_hash": "1db0d60168cd9847b57a4947f5686d4a"
+  },
+  "warp-runtime/src/androidMain/kotlin/com/atriidev/warp_runtime/Platform.android.kt": {
+    "mtime": 1785960414.9977465,
+    "ast_hash": "0785111e766c6c96d5256c1580b521a9",
+    "semantic_hash": "0785111e766c6c96d5256c1580b521a9"
+  },
+  "warp-runtime/src/androidMain/kotlin/com/atriidev/warp_runtime/nodes/actions/EnumConstants.android.kt": {
+    "mtime": 1785996820.8622725,
+    "ast_hash": "02e2c3004337b904338d00dd59e99739",
+    "semantic_hash": "02e2c3004337b904338d00dd59e99739"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/Platform.kt": {
+    "mtime": 1785960414.3333335,
+    "ast_hash": "889881a3bf695c16aa5da0dc8b89ee2c",
+    "semantic_hash": "889881a3bf695c16aa5da0dc8b89ee2c"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/WarpExperimentalApi.kt": {
+    "mtime": 1786217848.4100635,
+    "ast_hash": "c94ba25268ac97313e61b7f33b7e4e53",
+    "semantic_hash": "c94ba25268ac97313e61b7f33b7e4e53"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/ComposeWarp.kt": {
+    "mtime": 1786108662.3599267,
+    "ast_hash": "fc5fbc2205b039683cd41b06b9acee51",
+    "semantic_hash": "fc5fbc2205b039683cd41b06b9acee51"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/WarpComposition.kt": {
+    "mtime": 1786188392.4966917,
+    "ast_hash": "326a7d930e6cecaab8d485f6ff2460d8",
+    "semantic_hash": "326a7d930e6cecaab8d485f6ff2460d8"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/WarpSamples.kt": {
+    "mtime": 1785989251.533148,
+    "ast_hash": "9ad280b857b3efe21f6700c7422cc98c",
+    "semantic_hash": "9ad280b857b3efe21f6700c7422cc98c"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/WarpUi.kt": {
+    "mtime": 1786217848.4142814,
+    "ast_hash": "8954361a82dfab79f02c5cd044dfa37a",
+    "semantic_hash": "8954361a82dfab79f02c5cd044dfa37a"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/internal/WarpComposeScope.kt": {
+    "mtime": 1786217156.7082846,
+    "ast_hash": "e32aeeb48e495125a83e8f17982f3729",
+    "semantic_hash": "e32aeeb48e495125a83e8f17982f3729"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/compose/internal/WarpNodeHolders.kt": {
+    "mtime": 1786217007.3890634,
+    "ast_hash": "89a58b637f4abfe93b3241b3af46780a",
+    "semantic_hash": "89a58b637f4abfe93b3241b3af46780a"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/log/WarpLogger.kt": {
+    "mtime": 1786187916.7594414,
+    "ast_hash": "48f820b75fb6e93ddda898c10ba0afbf",
+    "semantic_hash": "48f820b75fb6e93ddda898c10ba0afbf"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpBox.kt": {
+    "mtime": 1786079471.4818738,
+    "ast_hash": "27259d2628621ef0726a863a812f0c92",
+    "semantic_hash": "27259d2628621ef0726a863a812f0c92"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpButton.kt": {
+    "mtime": 1786215064.606367,
+    "ast_hash": "8d083b9b2a968b543a879ade228be35b",
+    "semantic_hash": "8d083b9b2a968b543a879ade228be35b"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpColumn.kt": {
+    "mtime": 1786078399.4640727,
+    "ast_hash": "830c6d89d69cb9e90872bfcef5d87968",
+    "semantic_hash": "830c6d89d69cb9e90872bfcef5d87968"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpDivider.kt": {
+    "mtime": 1786213155.3976371,
+    "ast_hash": "45c1e86e26aef77d2703bb4c2f10d395",
+    "semantic_hash": "45c1e86e26aef77d2703bb4c2f10d395"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpImage.kt": {
+    "mtime": 1786081533.6389637,
+    "ast_hash": "49b467f7b2f73fd3053391ab8d0717b3",
+    "semantic_hash": "49b467f7b2f73fd3053391ab8d0717b3"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpLazyColumn.kt": {
+    "mtime": 1786216991.3401747,
+    "ast_hash": "ccd7fc67ebfe471485db65b640c46230",
+    "semantic_hash": "ccd7fc67ebfe471485db65b640c46230"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpLazyRow.kt": {
+    "mtime": 1786216997.1858628,
+    "ast_hash": "b535533f90e8ff9a0b7f8bd64fb97bc5",
+    "semantic_hash": "b535533f90e8ff9a0b7f8bd64fb97bc5"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpNode.kt": {
+    "mtime": 1785994958.6046097,
+    "ast_hash": "3875323fdf7852ae83f3db433d24ff3d",
+    "semantic_hash": "3875323fdf7852ae83f3db433d24ff3d"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpProgressIndicator.kt": {
+    "mtime": 1786079476.2423491,
+    "ast_hash": "9fbc1f5abc8eaeaac9d49939618ad4c0",
+    "semantic_hash": "9fbc1f5abc8eaeaac9d49939618ad4c0"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpRow.kt": {
+    "mtime": 1786078401.008837,
+    "ast_hash": "8f828a75373edd640d2a794a43d4dd1d",
+    "semantic_hash": "8f828a75373edd640d2a794a43d4dd1d"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpSpacer.kt": {
+    "mtime": 1786079472.4121952,
+    "ast_hash": "601a05c0754b649b100489d3bfc4efc7",
+    "semantic_hash": "601a05c0754b649b100489d3bfc4efc7"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/WarpText.kt": {
+    "mtime": 1786078221.7179115,
+    "ast_hash": "658229b61852eb4d6fb991ac90c90f23",
+    "semantic_hash": "658229b61852eb4d6fb991ac90c90f23"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/actions/ClickAction.kt": {
+    "mtime": 1786194342.7997751,
+    "ast_hash": "0e15530a268477426f7de71ac54ae369",
+    "semantic_hash": "0e15530a268477426f7de71ac54ae369"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/actions/EnumConstants.kt": {
+    "mtime": 1785996815.5276513,
+    "ast_hash": "2556c5b9646d93ea13bd2193f7efb3fd",
+    "semantic_hash": "2556c5b9646d93ea13bd2193f7efb3fd"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/actions/WarpAction.kt": {
+    "mtime": 1786194342.7895703,
+    "ast_hash": "de8c33d545dab9c327262a8bdfc69866",
+    "semantic_hash": "de8c33d545dab9c327262a8bdfc69866"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/actions/WarpTypedAction.kt": {
+    "mtime": 1786194768.8239462,
+    "ast_hash": "ea96034117bae0f920c250815eea1303",
+    "semantic_hash": "ea96034117bae0f920c250815eea1303"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/assets/WarpAsset.kt": {
+    "mtime": 1786082507.560361,
+    "ast_hash": "d0297795aa394ee5b469b8dbb49cfd6e",
+    "semantic_hash": "d0297795aa394ee5b469b8dbb49cfd6e"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/assets/WarpAssetId.kt": {
+    "mtime": 1786082503.3892813,
+    "ast_hash": "5e78eb5058ad0ccea7dd79a7d0af8afd",
+    "semantic_hash": "5e78eb5058ad0ccea7dd79a7d0af8afd"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpAlphaElement.kt": {
+    "mtime": 1786077239.1008472,
+    "ast_hash": "30f1653249fdc872491032f80a06b17e",
+    "semantic_hash": "30f1653249fdc872491032f80a06b17e"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpBackgroundElement.kt": {
+    "mtime": 1786077237.7947705,
+    "ast_hash": "78a532c484b813e9af2747195e6e6dcd",
+    "semantic_hash": "78a532c484b813e9af2747195e6e6dcd"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpBorderElement.kt": {
+    "mtime": 1786213096.8658435,
+    "ast_hash": "2aab01ecb2f9612d4376698bdef8bb06",
+    "semantic_hash": "2aab01ecb2f9612d4376698bdef8bb06"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpClickableElement.kt": {
+    "mtime": 1786077240.6191213,
+    "ast_hash": "550638a768ead49bf27441eb45eb300e",
+    "semantic_hash": "550638a768ead49bf27441eb45eb300e"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpColor.kt": {
+    "mtime": 1786218213.6319296,
+    "ast_hash": "d78c4cd1eed63c865166fd936dd66c3a",
+    "semantic_hash": "d78c4cd1eed63c865166fd936dd66c3a"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpCornerRadiusElement.kt": {
+    "mtime": 1786213108.7534442,
+    "ast_hash": "182425e8171cc4556a6d93ed98ca3fe8",
+    "semantic_hash": "182425e8171cc4556a6d93ed98ca3fe8"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpFillMaxHeightElement.kt": {
+    "mtime": 1786077242.0734906,
+    "ast_hash": "ce2cb23cd8a3b8c195deeb04c1c8917b",
+    "semantic_hash": "ce2cb23cd8a3b8c195deeb04c1c8917b"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpFillMaxSizeElement.kt": {
+    "mtime": 1786077242.476474,
+    "ast_hash": "efbfafac93268b948a4b8dba90a045ad",
+    "semantic_hash": "efbfafac93268b948a4b8dba90a045ad"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpFillMaxWidthElement.kt": {
+    "mtime": 1786077241.5047307,
+    "ast_hash": "0ae8b8565ccec3febaf32327c6f4e512",
+    "semantic_hash": "0ae8b8565ccec3febaf32327c6f4e512"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpHeightElement.kt": {
+    "mtime": 1786213131.5728734,
+    "ast_hash": "928fbf18e011bd86d6f1d93677544bd3",
+    "semantic_hash": "928fbf18e011bd86d6f1d93677544bd3"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpModifier.kt": {
+    "mtime": 1786217995.1295638,
+    "ast_hash": "13ecb481295201ce599c60bb6af74541",
+    "semantic_hash": "13ecb481295201ce599c60bb6af74541"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpModifierElement.kt": {
+    "mtime": 1786076742.1837165,
+    "ast_hash": "b72a3fc5b4e8f37d9a47ce3d5a72e8a7",
+    "semantic_hash": "b72a3fc5b4e8f37d9a47ce3d5a72e8a7"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpPadding.kt": {
+    "mtime": 1786213073.7228506,
+    "ast_hash": "b8317dc3764ff8a72d2d2b6bb0d21547",
+    "semantic_hash": "b8317dc3764ff8a72d2d2b6bb0d21547"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpPaddingElement.kt": {
+    "mtime": 1786213085.617602,
+    "ast_hash": "a4a6be6f9c556b86ef6211578ce75bc8",
+    "semantic_hash": "a4a6be6f9c556b86ef6211578ce75bc8"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpSizeElement.kt": {
+    "mtime": 1786213142.9518068,
+    "ast_hash": "d750b4496fdf3ec97ba6c361d6b42e4e",
+    "semantic_hash": "d750b4496fdf3ec97ba6c361d6b42e4e"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpVisibility.kt": {
+    "mtime": 1786077231.9336593,
+    "ast_hash": "aaa7499861c1c60c6b7d41f7df373767",
+    "semantic_hash": "aaa7499861c1c60c6b7d41f7df373767"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpVisibilityElement.kt": {
+    "mtime": 1786077240.9623086,
+    "ast_hash": "6ac8bbe962a9a0bd7806b5f766582c92",
+    "semantic_hash": "6ac8bbe962a9a0bd7806b5f766582c92"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpWeightElement.kt": {
+    "mtime": 1786077244.9223008,
+    "ast_hash": "ba95197bb8af4487e124436e29a857b7",
+    "semantic_hash": "ba95197bb8af4487e124436e29a857b7"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpWidthElement.kt": {
+    "mtime": 1786213119.9991329,
+    "ast_hash": "71e3e47159694202404caac98e800516",
+    "semantic_hash": "71e3e47159694202404caac98e800516"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpWrapContentHeightElement.kt": {
+    "mtime": 1786077246.0941086,
+    "ast_hash": "400c39cd78c6c3701f8bc95aedceddea",
+    "semantic_hash": "400c39cd78c6c3701f8bc95aedceddea"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpWrapContentSizeElement.kt": {
+    "mtime": 1786077246.6872315,
+    "ast_hash": "76ff10de2ea5a4c06411ce6317a62565",
+    "semantic_hash": "76ff10de2ea5a4c06411ce6317a62565"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpWrapContentWidthElement.kt": {
+    "mtime": 1786077245.6054208,
+    "ast_hash": "586588e68462998fb90488907bcd584d",
+    "semantic_hash": "586588e68462998fb90488907bcd584d"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpButtonColors.kt": {
+    "mtime": 1786218403.3327549,
+    "ast_hash": "7d7b6c3c0ac45d340c9dac2c12b8e1ae",
+    "semantic_hash": "7d7b6c3c0ac45d340c9dac2c12b8e1ae"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpContentAlignment.kt": {
+    "mtime": 1786079468.5465577,
+    "ast_hash": "8f9883c6979ae32487401edaadcd315a",
+    "semantic_hash": "8f9883c6979ae32487401edaadcd315a"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpContentScale.kt": {
+    "mtime": 1786081531.5607646,
+    "ast_hash": "47ecf7ac84ed286106fec5a1b627ae49",
+    "semantic_hash": "47ecf7ac84ed286106fec5a1b627ae49"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpFontWeight.kt": {
+    "mtime": 1786077998.4714308,
+    "ast_hash": "04c8896473013e3d83450121334f13c0",
+    "semantic_hash": "04c8896473013e3d83450121334f13c0"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpHorizontalAlignment.kt": {
+    "mtime": 1786078397.8747144,
+    "ast_hash": "53dd9189ecd112b6c556394629500053",
+    "semantic_hash": "53dd9189ecd112b6c556394629500053"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpProgressIndicatorStyle.kt": {
+    "mtime": 1786079470.1586268,
+    "ast_hash": "9194d6d72267bda3e2ee626dd602659d",
+    "semantic_hash": "9194d6d72267bda3e2ee626dd602659d"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpTextAlign.kt": {
+    "mtime": 1786077998.9211664,
+    "ast_hash": "1f379ca540a2fa101f0421d51a68833d",
+    "semantic_hash": "1f379ca540a2fa101f0421d51a68833d"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpTextStyle.kt": {
+    "mtime": 1786213168.6943142,
+    "ast_hash": "c27984b465696349c755d38e029839c0",
+    "semantic_hash": "c27984b465696349c755d38e029839c0"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/nodes/style/WarpVerticalAlignment.kt": {
+    "mtime": 1786078397.874665,
+    "ast_hash": "9f786d378ed8530ce10d7bdb3d78da75",
+    "semantic_hash": "9f786d378ed8530ce10d7bdb3d78da75"
+  },
+  "warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/unit/WarpUnits.kt": {
+    "mtime": 1786213061.9943197,
+    "ast_hash": "61c3f464a05e70dd43df8cb96adabe05",
+    "semantic_hash": "61c3f464a05e70dd43df8cb96adabe05"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/compose/ComposeWarpTest.kt": {
+    "mtime": 1786217848.4235535,
+    "ast_hash": "cadcb81c4489bb0195c97c6e1ef79de4",
+    "semantic_hash": "cadcb81c4489bb0195c97c6e1ef79de4"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/example/counter/CounterActions.kt": {
+    "mtime": 1786097228.467356,
+    "ast_hash": "327e30218c073fbc5a3f83bbdd81f5f5",
+    "semantic_hash": "327e30218c073fbc5a3f83bbdd81f5f5"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/example/counter/CounterWidget.kt": {
+    "mtime": 1786081037.2585802,
+    "ast_hash": "1505f3d4c0670b09bf3713cace16ecf8",
+    "semantic_hash": "1505f3d4c0670b09bf3713cace16ecf8"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/nodes/WarpImageTest.kt": {
+    "mtime": 1786082528.5680406,
+    "ast_hash": "96e9f9abd5916c3dd14a98b0e36844d9",
+    "semantic_hash": "96e9f9abd5916c3dd14a98b0e36844d9"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/nodes/actions/ClickActionTest.kt": {
+    "mtime": 1786214759.1549845,
+    "ast_hash": "30f8f453e9d7e5fc8b38784a65f4ae4c",
+    "semantic_hash": "30f8f453e9d7e5fc8b38784a65f4ae4c"
+  },
+  "warp-runtime/src/commonTest/kotlin/com/atriidev/warp_runtime/nodes/modifiers/WarpModifierTest.kt": {
+    "mtime": 1786214606.8362637,
+    "ast_hash": "1d1e3413ffe17825de267c0355ea04e6",
+    "semantic_hash": "1d1e3413ffe17825de267c0355ea04e6"
+  },
+  "warp-runtime/src/iosMain/kotlin/com/atriidev/warp_runtime/Platform.ios.kt": {
+    "mtime": 1785960415.6948195,
+    "ast_hash": "c73f6908ceea677a8e609a185ce99abd",
+    "semantic_hash": "c73f6908ceea677a8e609a185ce99abd"
+  },
+  "warp-runtime/src/iosMain/kotlin/com/atriidev/warp_runtime/nodes/actions/EnumConstants.ios.kt": {
+    "mtime": 1785996815.527618,
+    "ast_hash": "8c79511ef45fd1c26cd445a2ea6672f5",
+    "semantic_hash": "8c79511ef45fd1c26cd445a2ea6672f5"
+  },
+  "warp-runtime/src/jvmMain/kotlin/com/atriidev/warp_runtime/Platform.jvm.kt": {
+    "mtime": 1785960415.6948438,
+    "ast_hash": "aa97c9b36233c8a61adbd4bf5e2a4516",
+    "semantic_hash": "aa97c9b36233c8a61adbd4bf5e2a4516"
+  },
+  "warp-runtime/src/jvmMain/kotlin/com/atriidev/warp_runtime/nodes/actions/EnumConstants.jvm.kt": {
+    "mtime": 1785996815.5276158,
+    "ast_hash": "02e2c3004337b904338d00dd59e99739",
+    "semantic_hash": "02e2c3004337b904338d00dd59e99739"
+  },
+  "warp-runtime/src/jvmTest/kotlin/com/atriidev/warp_runtime/compose/ComposeWarpJvmTest.kt": {
+    "mtime": 1785989279.741887,
+    "ast_hash": "ebdd098b85995799c544408e96aae089",
+    "semantic_hash": "ebdd098b85995799c544408e96aae089"
+  },
+  "warp-runtime/src/jvmTest/kotlin/com/atriidev/warp_runtime/nodes/actions/ClickActionJvmTest.kt": {
+    "mtime": 1786214744.8170168,
+    "ast_hash": "04d4f1da39e170ee4fb373a0ad45d60c",
+    "semantic_hash": "04d4f1da39e170ee4fb373a0ad45d60c"
+  },
+  "warp-ui/build.gradle.kts": {
+    "mtime": 1786184557.6435947,
+    "ast_hash": "3dd3d56b8e121d46524fcffe53ab1779",
+    "semantic_hash": "3dd3d56b8e121d46524fcffe53ab1779"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/Platform.android.kt": {
+    "mtime": 1785991196.1672404,
+    "ast_hash": "5ea5cb35d9c03d33ebde4a0031819547",
+    "semantic_hash": "5ea5cb35d9c03d33ebde4a0031819547"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/WarpGlanceClickPrepare.kt": {
+    "mtime": 1786188394.5566156,
+    "ast_hash": "cd1801bbde4a4219b18cad7d015e26d5",
+    "semantic_hash": "cd1801bbde4a4219b18cad7d015e26d5"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/WarpRender.android.kt": {
+    "mtime": 1786021655.362408,
+    "ast_hash": "d8bacfb71e5a196696cf09a3d458b2d9",
+    "semantic_hash": "d8bacfb71e5a196696cf09a3d458b2d9"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/WarpSwiftUIView.android.kt": {
+    "mtime": 1786011927.953696,
+    "ast_hash": "d2b096e49cc83fa42887f0c782bfbbde",
+    "semantic_hash": "d2b096e49cc83fa42887f0c782bfbbde"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/WarpAndroidAssets.kt": {
+    "mtime": 1786082511.0497253,
+    "ast_hash": "4016deac14a4e2a06593dc007da5d7ee",
+    "semantic_hash": "4016deac14a4e2a06593dc007da5d7ee"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/WarpGlanceColors.kt": {
+    "mtime": 1786101181.94574,
+    "ast_hash": "0c807d25a9bd0aed7eb7f87bc27ae4f4",
+    "semantic_hash": "0c807d25a9bd0aed7eb7f87bc27ae4f4"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/GlanceRender.kt": {
+    "mtime": 1786217079.2437863,
+    "ast_hash": "c3e3ebdda27d58fb709e784592949f9f",
+    "semantic_hash": "c3e3ebdda27d58fb709e784592949f9f"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceAction.kt": {
+    "mtime": 1785994958.7889113,
+    "ast_hash": "c6e1473f4fbd73cd4b7d778951e5c3a4",
+    "semantic_hash": "c6e1473f4fbd73cd4b7d778951e5c3a4"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceActionKeys.kt": {
+    "mtime": 1785994958.774682,
+    "ast_hash": "99b32d9da49a743791cac8bf02004c76",
+    "semantic_hash": "99b32d9da49a743791cac8bf02004c76"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceAlignment.kt": {
+    "mtime": 1786079511.7152367,
+    "ast_hash": "a110a016362c6472c143a96f4bc6cc93",
+    "semantic_hash": "a110a016362c6472c143a96f4bc6cc93"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceButtonColors.kt": {
+    "mtime": 1786101181.7470253,
+    "ast_hash": "af4e224462ecd448e6f0d5e8bc564d48",
+    "semantic_hash": "af4e224462ecd448e6f0d5e8bc564d48"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceClickPrepare.kt": {
+    "mtime": 1786108661.362903,
+    "ast_hash": "9d79fe420b02bc17f8849757746a73c8",
+    "semantic_hash": "9d79fe420b02bc17f8849757746a73c8"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceContentScale.kt": {
+    "mtime": 1786081558.2651985,
+    "ast_hash": "091d70a97002086efa72dabcbaac0982",
+    "semantic_hash": "091d70a97002086efa72dabcbaac0982"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceModifier.kt": {
+    "mtime": 1786213205.3886714,
+    "ast_hash": "3302abd435c8946ac418ac69d0457d5b",
+    "semantic_hash": "3302abd435c8946ac418ac69d0457d5b"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpGlanceTextStyle.kt": {
+    "mtime": 1786213212.9778607,
+    "ast_hash": "7785c5f882d184f8ba0954f4fce1a8aa",
+    "semantic_hash": "7785c5f882d184f8ba0954f4fce1a8aa"
+  },
+  "warp-ui/src/androidMain/kotlin/com/atriidev/warp_ui/glance/internal/WarpRegistryActionCallback.kt": {
+    "mtime": 1786177852.1863198,
+    "ast_hash": "2e594dca36f14a983b0a840a78075189",
+    "semantic_hash": "2e594dca36f14a983b0a840a78075189"
+  },
+  "warp-ui/src/commonMain/kotlin/com/atriidev/warp_ui/Platform.kt": {
+    "mtime": 1785993525.831265,
+    "ast_hash": "a231a9b041e7fea38a8313e5683a71b2",
+    "semantic_hash": "a231a9b041e7fea38a8313e5683a71b2"
+  },
+  "warp-ui/src/commonMain/kotlin/com/atriidev/warp_ui/WarpClickHandler.kt": {
+    "mtime": 1786188036.263277,
+    "ast_hash": "d72c1313fc6e168be39c743aefcc3e82",
+    "semantic_hash": "d72c1313fc6e168be39c743aefcc3e82"
+  },
+  "warp-ui/src/commonMain/kotlin/com/atriidev/warp_ui/WarpClicksRegistry.kt": {
+    "mtime": 1786193076.853634,
+    "ast_hash": "d68322c8f4c1ded263e46e2fdb881d45",
+    "semantic_hash": "d68322c8f4c1ded263e46e2fdb881d45"
+  },
+  "warp-ui/src/commonMain/kotlin/com/atriidev/warp_ui/WarpRender.kt": {
+    "mtime": 1786023805.7969732,
+    "ast_hash": "3a6687c791c220a1dfed5b25397e0377",
+    "semantic_hash": "3a6687c791c220a1dfed5b25397e0377"
+  },
+  "warp-ui/src/commonMain/kotlin/com/atriidev/warp_ui/WarpSwiftUIView.kt": {
+    "mtime": 1786023759.5441542,
+    "ast_hash": "f33a26ca2532ba8509c07f98393b7ed3",
+    "semantic_hash": "f33a26ca2532ba8509c07f98393b7ed3"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/Platform.ios.kt": {
+    "mtime": 1785991196.1754901,
+    "ast_hash": "6996e497cc59bbc80041351eb78f45ae",
+    "semantic_hash": "6996e497cc59bbc80041351eb78f45ae"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/WarpClickDispatch.ios.kt": {
+    "mtime": 1786023736.7428746,
+    "ast_hash": "9a4b44fad593044221ff5c091afc7acf",
+    "semantic_hash": "9a4b44fad593044221ff5c091afc7acf"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/WarpRender.ios.kt": {
+    "mtime": 1786023725.7748375,
+    "ast_hash": "419c38cf5ecd0ec098257fda1d349544",
+    "semantic_hash": "419c38cf5ecd0ec098257fda1d349544"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/WarpSwiftUIView.ios.kt": {
+    "mtime": 1786023742.0681236,
+    "ast_hash": "a47c5f97dedaf4fb034d1924affffdd2",
+    "semantic_hash": "a47c5f97dedaf4fb034d1924affffdd2"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/WarpSwiftUIViewPreview.ios.kt": {
+    "mtime": 1786023744.7645242,
+    "ast_hash": "90972623ff8ea92932315acbd2aa7336",
+    "semantic_hash": "90972623ff8ea92932315acbd2aa7336"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/WarpWidgetView.ios.kt": {
+    "mtime": 1786075372.5738099,
+    "ast_hash": "8f0b44d645cf6381556a6b0ca7f4e839",
+    "semantic_hash": "8f0b44d645cf6381556a6b0ca7f4e839"
+  },
+  "warp-ui/src/iosMain/kotlin/com/atriidev/warp_ui/internal/WarpIosBridge.kt": {
+    "mtime": 1786023740.8005369,
+    "ast_hash": "0967cc6d6ac9c64e3d9f5c16c496364f",
+    "semantic_hash": "0967cc6d6ac9c64e3d9f5c16c496364f"
+  },
+  "warp-ui/src/swift/warpBridge/WarpBridgeAnchor.swift": {
+    "mtime": 1786024160.0161533,
+    "ast_hash": "d9aa406f1f595f0913f9e48bdcf27b39",
+    "semantic_hash": "d9aa406f1f595f0913f9e48bdcf27b39"
+  },
+  "warp-widget/build.gradle.kts": {
+    "mtime": 1786184557.6364129,
+    "ast_hash": "698e432d2eadf86805cfc58ae24613fb",
+    "semantic_hash": "698e432d2eadf86805cfc58ae24613fb"
+  },
+  "warp-widget/exportedWarpBridge/Package.swift": {
+    "mtime": 1786187886.3556707,
+    "ast_hash": "2eff14d263279bf3311f946d06b46283",
+    "semantic_hash": "2eff14d263279bf3311f946d06b46283"
+  },
+  "warp-widget/exportedWarpBridge/Sources/DummySPMFile.swift": {
+    "mtime": 1786187886.3555279,
+    "ast_hash": "2d110fcf723611e3c2f34a473f976c84",
+    "semantic_hash": "2d110fcf723611e3c2f34a473f976c84"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/GlanceAppWidgetSize.kt": {
+    "mtime": 1786102499.3991756,
+    "ast_hash": "31f922d7c11d695e437025566228fa45",
+    "semantic_hash": "31f922d7c11d695e437025566228fa45"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/GlanceInternalState.kt": {
+    "mtime": 1786102240.4456563,
+    "ast_hash": "6c42b12a5a51f98a616af8e021f8c168",
+    "semantic_hash": "6c42b12a5a51f98a616af8e021f8c168"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/GlancePreferencesMapping.kt": {
+    "mtime": 1786101298.2342646,
+    "ast_hash": "5db288a319a5f71333b558aacb926175",
+    "semantic_hash": "5db288a319a5f71333b558aacb926175"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/GlanceWidgetEnvironment.kt": {
+    "mtime": 1786177852.1869984,
+    "ast_hash": "fb53f52240f99a4cc2311143aeb2437b",
+    "semantic_hash": "fb53f52240f99a4cc2311143aeb2437b"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/Platform.android.kt": {
+    "mtime": 1786024481.599978,
+    "ast_hash": "245b93789b5c8160651e43fc2c5f1ace",
+    "semantic_hash": "245b93789b5c8160651e43fc2c5f1ace"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpGlanceWidget.kt": {
+    "mtime": 1786188867.0297327,
+    "ast_hash": "9ac31a27a07b2e2b636aa1990a274217",
+    "semantic_hash": "9ac31a27a07b2e2b636aa1990a274217"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpGlanceWidgetReceiver.kt": {
+    "mtime": 1786188953.5508907,
+    "ast_hash": "d9c446c11c24a3107e64b52594858f84",
+    "semantic_hash": "d9c446c11c24a3107e64b52594858f84"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetAndroidInitProvider.kt": {
+    "mtime": 1786101181.6067011,
+    "ast_hash": "bbb595e204bee40749b43a9090fe7b0f",
+    "semantic_hash": "bbb595e204bee40749b43a9090fe7b0f"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetAndroidRegistry.kt": {
+    "mtime": 1786188035.8346615,
+    "ast_hash": "d8f4f2299dc6199e000c98956ab63f57",
+    "semantic_hash": "d8f4f2299dc6199e000c98956ab63f57"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetAndroidReload.kt": {
+    "mtime": 1786188306.1269855,
+    "ast_hash": "f4151b5a0e867eed06e09d3bfbddfaab",
+    "semantic_hash": "f4151b5a0e867eed06e09d3bfbddfaab"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetHostPlatform.android.kt": {
+    "mtime": 1786072738.3919182,
+    "ast_hash": "5818cb1ee4373d7558b88c0d40f8b814",
+    "semantic_hash": "5818cb1ee4373d7558b88c0d40f8b814"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetId.android.kt": {
+    "mtime": 1786177852.1876986,
+    "ast_hash": "57ff53b9d30e3a07d11d0bff6877b5a4",
+    "semantic_hash": "57ff53b9d30e3a07d11d0bff6877b5a4"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/WarpWidgetStateStore.android.kt": {
+    "mtime": 1786188048.0047066,
+    "ast_hash": "4a61182e1caf9e9952b47bac5fca8d09",
+    "semantic_hash": "4a61182e1caf9e9952b47bac5fca8d09"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/api/PlatformContext.android.kt": {
+    "mtime": 1786178727.179814,
+    "ast_hash": "e358dbdc2cca15eb29e832b35fbb9065",
+    "semantic_hash": "e358dbdc2cca15eb29e832b35fbb9065"
+  },
+  "warp-widget/src/androidMain/kotlin/com/atriidev/warp_widget/api/WidgetPlatform.android.kt": {
+    "mtime": 1786074375.3230028,
+    "ast_hash": "de241094241235be7d53e77a4b6c1792",
+    "semantic_hash": "de241094241235be7d53e77a4b6c1792"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/Platform.kt": {
+    "mtime": 1786030218.4641964,
+    "ast_hash": "ff35ecc81ce2ab678505982e7042ded4",
+    "semantic_hash": "ff35ecc81ce2ab678505982e7042ded4"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidget.kt": {
+    "mtime": 1786210551.922815,
+    "ast_hash": "9bdb54b28d02281729a48e5df0f1f03a",
+    "semantic_hash": "9bdb54b28d02281729a48e5df0f1f03a"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetClickId.kt": {
+    "mtime": 1786177852.1886134,
+    "ast_hash": "237e3289c22c3b4501ce745af81b162e",
+    "semantic_hash": "237e3289c22c3b4501ce745af81b162e"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetClickScope.kt": {
+    "mtime": 1786177852.189032,
+    "ast_hash": "538a14e1855d29154051aca4a74f4168",
+    "semantic_hash": "538a14e1855d29154051aca4a74f4168"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetHostPlatform.kt": {
+    "mtime": 1786028496.7883463,
+    "ast_hash": "9d6b07ed500839a00a63f23ad374a16f",
+    "semantic_hash": "9d6b07ed500839a00a63f23ad374a16f"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetId.kt": {
+    "mtime": 1786177852.1893888,
+    "ast_hash": "212b7f5a8a468e3be9eb293ff3211b18",
+    "semantic_hash": "212b7f5a8a468e3be9eb293ff3211b18"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetState.kt": {
+    "mtime": 1786210735.9138117,
+    "ast_hash": "b8621e14a2968fc48fa57f28c384bf84",
+    "semantic_hash": "b8621e14a2968fc48fa57f28c384bf84"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/WarpWidgetStateStore.kt": {
+    "mtime": 1786210715.1727333,
+    "ast_hash": "7a3ee79ecd292eb8a036156ec655e169",
+    "semantic_hash": "7a3ee79ecd292eb8a036156ec655e169"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/api/PlatformContext.kt": {
+    "mtime": 1786178727.18863,
+    "ast_hash": "462779409c5fa7a47e9c382bf31e07ac",
+    "semantic_hash": "462779409c5fa7a47e9c382bf31e07ac"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/api/WidgetEnvironment.kt": {
+    "mtime": 1786177852.190551,
+    "ast_hash": "a902663c572b2439038af77ac10c2697",
+    "semantic_hash": "a902663c572b2439038af77ac10c2697"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/api/WidgetEnvironmentFactory.kt": {
+    "mtime": 1786101478.948085,
+    "ast_hash": "76eabe04b9cfa61b43c034ddd3236de3",
+    "semantic_hash": "76eabe04b9cfa61b43c034ddd3236de3"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/api/WidgetPlatform.kt": {
+    "mtime": 1786074181.8650057,
+    "ast_hash": "e5826a10df5a80a215be2b346bf2822d",
+    "semantic_hash": "e5826a10df5a80a215be2b346bf2822d"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/ui/WarpAdaptive.kt": {
+    "mtime": 1786103026.802836,
+    "ast_hash": "b3d6a09b4eb6a29e6e039f239eda2183",
+    "semantic_hash": "b3d6a09b4eb6a29e6e039f239eda2183"
+  },
+  "warp-widget/src/commonMain/kotlin/com/atriidev/warp_widget/ui/WarpTheme.kt": {
+    "mtime": 1786178373.3026912,
+    "ast_hash": "3e25c8b339911f1da19e92d6abb127af",
+    "semantic_hash": "3e25c8b339911f1da19e92d6abb127af"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/Platform.ios.kt": {
+    "mtime": 1786024481.6066685,
+    "ast_hash": "ad031b898dc45ccc644c3664a965a515",
+    "semantic_hash": "ad031b898dc45ccc644c3664a965a515"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/WarpWidgetHost.ios.kt": {
+    "mtime": 1786177852.1909118,
+    "ast_hash": "69d9a1588c42a9010c70acccfd9c114d",
+    "semantic_hash": "69d9a1588c42a9010c70acccfd9c114d"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/WarpWidgetHostPlatform.ios.kt": {
+    "mtime": 1786188415.8131845,
+    "ast_hash": "7bf0db00dc4e43191b19c8e0b68ef472",
+    "semantic_hash": "7bf0db00dc4e43191b19c8e0b68ef472"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/WarpWidgetKitMapping.kt": {
+    "mtime": 1786177852.1917746,
+    "ast_hash": "5c031ec7b0033b0f8e0d5244b6e6d9ea",
+    "semantic_hash": "5c031ec7b0033b0f8e0d5244b6e6d9ea"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/WarpWidgetStateStore.ios.kt": {
+    "mtime": 1786188455.1383648,
+    "ast_hash": "79fdc617d57fc2319c41ce1c4c2be50a",
+    "semantic_hash": "79fdc617d57fc2319c41ce1c4c2be50a"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/api/PlatformContext.ios.kt": {
+    "mtime": 1786178727.1976266,
+    "ast_hash": "35d136b74a34acf6c5d8e67397ec70fc",
+    "semantic_hash": "35d136b74a34acf6c5d8e67397ec70fc"
+  },
+  "warp-widget/src/iosMain/kotlin/com/atriidev/warp_widget/api/WidgetPlatform.ios.kt": {
+    "mtime": 1786074181.8140786,
+    "ast_hash": "e7f42c944f601b0e2218fd6789c038b1",
+    "semantic_hash": "e7f42c944f601b0e2218fd6789c038b1"
+  },
+  "warp-widget/src/swift/warpBridge/WarpBridgeAnchor.swift": {
+    "mtime": 1786027274.4773822,
+    "ast_hash": "d9aa406f1f595f0913f9e48bdcf27b39",
+    "semantic_hash": "d9aa406f1f595f0913f9e48bdcf27b39"
+  },
+  "warpWidgetKit/Package.swift": {
+    "mtime": 1786182694.3531678,
+    "ast_hash": "f7995ada5d618e162e493d1ca96c1196",
+    "semantic_hash": "f7995ada5d618e162e493d1ca96c1196"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpClickBridge.swift": {
+    "mtime": 1786028548.1377952,
+    "ast_hash": "3e6c15dd2813c8a123b6b09f027816d2",
+    "semantic_hash": "3e6c15dd2813c8a123b6b09f027816d2"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpSwiftUIRenderer.swift": {
+    "mtime": 1786217125.1246572,
+    "ast_hash": "385bf2d6acdd5772060ebf898b832b85",
+    "semantic_hash": "385bf2d6acdd5772060ebf898b832b85"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpSwiftUIView.swift": {
+    "mtime": 1786075354.5512564,
+    "ast_hash": "b28e0a92ac31a174756516ce3c2d57c2",
+    "semantic_hash": "b28e0a92ac31a174756516ce3c2d57c2"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpUiHostView.swift": {
+    "mtime": 1786023782.5313706,
+    "ast_hash": "2af0c2a3216b7eee34119af2bc5b263a",
+    "semantic_hash": "2af0c2a3216b7eee34119af2bc5b263a"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpWidgetBridge.swift": {
+    "mtime": 1786074392.6962857,
+    "ast_hash": "67cb2d15a920265906ccfab077c110ad",
+    "semantic_hash": "67cb2d15a920265906ccfab077c110ad"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpWidgetKitEnv.swift": {
+    "mtime": 1786136856.8888702,
+    "ast_hash": "648d28d317f51188036834f2425af724",
+    "semantic_hash": "648d28d317f51188036834f2425af724"
+  },
+  "warpWidgetKit/Sources/warpWidgetKit/WarpWidgetKitShared.swift": {
+    "mtime": 1786177852.192673,
+    "ast_hash": "5cc835cd9513137fe902c1c8e1375089",
+    "semantic_hash": "5cc835cd9513137fe902c1c8e1375089"
+  }
+}
