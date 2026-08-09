@@ -1,10 +1,9 @@
 https://github.com/user-attachments/assets/6bcdd802-41fc-4ac7-8629-e9711f0fb1f8
 
-# KmpWidget
 
-> **Active development** — APIs and architecture are changing. Follow [@dev_atrii on X](https://x.com/dev_atrii) for updates.
+## WARP
 
-## WARP — Coming Soon
+> **Alpha Stage** — APIs and architecture are in alpha. Follow [@dev_atrii on X](https://x.com/dev_atrii) for updates.
 
 **WARP** (**W**idget **A**bstraction, **R**endering **P**ipeline) is a unified API for creating home-screen widgets in **Kotlin Multiplatform**.
 
@@ -15,33 +14,6 @@ Compose-like Kotlin UI  →  WarpNode tree  →  JSON  →  platform renderer
                               ↑
                          shared state & click handlers
 ```
-
-### Example
-
-Describe widget UI in `commonMain` with composable primitives — same counter on Android Glance and iOS WidgetKit:
-
-```kotlin
-@Composable
-fun CounterWidgetUi(state: CounterState) {
-    WarpColumn(
-        modifier = WarpModifier.padding(16),
-    ) {
-        WarpText("Counter")
-        WarpRow {
-            WarpButton(text = "-", onClick = CounterActions.Decrement.asClickAction())
-            WarpText(state.count.toString())
-            WarpButton(text = "+", onClick = CounterActions.Increment.asClickAction())
-        }
-    }
-}
-
-// Compose state → tree → platform render
-val node = composeWarp(CounterState(count = count), CounterWidgetUi)
-WarpRender(node, counterWidgetClickHandlers(dataStore, widgetUpdater))  // Android Glance
-// iOS: renderCounterWidget() → WidgetKit (.systemSmall)
-```
-
-See [example/counter/CounterWidget.kt](./warp-runtime/src/commonMain/kotlin/com/atriidev/warp_runtime/example/counter/CounterWidget.kt) for the full demo.
 
 ### Installation & Dependencies
 
