@@ -434,11 +434,7 @@ html_content = f"""<!DOCTYPE html>
         const elCurrentFileName = document.getElementById('currentFileName');
         const elCodeBlock = document.getElementById('codeBlock');
 
-        // Defaults if empty
-        if (!elWidgetName.value) elWidgetName.value = "Counter";
-        if (!elWarpObjectName.value) elWarpObjectName.value = "CounterWarpWidget";
-        if (!elSharedModuleName.value) elSharedModuleName.value = "Shared";
-
+   
         // Listen for changes
         elWidgetName.addEventListener('input', updateLivePreview);
         elWarpObjectName.addEventListener('input', updateLivePreview);
