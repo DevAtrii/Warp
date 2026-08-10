@@ -1,10 +1,11 @@
 package com.atriidev.warp_widget.api
 
 import android.content.Context
+import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.glance.LocalContext
+import androidx.compose.ui.platform.LocalContext
 import com.atriidev.warp_widget.WarpWidget
 
 /**
@@ -16,7 +17,8 @@ actual class PlatformContext(val context: Context)
 
 @Composable
 actual fun <T : Any> rememberPlatformContext(widget: WarpWidget<T>): PlatformContext {
-    val context = LocalContext.current
+    val activity = LocalActivity.current
+    val context = activity?.baseContext ?: LocalContext.current
     return remember(context, widget) {
         PlatformContext(context)
     }

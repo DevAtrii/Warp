@@ -73,7 +73,7 @@ fun MainViewController() = ComposeUIViewController {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         )
-        App(platformContext = platformContext)
+        App()
     }
 }
 

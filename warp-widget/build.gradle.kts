@@ -61,6 +61,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.compose.ui)
+                implementation(libs.androidx.activity.compose)
                 api(libs.androidx.glance.appwidget)
             }
         }

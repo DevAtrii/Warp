@@ -23,14 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.atriidev.warp_widget.api.PlatformContext
+import com.atriidev.warp_widget.api.rememberPlatformContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 @Composable
-fun App(
-    platformContext: PlatformContext,
-) {
+fun App() {
     MaterialTheme {
+        val platformContext = rememberPlatformContext(widget = CounterWarpWidget)
         var count by remember { mutableIntStateOf(0) }
         val scope = rememberCoroutineScope()
 

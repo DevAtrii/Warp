@@ -13,11 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            val context = LocalContext.current
-            val platformContext = remember(context) {
-                PlatformContext(context)
-            }
-            App(platformContext = platformContext)
+            App()
         }
     }
 }
