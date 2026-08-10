@@ -42,6 +42,7 @@ In your shared module's `build.gradle.kts` (e.g., `shared/build.gradle.kts`), ap
 plugins {
     // ...
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {

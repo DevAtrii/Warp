@@ -94,8 +94,8 @@ In your shared KMP module `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
