@@ -16,6 +16,7 @@ nav = [
     "docs/5-warp-adaptive.md",
   ]},
   {"How WARP Works" = "2-how-warp-works.md"},
+  {"Create with AI" = "docs/3-create-with-ai.md"},
   {"Widget Wizard" = "wizard.html"},
 ]
 
