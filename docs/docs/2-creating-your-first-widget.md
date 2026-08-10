@@ -4,9 +4,7 @@ icon: lucide/sparkles
 
 # Creating Your First Widget
 
-Welcome to **Warp**! Warp allows you to build cross-platform home screen widgets for **Android (Glance)** and **iOS (WidgetKit)** using a single, unified Kotlin Multiplatform codebase.
-
-This guide walks you step-by-step through creating an interactive widget, using the reference implementation from `CounterWarpWidget`.
+This guide walks you step-by-step through creating an interactive widget, let's take an example of counter widget.
 
 ---
 
@@ -21,9 +19,9 @@ Building a Warp widget involves four core building blocks:
 └───────────────────────────┬────────────────────────────┘
                             │
 ┌───────────────────────────▼────────────────────────────┐
-│                  2. Actions & Clicks                   │
+│                    2. Actions                          │
 │    @Serializable sealed class CounterActions           │
-│    class CounterWarpClickHandler : WarpClickHandler    │
+│    class CounterWarpActionsHandler : WarpActionsHandler   │
 └───────────────────────────┬────────────────────────────┘
                             │
 ┌───────────────────────────▼────────────────────────────┐

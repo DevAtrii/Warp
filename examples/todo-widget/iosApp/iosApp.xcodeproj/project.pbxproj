@@ -10,7 +10,7 @@
 		3E4547CC302739AB00EA2073 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4547CB302739AB00EA2073 /* WidgetKit.framework */; };
 		3E4547CE302739AB00EA2073 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4547CD302739AB00EA2073 /* SwiftUI.framework */; };
 		3E4547D9302739AC00EA2073 /* TodoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3E4547C9302739AB00EA2073 /* TodoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3E4547FF30274D3F00EA2073 /* warpWidgetKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E4547FE30274D3F00EA2073 /* warpWidgetKit */; };
+		3E45487B3029790200EA2073 /* warpWidgetKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E45487A3029790200EA2073 /* warpWidgetKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E4547FF30274D3F00EA2073 /* warpWidgetKit in Frameworks */,
+				3E45487B3029790200EA2073 /* warpWidgetKit in Frameworks */,
 				3E4547CE302739AB00EA2073 /* SwiftUI.framework in Frameworks */,
 				3E4547CC302739AB00EA2073 /* WidgetKit.framework in Frameworks */,
 			);
@@ -183,7 +183,7 @@
 			);
 			name = TodoWidgetExtension;
 			packageProductDependencies = (
-				3E4547FE30274D3F00EA2073 /* warpWidgetKit */,
+				3E45487A3029790200EA2073 /* warpWidgetKit */,
 			);
 			productName = TodoWidgetExtension;
 			productReference = 3E4547C9302739AB00EA2073 /* TodoWidgetExtension.appex */;
@@ -217,7 +217,7 @@
 			mainGroup = EC49B8030D9ADB4BBEE0F05D;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				3E4547FD30274D3F00EA2073 /* XCRemoteSwiftPackageReference "Warp" */,
+				3E4548793029790200EA2073 /* XCRemoteSwiftPackageReference "Warp" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DC4D13CE4899C92EF8649929 /* Products */;
@@ -596,20 +596,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3E4547FD30274D3F00EA2073 /* XCRemoteSwiftPackageReference "Warp" */ = {
+		3E4548793029790200EA2073 /* XCRemoteSwiftPackageReference "Warp" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DevAtrii/Warp.git";
 			requirement = {
-				kind = exactVersion;
-				version = 0.1.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3E4547FE30274D3F00EA2073 /* warpWidgetKit */ = {
+		3E45487A3029790200EA2073 /* warpWidgetKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3E4547FD30274D3F00EA2073 /* XCRemoteSwiftPackageReference "Warp" */;
+			package = 3E4548793029790200EA2073 /* XCRemoteSwiftPackageReference "Warp" */;
 			productName = warpWidgetKit;
 		};
 /* End XCSwiftPackageProductDependency section */
