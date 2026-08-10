@@ -7,6 +7,8 @@ description: Create cross-platform home screen widgets for Kotlin Multiplatform 
 
 This skill provides step-by-step instructions, design patterns, composables reference, and platform integrations for creating cross-platform home screen widgets using **WARP** (**W**idget **A**bstraction **R**endering **P**ipeline) in Kotlin Multiplatform (KMP).
 
+> 📚 **Official Documentation**: Complete live documentation and page links are available at [`https://warp.atherio.dev`](https://warp.atherio.dev) (Sitemap index: [`https://warp.atherio.dev/sitemap.xml`](https://warp.atherio.dev/sitemap.xml)).
+
 ---
 
 ## 1. Core Architecture & Mental Model

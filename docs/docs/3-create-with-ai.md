@@ -44,7 +44,7 @@ The WARP AI Skill (`warp-widget`) provides AI models with complete context about
 │  1. CryptoWarpWidget.kt (commonMain)                      │
 │  2. CryptoWidgetReceiver.kt (androidMain)                 │
 │  3. App Group & WidgetKit Integration Guides             │
-└───────────────────────────────────────────────────────────┘
+└─────────────────────────────┬─────────────────────────────┘
 ```
 
 ---
@@ -121,19 +121,20 @@ Here are ready-to-use prompt examples you can copy and paste:
 
 ---
 
-## 4. Skill File Links & Repository Locations
+## 4. Skill File Links & Live Documentation Index
 
-You can view, reference, or download the WARP AI Skill directly:
+You can view, reference, or download the WARP AI Skill and documentation index directly:
 
-| Reference | Location | Target AI Tool |
+| Reference | Location | Target AI Tool / Audience |
 | :--- | :--- | :--- |
-| 🔗 **GitHub Repository** | [**`SKILL.md` on GitHub**](https://github.com/DevAtrii/Warp/tree/main/.agents/skills/warp-widget/SKILL.md) | Web AI tools (Claude, Cursor, ChatGPT, Codex) |
+| 🌐 **Live Docs Sitemap Index** | [**`https://warp.atherio.dev/sitemap.xml`**](https://warp.atherio.dev/sitemap.xml) | Web crawlers & AI agents indexing full documentation |
+| 🔗 **GitHub Repository Skill** | [**`SKILL.md` on GitHub**](https://github.com/DevAtrii/Warp/tree/main/.agents/skills/warp-widget/SKILL.md) | Web AI tools (Claude, Cursor, ChatGPT, Codex) |
 | 📁 **Local Agent Skill** | **`.agents/skills/warp-widget/SKILL.md`** | **Antigravity**, **Cursor**, **Claude Code**, and KMP agents |
 | 📄 **Documentation Copy** | **`docs/skills/warp-widget/SKILL.md`** | Local project documentation reference |
 
 ---
 
-## 5. What the AI Will Generate
+## 5. What the AI Will Generate & iOS Setup Options
 
 When you ask an AI assistant with the WARP Skill enabled to build a widget, it will generate:
 
@@ -142,4 +143,6 @@ When you ask an AI assistant with the WARP Skill enabled to build a widget, it w
 3. **Action Handler (`WarpActionHandler`)**: Asynchronous state updates via `updateWarpWidgetState`.
 4. **Shared Composable UI (`WarpWidget`)**: Cross-platform Compose UI using WARP theme and layout primitives.
 5. **Android Glance Host (`androidMain`)**: `WarpGlanceWidgetReceiver` and `WarpGlanceWidget` mapping drawable asset IDs.
-6. **iOS Integration Guidance**: App Group configuration and Swift WidgetKit connection details.
+6. **iOS Swift Boilerplate Setup**:
+   - **Option A (Web Generator)**: Use the interactive [**Warp Widget Wizard** (`https://warp.atherio.dev/wizard.html`)](https://warp.atherio.dev/wizard.html) to download the 6 generated Swift WidgetKit boilerplate files (`.zip`).
+   - **Option B (Repository Reference Files)**: If browser access is unavailable, copy template files directly from [**`iosApp/CounterWidget` on GitHub**](https://github.com/DevAtrii/Warp/tree/main/iosApp/CounterWidget) and manually update the widget and framework module names.
