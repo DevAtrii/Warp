@@ -249,6 +249,47 @@ WarpImage(
 
 ---
 
+### `WarpLink`
+Wraps child composables into a clickable container that opens a URL or deeplink URI when tapped.
+
+```kotlin title="WarpLink Signature"
+@Composable
+fun WarpLink(
+    deeplink: WarpUrl,
+    modifier: WarpModifier = WarpModifier(),
+    androidIntentFlags: List<WarpIntentFlags> = listOf(
+        WarpIntentFlags.NEW_TASK,
+        WarpIntentFlags.CLEAR_TOP,
+        WarpIntentFlags.SINGLE_TOP
+    ),
+    content: @Composable () -> Unit,
+)
+```
+
+**Platform Behavior:**
+- **iOS (WidgetKit)**: Renders as a native SwiftUI `Link(destination: URL(string: deeplink)!) { ... }`.
+- **Android (Glance)**: Renders as a clickable Glance `Box` executing an `Intent.ACTION_VIEW` intent with the configured `androidIntentFlags`.
+
+**Example:**
+```kotlin
+WarpLink(deeplink = WarpUrl("myapp://details?id=123")) {
+    WarpRow(
+        modifier = WarpModifier
+            .background(WarpColor.Blue600)
+            .cornerRadius(8.dp)
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        verticalAlignment = WarpVerticalAlignment.Center,
+    ) {
+        WarpText(
+            text = "Open Details",
+            style = WarpTextStyle(color = WarpColor.White, fontWeight = WarpFontWeight.Medium),
+        )
+    }
+}
+```
+
+---
+
 ### `WarpProgressIndicator`
 Renders determinate (`progress = 0f..1f`) or indeterminate (`progress = null`) linear or circular progress indicators.
 

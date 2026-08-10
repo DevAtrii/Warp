@@ -163,6 +163,7 @@ object MyWarpWidget : WarpWidget<MyWidgetState>(MyWidgetState.serializer()) {
 - **`WarpText(text, modifier, style, maxLines)`**
 - **`WarpButton(text/content, onClick, modifier, style, colors, enabled)`**
 - **`WarpImage(asset, contentDescription, modifier, contentScale, tint)`**
+- **`WarpLink(deeplink, modifier, androidIntentFlags, content)`**
 - **`WarpProgressIndicator(modifier, style, progress, color, backgroundColor)`**
 - **`WarpDivider(modifier, thickness, color)`**
 

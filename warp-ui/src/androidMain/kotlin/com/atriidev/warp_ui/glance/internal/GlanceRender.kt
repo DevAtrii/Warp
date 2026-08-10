@@ -11,6 +11,7 @@ import androidx.glance.Image
 import androidx.glance.LocalContext
 import androidx.glance.action.Action
 import androidx.glance.action.clickable
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.CircularProgressIndicator
 import androidx.glance.appwidget.LinearProgressIndicator
 import androidx.glance.appwidget.ProgressIndicatorDefaults
@@ -35,6 +36,7 @@ import com.atriidev.warp_runtime.nodes.WarpDividerNode
 import com.atriidev.warp_runtime.nodes.WarpImageNode
 import com.atriidev.warp_runtime.nodes.WarpLazyColumnNode
 import com.atriidev.warp_runtime.nodes.WarpLazyRowNode
+import com.atriidev.warp_runtime.nodes.WarpLinkNode
 import com.atriidev.warp_runtime.nodes.WarpNode
 import com.atriidev.warp_runtime.nodes.WarpProgressIndicatorNode
 import com.atriidev.warp_runtime.nodes.WarpRowNode
@@ -68,6 +70,8 @@ internal fun RenderWarpNode(
                 RenderWarpNode(child, clickAction)
             }
         }
+
+        is WarpLinkNode -> RenderLink(node, clickAction)
 
         is WarpTextNode -> RenderText(node, clickAction)
         is WarpButtonNode -> RenderButton(node, clickAction)
@@ -394,12 +398,33 @@ private fun WarpNode.warpModifier() = when (this) {
     is WarpRowNode -> modifier
     is WarpLazyRowNode -> modifier
     is WarpBoxNode -> modifier
+    is WarpLinkNode -> modifier
     is WarpTextNode -> modifier
     is WarpButtonNode -> modifier
     is WarpSpacerNode -> modifier
     is WarpDividerNode -> modifier
     is WarpProgressIndicatorNode -> modifier
     is WarpImageNode -> modifier
+}
+
+@Composable
+private fun RenderLink(
+    node: WarpLinkNode,
+    clickAction: (ClickAction) -> Action,
+    extraModifier: GlanceModifier = GlanceModifier,
+) {
+    val context = LocalContext.current
+    val intent = DeeplinkOpener.createIntent(context, node.deeplink.value)
+    Box(
+        modifier = node.modifier
+            .toGlanceModifier(clickAction)
+            .then(extraModifier)
+            .clickable(actionStartActivity(intent)),
+    ) {
+        node.children.forEach { child ->
+            RenderWarpNode(child, clickAction)
+        }
+    }
 }
 
 @Composable
@@ -423,6 +448,7 @@ private fun RenderNodeWithExtra(
             }
         }
 
+        is WarpLinkNode -> RenderLink(node, clickAction, extra)
         is WarpTextNode -> RenderText(node, clickAction, extra)
         is WarpButtonNode -> RenderButton(node, clickAction, extra)
         is WarpSpacerNode -> Spacer(modifier = node.modifier.toGlanceModifier(clickAction).then(extra))

@@ -24,5 +24,6 @@ class CounterGlanceAppWidget(
         WarpDrawableAsset(CounterAssets.Checklist, R.drawable.ic_checklist),
         WarpDrawableAsset(CounterAssets.Circle, R.drawable.ic_circle),
         WarpDrawableAsset(CounterAssets.CheckCircle, R.drawable.ic_check_circle),
+        WarpDrawableAsset(CounterAssets.Link, R.drawable.ic_link),
     )
 }

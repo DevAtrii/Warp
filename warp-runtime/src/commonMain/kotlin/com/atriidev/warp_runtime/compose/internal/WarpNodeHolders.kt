@@ -8,15 +8,19 @@ package com.atriidev.warp_runtime.compose.internal
 
 import com.atriidev.warp_runtime.nodes.WarpBoxNode
 import com.atriidev.warp_runtime.nodes.WarpButtonNode
-import com.atriidev.warp_runtime.nodes.actions.WarpAction
 import com.atriidev.warp_runtime.nodes.WarpColumnNode
 import com.atriidev.warp_runtime.nodes.WarpDividerNode
 import com.atriidev.warp_runtime.nodes.WarpImageNode
+import com.atriidev.warp_runtime.nodes.WarpIntentFlags
+import com.atriidev.warp_runtime.nodes.WarpLazyColumnNode
+import com.atriidev.warp_runtime.nodes.WarpLinkNode
 import com.atriidev.warp_runtime.nodes.WarpNode
 import com.atriidev.warp_runtime.nodes.WarpProgressIndicatorNode
 import com.atriidev.warp_runtime.nodes.WarpRowNode
 import com.atriidev.warp_runtime.nodes.WarpSpacerNode
 import com.atriidev.warp_runtime.nodes.WarpTextNode
+import com.atriidev.warp_runtime.nodes.WarpUrl
+import com.atriidev.warp_runtime.nodes.actions.WarpAction
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.modifiers.WarpColor
 import com.atriidev.warp_runtime.nodes.modifiers.WarpModifier
@@ -176,6 +180,24 @@ internal class WarpBoxHolder(
     override fun toWarpNode(): WarpNode = WarpBoxNode(
         modifier = modifier,
         contentAlignment = contentAlignment,
+        children = children.map { (it as WarpNodeHolder).toWarpNode() },
+    )
+}
+
+internal class WarpLinkHolder(
+    var deeplink: WarpUrl,
+    var androidIntentFlags: List<WarpIntentFlags> = listOf(
+        WarpIntentFlags.NEW_TASK,
+        WarpIntentFlags.CLEAR_TOP,
+        WarpIntentFlags.SINGLE_TOP
+    ),
+    var modifier: WarpModifier = WarpModifier(),
+    override val children: MutableList<Any> = mutableListOf(),
+) : WarpContainerNodeHolder {
+    override fun toWarpNode(): WarpNode = WarpLinkNode(
+        deeplink = deeplink,
+        androidIntentFlags = androidIntentFlags,
+        modifier = modifier,
         children = children.map { (it as WarpNodeHolder).toWarpNode() },
     )
 }

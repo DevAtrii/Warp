@@ -20,10 +20,13 @@ import com.atriidev.warp_runtime.compose.internal.WarpDividerComposable
 import com.atriidev.warp_runtime.compose.internal.WarpImageComposable
 import com.atriidev.warp_runtime.compose.internal.WarpLazyColumnComposable
 import com.atriidev.warp_runtime.compose.internal.WarpLazyRowComposable
+import com.atriidev.warp_runtime.compose.internal.WarpLinkComposable
 import com.atriidev.warp_runtime.compose.internal.WarpProgressIndicatorComposable
 import com.atriidev.warp_runtime.compose.internal.WarpRowComposable
 import com.atriidev.warp_runtime.compose.internal.WarpSpacerComposable
 import com.atriidev.warp_runtime.compose.internal.WarpTextComposable
+import com.atriidev.warp_runtime.nodes.WarpIntentFlags
+import com.atriidev.warp_runtime.nodes.WarpUrl
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.modifiers.WarpColor
 import com.atriidev.warp_runtime.nodes.modifiers.WarpModifier
@@ -280,6 +283,36 @@ fun WarpBox(
         content = content,
     )
 }
+
+/**
+ * Clickable container that opens a deeplink when tapped.
+ *
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpLinkNode] in the output tree.
+ *
+ * @param deeplink The URL or deeplink URI to open on click.
+ * @param modifier Layout styling.
+ * @param androidIntentFlags List of [WarpIntentFlags] applied when launching the intent on Android.
+ * @param content Nested composables placed inside this link container.
+ */
+@Composable
+fun WarpLink(
+    deeplink: WarpUrl,
+    modifier: WarpModifier = WarpModifier(),
+    androidIntentFlags: List<WarpIntentFlags> = listOf(
+        WarpIntentFlags.NEW_TASK,
+        WarpIntentFlags.CLEAR_TOP,
+        WarpIntentFlags.SINGLE_TOP
+    ),
+    content: @Composable () -> Unit,
+) {
+    WarpLinkComposable(
+        deeplink = deeplink,
+        androidIntentFlags = androidIntentFlags,
+        modifier = modifier,
+        content = content,
+    )
+}
+
 
 /**
  * Empty space — Glance `Spacer`-shaped API.

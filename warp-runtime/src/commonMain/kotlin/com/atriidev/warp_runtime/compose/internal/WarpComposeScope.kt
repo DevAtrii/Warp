@@ -14,6 +14,8 @@ import androidx.compose.runtime.compositionLocalOf
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.modifiers.WarpColor
 import com.atriidev.warp_runtime.nodes.modifiers.WarpModifier
+import com.atriidev.warp_runtime.nodes.WarpIntentFlags
+import com.atriidev.warp_runtime.nodes.WarpUrl
 import com.atriidev.warp_runtime.nodes.actions.WarpAction
 import com.atriidev.warp_runtime.nodes.style.WarpButtonColors
 import com.atriidev.warp_runtime.nodes.style.WarpContentAlignment
@@ -239,6 +241,23 @@ internal fun WarpBoxComposable(
         WarpBoxHolder(
             modifier = modifier,
             contentAlignment = contentAlignment,
+        ),
+        content,
+    )
+}
+
+@Composable
+internal fun WarpLinkComposable(
+    deeplink: WarpUrl,
+    androidIntentFlags: List<WarpIntentFlags>,
+    modifier: WarpModifier,
+    content: @Composable () -> Unit,
+) {
+    WarpContainer(
+        WarpLinkHolder(
+            deeplink = deeplink,
+            androidIntentFlags = androidIntentFlags,
+            modifier = modifier,
         ),
         content,
     )

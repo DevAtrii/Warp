@@ -186,6 +186,15 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
     * `.asId()` / `WarpAsset.Id`: Resolves to app-bundled assets (iOS Asset Catalog / Android drawable registry).
     * `WarpAssets.Android.Uri("file://...")`: Resolves local file or content URIs (remote `http/https` URLs are not supported due to OS widget resource limits).
 
+!!! note "Opening Deeplinks with `WarpLink`"
+    To navigate or open custom deep links when tapping part of your widget, wrap child composables inside `WarpLink`:
+    ```kotlin
+    WarpLink(deeplink = WarpUrl("myapp://home?source=widget")) {
+        WarpText(text = "Open App")
+    }
+    ```
+    On **iOS**, `WarpLink` maps to native SwiftUI `Link`. On **Android**, `WarpLink` opens an `ACTION_VIEW` intent with configurable launch flags (`androidIntentFlags`).
+
 ---
 
 

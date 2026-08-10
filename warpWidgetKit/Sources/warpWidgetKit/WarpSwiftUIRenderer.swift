@@ -153,6 +153,23 @@ private struct WarpNodeView: View {
                 }
             }
 
+        case .link:
+            if let deeplinkStr = node.deeplink, let url = URL(string: deeplinkStr) {
+                Link(destination: url) {
+                    ZStack(alignment: node.contentAlignment) {
+                        ForEach(Array(node.children.enumerated()), id: \.offset) { _, child in
+                            WarpNodeView(node: child, useIntents: useIntents, widgetId: widgetId, warpWidgetId: warpWidgetId)
+                        }
+                    }
+                }
+            } else {
+                ZStack(alignment: node.contentAlignment) {
+                    ForEach(Array(node.children.enumerated()), id: \.offset) { _, child in
+                        WarpNodeView(node: child, useIntents: useIntents, widgetId: widgetId, warpWidgetId: warpWidgetId)
+                    }
+                }
+            }
+
         case .text:
             Text(node.text ?? "")
                 .modifier(WarpTextArgsModifier(args: node.textArgs))
@@ -490,6 +507,7 @@ enum WarpNodeKind {
     case row
     case lazyRow
     case box
+    case link
     case text
     case button
     case spacer
@@ -597,6 +615,7 @@ enum WarpParsedVerticalAlignment {
 struct WarpParsedNode {
     let kind: WarpNodeKind
     let text: String?
+    let deeplink: String?
     /// Node-level `onClick` (button).
     let nodeActionId: String?
     let nodeParametersJson: String
@@ -634,7 +653,7 @@ struct WarpParsedNode {
 
     var resolvedHorizontalAlignment: Alignment {
         switch kind {
-        case .box:
+        case .box, .link:
             return contentAlignment
         case .column, .lazyColumn, .row, .lazyRow:
             return horizontalAlignment.frameAlignment
@@ -648,7 +667,7 @@ struct WarpParsedNode {
 
     var resolvedVerticalAlignment: Alignment {
         switch kind {
-        case .box:
+        case .box, .link:
             return contentAlignment
         case .column, .lazyColumn, .row, .lazyRow:
             return verticalAlignment.frameAlignment
@@ -659,7 +678,7 @@ struct WarpParsedNode {
 
     var resolvedContentAlignment: Alignment {
         switch kind {
-        case .box:
+        case .box, .link:
             return contentAlignment
         case .column, .lazyColumn, .row, .lazyRow:
             return Alignment(
@@ -677,6 +696,7 @@ struct WarpParsedNode {
     static func leafDefaults(
         kind: WarpNodeKind,
         text: String? = nil,
+        deeplink: String? = nil,
         nodeActionId: String? = nil,
         nodeParametersJson: String = "{}",
         modifierActionId: String? = nil,
@@ -698,6 +718,7 @@ struct WarpParsedNode {
         WarpParsedNode(
             kind: kind,
             text: text,
+            deeplink: deeplink,
             nodeActionId: nodeActionId,
             nodeParametersJson: nodeParametersJson,
             modifierActionId: modifierActionId,
@@ -760,6 +781,7 @@ enum WarpNodeParser {
             return WarpParsedNode(
                 kind: .column,
                 text: nil,
+                deeplink: nil,
                 nodeActionId: nil,
                 nodeParametersJson: "{}",
                 modifierActionId: modActionId,
@@ -784,6 +806,7 @@ enum WarpNodeParser {
             return WarpParsedNode(
                 kind: .lazyColumn,
                 text: nil,
+                deeplink: nil,
                 nodeActionId: nil,
                 nodeParametersJson: "{}",
                 modifierActionId: modActionId,
@@ -808,6 +831,7 @@ enum WarpNodeParser {
             return WarpParsedNode(
                 kind: .row,
                 text: nil,
+                deeplink: nil,
                 nodeActionId: nil,
                 nodeParametersJson: "{}",
                 modifierActionId: modActionId,
@@ -832,6 +856,7 @@ enum WarpNodeParser {
             return WarpParsedNode(
                 kind: .lazyRow,
                 text: nil,
+                deeplink: nil,
                 nodeActionId: nil,
                 nodeParametersJson: "{}",
                 modifierActionId: modActionId,
@@ -859,6 +884,20 @@ enum WarpNodeParser {
                 modifierParametersJson: modParams,
                 style: style,
                 contentAlignment: parseContentAlignment(object["contentAlignment"] as? String),
+                children: children
+            )
+        case "link":
+            let deeplinkStr: String? = {
+                if let str = object["deeplink"] as? String { return str }
+                if let dict = object["deeplink"] as? [String: Any], let str = dict["value"] as? String { return str }
+                return nil
+            }()
+            return WarpParsedNode.leafDefaults(
+                kind: .link,
+                deeplink: deeplinkStr,
+                modifierActionId: modActionId,
+                modifierParametersJson: modParams,
+                style: style,
                 children: children
             )
         case "text":

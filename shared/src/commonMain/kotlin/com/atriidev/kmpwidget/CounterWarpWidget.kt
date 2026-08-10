@@ -9,12 +9,15 @@ import com.atriidev.warp_runtime.compose.WarpColumn
 import com.atriidev.warp_runtime.compose.WarpDivider
 import com.atriidev.warp_runtime.compose.WarpImage
 import com.atriidev.warp_runtime.compose.WarpLazyRow
+import com.atriidev.warp_runtime.compose.WarpLink
 import com.atriidev.warp_runtime.compose.WarpProgressIndicator
 import com.atriidev.warp_runtime.compose.WarpRow
 import com.atriidev.warp_runtime.compose.WarpSpacer
 import com.atriidev.warp_runtime.compose.WarpText
 import com.atriidev.warp_runtime.log.WarpLogger
 import com.atriidev.warp_runtime.log.WarpLoggerLevel
+import com.atriidev.warp_runtime.nodes.WarpIntentFlags
+import com.atriidev.warp_runtime.nodes.WarpUrl
 import com.atriidev.warp_runtime.nodes.actions.asClickAction
 import com.atriidev.warp_runtime.nodes.assets.WarpAssetId
 import com.atriidev.warp_runtime.nodes.modifiers.WarpColor
@@ -120,6 +123,7 @@ object CounterAssets {
     val Checklist = WarpAssetId("checklist")
     val Circle = WarpAssetId("circle")
     val CheckCircle = WarpAssetId("checkmark.circle.fill")
+    val Link = WarpAssetId("link")
 }
 
 /**
@@ -290,7 +294,7 @@ private fun ModeSwitcher(
             action = CounterActions.SwitchMode(WidgetMode.Counter),
             compact = compact,
         )
-        WarpSpacer(modifier = WarpModifier.width(if (compact) 6 else 8))
+        WarpSpacer(modifier = WarpModifier.width(if (compact) 4 else 6))
         ModeChip(
             label = "Todo",
             asset = CounterAssets.Checklist,
@@ -298,8 +302,48 @@ private fun ModeSwitcher(
             action = CounterActions.SwitchMode(WidgetMode.Todo),
             compact = compact,
         )
+        WarpSpacer(modifier = WarpModifier.width(if (compact) 4 else 6))
+        WarpLinkChip(compact = compact)
         WarpSpacer(modifier = WarpModifier.weight())
         AdaptiveSizeLabel(env = env, compact = compact)
+    }
+}
+
+@Composable
+private fun WarpLinkChip(compact: Boolean = false) {
+    val colors = WarpTheme.colors
+    val chipPaddingH = if (compact) 6.dp else 8.dp
+    val chipPaddingV = if (compact) 4.dp else 6.dp
+    val iconSize = if (compact) 12.dp else 14.dp
+    val fontSize = if (compact) 11.sp else 12.sp
+    val deeplinkUrl = "kmp-widget://open?source=counter_widget&item=warp_link_test"
+    WarpLink(
+        deeplink = WarpUrl(value = deeplinkUrl),
+    ) {
+        WarpRow(
+            modifier = WarpModifier
+                .background(colors.surfaceVariant)
+                .cornerRadius(20.dp)
+                .padding(horizontal = chipPaddingH, vertical = chipPaddingV),
+            verticalAlignment = WarpVerticalAlignment.Center,
+        ) {
+            WarpImage(
+                asset = CounterAssets.Link.asSystem(),
+                contentDescription = "WarpLink",
+                modifier = WarpModifier.size(iconSize),
+                tint = colors.primary,
+            )
+            WarpSpacer(modifier = WarpModifier.width(4.dp))
+            WarpText(
+                text = "Link",
+                style = WarpTextStyle(
+                    color = colors.primary,
+                    fontSize = fontSize,
+                    fontWeight = WarpFontWeight.Medium,
+                ),
+                maxLines = 1,
+            )
+        }
     }
 }
 
