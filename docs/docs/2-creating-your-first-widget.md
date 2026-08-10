@@ -387,13 +387,21 @@ suspend fun readCounterWidgetState(context: PlatformContext): CounterState {
 }
 ```
 
-!!! note "Obtaining `PlatformContext` in Compose UI & Multiplatform Code"
-    * In Compose UI multiplatform screens or composables, you can easily obtain `PlatformContext` using `rememberPlatformContext`:
+!!! note "Obtaining `PlatformContext` across Platforms"
+    * **Compose UI (`commonMain`)**: In Compose UI screens or composables, obtain `PlatformContext` using `rememberPlatformContext`:
       ```kotlin
       val platformContext = rememberPlatformContext(widget = CounterWarpWidget)
       ```
-    * **Android**: `PlatformContext` resolves to your Android `android.content.Context` (or application context).
-    * **iOS**: `PlatformContext` resolves to iOS `PlatformContext()` (providing access to App Group `UserDefaults`).
+    * **Android (`androidMain`)**: `PlatformContext` resolves to your Android `android.content.Context` (or application context).
+    * **iOS (`iosMain` or Swift)**: Obtain `PlatformContext` using `getPlatformContext` passing your WARP widget instance:
+      ```kotlin
+      // Inside iosMain (Kotlin):
+      val platformContext = getPlatformContext(widget = CounterWarpWidget)
+      ```
+      ```swift
+      // Inside Swift code:
+      let platformContext = getPlatformContext(widget: CounterWarpWidget.shared)
+      ```
 
 ---
 

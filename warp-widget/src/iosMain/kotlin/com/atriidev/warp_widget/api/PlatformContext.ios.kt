@@ -28,3 +28,15 @@ actual fun <T : Any> rememberPlatformContext(widget: WarpWidget<T>): PlatformCon
         widget.platformContext()
     }
 }
+
+
+fun getPlatformContext(widget: WarpWidgetHostApi): PlatformContext {
+    return widget.platformContext()
+}
+
+
+
+
+
+
+
