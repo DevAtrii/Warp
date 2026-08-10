@@ -18,7 +18,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("divider")
-data class WarpDivider(
+data class WarpDividerNode(
     val modifier: WarpModifier = WarpModifier(),
     val thickness: Dp = 1.dp,
     val color: WarpColor? = null,

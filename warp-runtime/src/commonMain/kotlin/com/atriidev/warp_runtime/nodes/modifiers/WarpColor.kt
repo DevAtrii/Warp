@@ -28,6 +28,25 @@ data class WarpColor(val hex: String) {
         return value.toInt()
     }
 
+    /**
+     * Returns this color with specified alpha.
+     *
+     * Alpha is clamped to `0f..1f`.
+     */
+    fun alpha(alpha: Float): WarpColor {
+        require(alpha in 0f..1f) {
+            "Alpha must be between 0f and 1f, got $alpha"
+        }
+
+        val argb = toArgbInt()
+        val alphaInt = (alpha * 255f).toInt()
+
+        return WarpColor(
+            (alphaInt.toLong() shl 24) or
+                    (argb.toLong() and 0x00FFFFFF)
+        )
+    }
+
 
     companion object {
         // Basic
@@ -85,5 +104,18 @@ data class WarpColor(val hex: String) {
         val Green800 = WarpColor(0xFF166534)
         val Green900 = WarpColor(0xFF14532D)
         val Green950 = WarpColor(0xFF052E16)
+
+        // Tailwind Gray
+        val Gray50 = WarpColor(0xFFF9FAFB)
+        val Gray100 = WarpColor(0xFFF3F4F6)
+        val Gray200 = WarpColor(0xFFE5E7EB)
+        val Gray300 = WarpColor(0xFFD1D5DB)
+        val Gray400 = WarpColor(0xFF9CA3AF)
+        val Gray500 = WarpColor(0xFF6B7280)
+        val Gray600 = WarpColor(0xFF4B5563)
+        val Gray700 = WarpColor(0xFF374151)
+        val Gray800 = WarpColor(0xFF1F2937)
+        val Gray900 = WarpColor(0xFF111827)
+        val Gray950 = WarpColor(0xFF030712)
     }
 }

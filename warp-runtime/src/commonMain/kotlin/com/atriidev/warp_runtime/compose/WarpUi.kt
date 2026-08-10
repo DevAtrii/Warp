@@ -9,7 +9,6 @@ package com.atriidev.warp_runtime.compose
 
 import androidx.compose.runtime.Composable
 import com.atriidev.warp_runtime.WarpExperimentalApi
-import com.atriidev.warp_runtime.nodes.actions.ClickAction
 import com.atriidev.warp_runtime.nodes.actions.WarpAction
 import com.atriidev.warp_runtime.nodes.actions.WarpActionId
 import com.atriidev.warp_runtime.nodes.actions.actionClick
@@ -41,7 +40,7 @@ import com.atriidev.warp_runtime.unit.dp
 /**
  * Arranges child nodes vertically — Glance `Column`-shaped API.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpColumn] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpColumnNode] in the output tree.
  *
  * @param modifier Layout styling.
  * @param verticalAlignment Pack children when shorter than the column.
@@ -70,7 +69,7 @@ fun WarpColumn(
  * - **iOS (WidgetKit):** Renders as a `LazyVStack` (just like [WarpColumn]).
  * - **Android (Glance App Widgets):** Renders as a scrollable Glance `LazyColumn`.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpLazyColumn] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpLazyColumnNode] in the output tree.
  *
  * @param modifier Layout styling.
  * @param verticalAlignment Pack children when shorter than the column.
@@ -96,7 +95,7 @@ fun WarpLazyColumn(
 /**
  * Arranges child nodes horizontally — Glance `Row`-shaped API.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpRow] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpRowNode] in the output tree.
  *
  * @param modifier Layout styling.
  * @param horizontalAlignment Pack children when narrower than the row.
@@ -125,7 +124,7 @@ fun WarpRow(
  * - **iOS (WidgetKit):** Renders as a `LazyHStack` (just like [WarpRow]).
  * - **Android (Glance App Widgets):** Renders as a horizontal container (just like [WarpRow]).
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpLazyRow] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpLazyRowNode] in the output tree.
  *
  * @param modifier Layout styling.
  * @param horizontalAlignment Pack children when narrower than the row.
@@ -151,7 +150,7 @@ fun WarpLazyRow(
 /**
  * Displays read-only text — Glance `Text`-shaped API.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpText] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpTextNode] in the output tree.
  *
  * @param text The string shown in the widget.
  * @param modifier Layout styling (padding, weight, …).
@@ -176,7 +175,7 @@ fun WarpText(
 /**
  * Displays a clickable button — text label or custom child composables.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpButton] in the output tree.
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpButtonNode] in the output tree.
  *
  * [onClick] is stored in JSON as a [WarpAction]. When [modifier] includes
  * [com.atriidev.warp_runtime.nodes.modifiers.WarpModifier.clickable], that wins.
@@ -267,7 +266,7 @@ fun WarpButton(
 /**
  * Stacks children — Glance `Box`-shaped API.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpBox].
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpBoxNode].
  */
 @Composable
 fun WarpBox(
@@ -287,7 +286,7 @@ fun WarpBox(
  *
  * Size via [modifier] (`width` / `height` / `size` / `weight`).
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpSpacer].
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpSpacerNode].
  */
 @Composable
 fun WarpSpacer(
@@ -299,7 +298,7 @@ fun WarpSpacer(
 /**
  * Horizontal separator (Material `Divider`-shaped).
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpDivider].
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpDividerNode].
  */
 @Composable
 fun WarpDivider(
@@ -317,7 +316,7 @@ fun WarpDivider(
 /**
  * Progress indicator — Glance circular / linear API.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpProgressIndicator].
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpProgressIndicatorNode].
  *
  * @param progress `0f..1f` determinate; `null` indeterminate.
  */
@@ -343,7 +342,7 @@ fun WarpProgressIndicator(
  *
  * [asset] is a logical ref. Use [WarpAsset.System] for SF Symbols on iOS.
  *
- * Maps to [com.atriidev.warp_runtime.nodes.WarpImage].
+ * Maps to [com.atriidev.warp_runtime.nodes.WarpImageNode].
  */
 @Composable
 fun WarpImage(

@@ -4,7 +4,7 @@ import com.atriidev.warp_runtime.compose.WarpButton
 import com.atriidev.warp_runtime.compose.composeWarpToJson
 import com.atriidev.warp_runtime.compose.toJson
 import com.atriidev.warp_runtime.example.counter.CounterActions
-import com.atriidev.warp_runtime.nodes.WarpButton as WarpButtonNode
+import com.atriidev.warp_runtime.nodes.WarpButtonNode as WarpButtonNode
 import kotlinx.serialization.Serializable
 import kotlin.test.Test
 import kotlin.test.assertEquals

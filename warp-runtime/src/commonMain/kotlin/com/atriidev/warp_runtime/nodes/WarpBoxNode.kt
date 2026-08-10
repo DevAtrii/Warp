@@ -16,7 +16,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("box")
-data class WarpBox(
+data class WarpBoxNode(
     val modifier: WarpModifier = WarpModifier(),
     val contentAlignment: WarpContentAlignment = WarpContentAlignment.TopStart,
     val children: List<WarpNode> = emptyList(),

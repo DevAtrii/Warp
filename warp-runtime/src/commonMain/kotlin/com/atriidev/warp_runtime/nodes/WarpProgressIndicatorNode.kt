@@ -20,7 +20,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("progress_indicator")
-data class WarpProgressIndicator(
+data class WarpProgressIndicatorNode(
     val modifier: WarpModifier = WarpModifier(),
     val style: WarpProgressIndicatorStyle = WarpProgressIndicatorStyle.Circular,
     val progress: Float? = null,

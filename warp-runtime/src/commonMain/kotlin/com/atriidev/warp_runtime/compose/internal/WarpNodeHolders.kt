@@ -6,17 +6,17 @@
  */
 package com.atriidev.warp_runtime.compose.internal
 
-import com.atriidev.warp_runtime.nodes.WarpBox
-import com.atriidev.warp_runtime.nodes.WarpButton
+import com.atriidev.warp_runtime.nodes.WarpBoxNode
+import com.atriidev.warp_runtime.nodes.WarpButtonNode
 import com.atriidev.warp_runtime.nodes.actions.WarpAction
-import com.atriidev.warp_runtime.nodes.WarpColumn
-import com.atriidev.warp_runtime.nodes.WarpDivider
-import com.atriidev.warp_runtime.nodes.WarpImage
+import com.atriidev.warp_runtime.nodes.WarpColumnNode
+import com.atriidev.warp_runtime.nodes.WarpDividerNode
+import com.atriidev.warp_runtime.nodes.WarpImageNode
 import com.atriidev.warp_runtime.nodes.WarpNode
-import com.atriidev.warp_runtime.nodes.WarpProgressIndicator
-import com.atriidev.warp_runtime.nodes.WarpRow
-import com.atriidev.warp_runtime.nodes.WarpSpacer
-import com.atriidev.warp_runtime.nodes.WarpText
+import com.atriidev.warp_runtime.nodes.WarpProgressIndicatorNode
+import com.atriidev.warp_runtime.nodes.WarpRowNode
+import com.atriidev.warp_runtime.nodes.WarpSpacerNode
+import com.atriidev.warp_runtime.nodes.WarpTextNode
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.modifiers.WarpColor
 import com.atriidev.warp_runtime.nodes.modifiers.WarpModifier
@@ -59,7 +59,7 @@ internal class RootHolder(
 ) : WarpContainerHolder
 
 /**
- * Mutable holder for a [WarpColumn] while composables run.
+ * Mutable holder for a [WarpColumnNode] while composables run.
  */
 internal class WarpColumnHolder(
     var modifier: WarpModifier = WarpModifier(),
@@ -67,7 +67,7 @@ internal class WarpColumnHolder(
     var horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpColumn(
+    override fun toWarpNode(): WarpNode = WarpColumnNode(
         modifier = modifier,
         verticalAlignment = verticalAlignment,
         horizontalAlignment = horizontalAlignment,
@@ -76,7 +76,7 @@ internal class WarpColumnHolder(
 }
 
 /**
- * Mutable holder for a [WarpRow] while composables run.
+ * Mutable holder for a [WarpRowNode] while composables run.
  */
 internal class WarpRowHolder(
     var modifier: WarpModifier = WarpModifier(),
@@ -84,7 +84,7 @@ internal class WarpRowHolder(
     var verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpRow(
+    override fun toWarpNode(): WarpNode = WarpRowNode(
         modifier = modifier,
         horizontalAlignment = horizontalAlignment,
         verticalAlignment = verticalAlignment,
@@ -101,7 +101,7 @@ internal class WarpLazyColumnHolder(
     var horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = com.atriidev.warp_runtime.nodes.WarpLazyColumn(
+    override fun toWarpNode(): WarpNode = com.atriidev.warp_runtime.nodes.WarpLazyColumnNode(
         modifier = modifier,
         verticalAlignment = verticalAlignment,
         horizontalAlignment = horizontalAlignment,
@@ -118,7 +118,7 @@ internal class WarpLazyRowHolder(
     var verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = com.atriidev.warp_runtime.nodes.WarpLazyRow(
+    override fun toWarpNode(): WarpNode = com.atriidev.warp_runtime.nodes.WarpLazyRowNode(
         modifier = modifier,
         horizontalAlignment = horizontalAlignment,
         verticalAlignment = verticalAlignment,
@@ -127,7 +127,7 @@ internal class WarpLazyRowHolder(
 }
 
 /**
- * Mutable holder for a [WarpText] leaf node.
+ * Mutable holder for a [WarpTextNode] leaf node.
  */
 internal class WarpTextHolder(
     var text: String,
@@ -135,7 +135,7 @@ internal class WarpTextHolder(
     var style: WarpTextStyle? = null,
     var maxLines: Int = Int.MAX_VALUE,
 ) : WarpNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpText(
+    override fun toWarpNode(): WarpNode = WarpTextNode(
         text = text,
         modifier = modifier,
         style = style,
@@ -144,7 +144,7 @@ internal class WarpTextHolder(
 }
 
 /**
- * Mutable holder for a [WarpButton] node.
+ * Mutable holder for a [WarpButtonNode] node.
  */
 internal class WarpButtonHolder(
     var text: String? = null,
@@ -156,7 +156,7 @@ internal class WarpButtonHolder(
     var maxLines: Int = Int.MAX_VALUE,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpButton(
+    override fun toWarpNode(): WarpNode = WarpButtonNode(
         text = text,
         onClick = onClick,
         modifier = modifier,
@@ -173,7 +173,7 @@ internal class WarpBoxHolder(
     var contentAlignment: WarpContentAlignment = WarpContentAlignment.TopStart,
     override val children: MutableList<Any> = mutableListOf(),
 ) : WarpContainerNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpBox(
+    override fun toWarpNode(): WarpNode = WarpBoxNode(
         modifier = modifier,
         contentAlignment = contentAlignment,
         children = children.map { (it as WarpNodeHolder).toWarpNode() },
@@ -183,7 +183,7 @@ internal class WarpBoxHolder(
 internal class WarpSpacerHolder(
     var modifier: WarpModifier = WarpModifier(),
 ) : WarpNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpSpacer(modifier = modifier)
+    override fun toWarpNode(): WarpNode = WarpSpacerNode(modifier = modifier)
 }
 
 internal class WarpDividerHolder(
@@ -191,7 +191,7 @@ internal class WarpDividerHolder(
     var thickness: Dp = 1.dp,
     var color: WarpColor? = null,
 ) : WarpNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpDivider(
+    override fun toWarpNode(): WarpNode = WarpDividerNode(
         modifier = modifier,
         thickness = thickness,
         color = color,
@@ -205,7 +205,7 @@ internal class WarpProgressIndicatorHolder(
     var color: WarpColor? = null,
     var backgroundColor: WarpColor? = null,
 ) : WarpNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpProgressIndicator(
+    override fun toWarpNode(): WarpNode = WarpProgressIndicatorNode(
         modifier = modifier,
         style = style,
         progress = progress,
@@ -221,7 +221,7 @@ internal class WarpImageHolder(
     var contentScale: WarpContentScale = WarpContentScale.Fit,
     var tint: WarpColor? = null,
 ) : WarpNodeHolder {
-    override fun toWarpNode(): WarpNode = WarpImage(
+    override fun toWarpNode(): WarpNode = WarpImageNode(
         asset = asset,
         contentDescription = contentDescription,
         modifier = modifier,
@@ -233,12 +233,12 @@ internal class WarpImageHolder(
 /**
  * Converts the [RootHolder] into the final public [WarpNode] returned by [composeWarp][com.atriidev.warp_runtime.compose.composeWarp].
  *
- * - 0 children → empty [WarpColumn]
+ * - 0 children → empty [WarpColumnNode]
  * - 1 child → that child directly (no extra wrapper)
- * - 2+ children → wrapped in a [WarpColumn]
+ * - 2+ children → wrapped in a [WarpColumnNode]
  */
 internal fun RootHolder.toWarpNode(): WarpNode = when (children.size) {
-    0 -> WarpColumn()
+    0 -> WarpColumnNode()
     1 -> (children.first() as WarpNodeHolder).toWarpNode()
-    else -> WarpColumn(children = children.map { (it as WarpNodeHolder).toWarpNode() })
+    else -> WarpColumnNode(children = children.map { (it as WarpNodeHolder).toWarpNode() })
 }

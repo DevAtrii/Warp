@@ -1,10 +1,10 @@
 package com.atriidev.warp_runtime.compose
 
 import com.atriidev.warp_runtime.WarpExperimentalApi
-import com.atriidev.warp_runtime.nodes.WarpText as WarpTextNode
-import com.atriidev.warp_runtime.nodes.WarpColumn as WarpColumnNode
-import com.atriidev.warp_runtime.nodes.WarpButton as WarpButtonNode
-import com.atriidev.warp_runtime.nodes.WarpRow as WarpRowNode
+import com.atriidev.warp_runtime.nodes.WarpTextNode as WarpTextNode
+import com.atriidev.warp_runtime.nodes.WarpColumnNode as WarpColumnNode
+import com.atriidev.warp_runtime.nodes.WarpButtonNode as WarpButtonNode
+import com.atriidev.warp_runtime.nodes.WarpRowNode as WarpRowNode
 import com.atriidev.warp_runtime.nodes.actions.ClickAction
 import com.atriidev.warp_runtime.nodes.actions.clickActionIdOrNull
 import com.atriidev.warp_runtime.example.counter.CounterState
@@ -129,9 +129,9 @@ class ComposeWarpTest {
             }
         }
 
-        val lazyColumn = assertIs<com.atriidev.warp_runtime.nodes.WarpLazyColumn>(tree)
+        val lazyColumn = assertIs<com.atriidev.warp_runtime.nodes.WarpLazyColumnNode>(tree)
         assertEquals(1, lazyColumn.children.size)
-        val lazyRow = assertIs<com.atriidev.warp_runtime.nodes.WarpLazyRow>(lazyColumn.children[0])
+        val lazyRow = assertIs<com.atriidev.warp_runtime.nodes.WarpLazyRowNode>(lazyColumn.children[0])
         assertEquals(2, lazyRow.children.size)
 
         val json = composeWarpToJson {

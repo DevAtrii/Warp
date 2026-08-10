@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * 2D content alignment — Glance `Alignment` for [com.atriidev.warp_runtime.nodes.WarpBox].
+ * 2D content alignment — Glance `Alignment` for [com.atriidev.warp_runtime.nodes.WarpBoxNode].
  *
  * Default: [TopStart].
  */

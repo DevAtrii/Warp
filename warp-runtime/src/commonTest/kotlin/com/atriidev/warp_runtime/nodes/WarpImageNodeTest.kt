@@ -20,7 +20,7 @@ private object TestAssets {
     val Plus = WarpAssetId("plus.circle.fill")
 }
 
-class WarpImageTest {
+class WarpImageNodeTest {
 
     @Test
     fun systemAsset_serializesForSfSymbols() {
@@ -44,7 +44,7 @@ class WarpImageTest {
         val tree = composeWarp {
             WarpImage(asset = TestAssets.Sun.asId())
         }
-        val image = assertIs<WarpImage>(tree)
+        val image = assertIs<WarpImageNode>(tree)
         assertEquals(WarpAsset.Id(TestAssets.Sun), image.asset)
 
         val uriTree = composeWarp {
@@ -52,13 +52,13 @@ class WarpImageTest {
         }
         assertEquals(
             WarpAssets.Android.Uri("file:///tmp/avatar.png"),
-            assertIs<WarpImage>(uriTree).asset,
+            assertIs<WarpImageNode>(uriTree).asset,
         )
     }
 
     @Test
     fun warpImageNode_toJson_includesContentScale() {
-        val json = com.atriidev.warp_runtime.nodes.WarpImage(
+        val json = com.atriidev.warp_runtime.nodes.WarpImageNode(
             asset = TestAssets.Plus.asSystem(),
             contentScale = WarpContentScale.Crop,
         ).toJson()

@@ -7,18 +7,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * A horizontal layout container — Glance `Row`-shaped API.
+ * A horizontal scrollable/lazy layout container.
  *
- * JSON `"type"` value: `"row"`.
+ * On iOS WidgetKit, this renders as a `LazyHStack` (just like [WarpRowNode]). On Android Glance app widgets,
+ * this renders as a horizontal container.
  *
- * @property modifier Layout styling applied to this row.
+ * JSON `"type"` value: `"lazy_row"`.
+ *
+ * @property modifier Layout styling applied to this lazy row.
  * @property horizontalAlignment Pack children when narrower than the row (default [WarpHorizontalAlignment.Start]).
  * @property verticalAlignment Align children across the height (default [WarpVerticalAlignment.Top]).
- * @property children Nested [WarpNode] instances inside this row.
+ * @property children Nested [WarpNode] instances inside this lazy row.
  */
 @Serializable
-@SerialName("row")
-data class WarpRow(
+@SerialName("lazy_row")
+data class WarpLazyRowNode(
     val modifier: WarpModifier = WarpModifier(),
     val horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
     val verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,

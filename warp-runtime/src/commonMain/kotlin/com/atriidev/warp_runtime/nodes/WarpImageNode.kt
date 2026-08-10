@@ -23,7 +23,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("image")
-data class WarpImage(
+data class WarpImageNode(
     val asset: WarpAsset,
     val contentDescription: String? = null,
     val modifier: WarpModifier = WarpModifier(),

@@ -32,7 +32,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("button")
-data class WarpButton(
+data class WarpButtonNode(
     val text: String? = null,
     val onClick: WarpAction,
     val modifier: WarpModifier = WarpModifier(),

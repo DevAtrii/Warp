@@ -13,6 +13,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("spacer")
-data class WarpSpacer(
+data class WarpSpacerNode(
     val modifier: WarpModifier = WarpModifier(),
 ) : WarpNode

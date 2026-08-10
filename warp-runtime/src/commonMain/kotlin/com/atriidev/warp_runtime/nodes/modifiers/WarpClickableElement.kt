@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 /**
  * Makes any node tappable. JSON `"type": "clickable"`.
  *
- * When both this and a node `onClick` (e.g. [com.atriidev.warp_runtime.nodes.WarpButton])
+ * When both this and a node `onClick` (e.g. [com.atriidev.warp_runtime.nodes.WarpButtonNode])
  * are present, renderers use **this modifier first**.
  */
 @Serializable

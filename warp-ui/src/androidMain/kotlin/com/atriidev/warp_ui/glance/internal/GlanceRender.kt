@@ -28,18 +28,18 @@ import androidx.glance.text.Text
 import androidx.glance.unit.ColorProvider
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
-import com.atriidev.warp_runtime.nodes.WarpBox
-import com.atriidev.warp_runtime.nodes.WarpButton
-import com.atriidev.warp_runtime.nodes.WarpColumn
-import com.atriidev.warp_runtime.nodes.WarpDivider
-import com.atriidev.warp_runtime.nodes.WarpImage
-import com.atriidev.warp_runtime.nodes.WarpLazyColumn
-import com.atriidev.warp_runtime.nodes.WarpLazyRow
+import com.atriidev.warp_runtime.nodes.WarpBoxNode
+import com.atriidev.warp_runtime.nodes.WarpButtonNode
+import com.atriidev.warp_runtime.nodes.WarpColumnNode
+import com.atriidev.warp_runtime.nodes.WarpDividerNode
+import com.atriidev.warp_runtime.nodes.WarpImageNode
+import com.atriidev.warp_runtime.nodes.WarpLazyColumnNode
+import com.atriidev.warp_runtime.nodes.WarpLazyRowNode
 import com.atriidev.warp_runtime.nodes.WarpNode
-import com.atriidev.warp_runtime.nodes.WarpProgressIndicator
-import com.atriidev.warp_runtime.nodes.WarpRow
-import com.atriidev.warp_runtime.nodes.WarpSpacer
-import com.atriidev.warp_runtime.nodes.WarpText
+import com.atriidev.warp_runtime.nodes.WarpProgressIndicatorNode
+import com.atriidev.warp_runtime.nodes.WarpRowNode
+import com.atriidev.warp_runtime.nodes.WarpSpacerNode
+import com.atriidev.warp_runtime.nodes.WarpTextNode
 import com.atriidev.warp_runtime.nodes.actions.ClickAction
 import com.atriidev.warp_runtime.nodes.style.WarpProgressIndicatorStyle
 import com.atriidev.warp_runtime.nodes.style.WarpTextAlign
@@ -55,12 +55,12 @@ internal fun RenderWarpNode(
     clickAction: (ClickAction) -> Action,
 ) {
     when (node) {
-        is WarpColumn -> RenderColumn(node, clickAction)
-        is WarpLazyColumn -> RenderLazyColumn(node, clickAction)
-        is WarpRow -> RenderRow(node, clickAction)
-        is WarpLazyRow -> RenderLazyRow(node, clickAction)
+        is WarpColumnNode -> RenderColumn(node, clickAction)
+        is WarpLazyColumnNode -> RenderLazyColumn(node, clickAction)
+        is WarpRowNode -> RenderRow(node, clickAction)
+        is WarpLazyRowNode -> RenderLazyRow(node, clickAction)
 
-        is WarpBox -> Box(
+        is WarpBoxNode -> Box(
             modifier = node.modifier.toGlanceModifier(clickAction),
             contentAlignment = node.contentAlignment.toGlance(),
         ) {
@@ -69,18 +69,18 @@ internal fun RenderWarpNode(
             }
         }
 
-        is WarpText -> RenderText(node, clickAction)
-        is WarpButton -> RenderButton(node, clickAction)
-        is WarpSpacer -> Spacer(modifier = node.modifier.toGlanceModifier(clickAction))
-        is WarpDivider -> RenderDivider(node, clickAction)
-        is WarpProgressIndicator -> RenderProgressIndicator(node, clickAction)
-        is WarpImage -> RenderImage(node, clickAction)
+        is WarpTextNode -> RenderText(node, clickAction)
+        is WarpButtonNode -> RenderButton(node, clickAction)
+        is WarpSpacerNode -> Spacer(modifier = node.modifier.toGlanceModifier(clickAction))
+        is WarpDividerNode -> RenderDivider(node, clickAction)
+        is WarpProgressIndicatorNode -> RenderProgressIndicator(node, clickAction)
+        is WarpImageNode -> RenderImage(node, clickAction)
     }
 }
 
 @Composable
 private fun RenderColumn(
-    node: WarpColumn,
+    node: WarpColumnNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -115,7 +115,7 @@ private fun RenderColumn(
 
 @Composable
 private fun RenderRow(
-    node: WarpRow,
+    node: WarpRowNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -149,7 +149,7 @@ private fun RenderRow(
 
 @Composable
 private fun RenderLazyColumn(
-    node: WarpLazyColumn,
+    node: WarpLazyColumnNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -167,7 +167,7 @@ private fun RenderLazyColumn(
 
 @Composable
 private fun RenderLazyRow(
-    node: WarpLazyRow,
+    node: WarpLazyRowNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -187,7 +187,7 @@ private fun RenderLazyRow(
 
 @Composable
 private fun RenderText(
-    node: WarpText,
+    node: WarpTextNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -211,7 +211,7 @@ private fun RenderText(
 
 @Composable
 private fun RenderButton(
-    node: WarpButton,
+    node: WarpButtonNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -252,7 +252,7 @@ private fun RenderButton(
 
 @Composable
 private fun RenderDivider(
-    node: WarpDivider,
+    node: WarpDividerNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -270,7 +270,7 @@ private fun RenderDivider(
 @SuppressLint("RestrictedApi")
 @Composable
 private fun RenderProgressIndicator(
-    node: WarpProgressIndicator,
+    node: WarpProgressIndicatorNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -307,7 +307,7 @@ private fun RenderProgressIndicator(
 
 @Composable
 private fun RenderImage(
-    node: WarpImage,
+    node: WarpImageNode,
     clickAction: (ClickAction) -> Action,
     extraModifier: GlanceModifier = GlanceModifier,
 ) {
@@ -332,7 +332,7 @@ private fun RowScope.RenderScopedChild(
     child: WarpNode,
     clickAction: (ClickAction) -> Action,
 ) {
-    if (child is WarpText && child.modifier.hasWeight()) {
+    if (child is WarpTextNode && child.modifier.hasWeight()) {
         RenderWeightedText(child, clickAction, GlanceModifier.defaultWeight())
         return
     }
@@ -350,7 +350,7 @@ private fun ColumnScope.RenderScopedChild(
     child: WarpNode,
     clickAction: (ClickAction) -> Action,
 ) {
-    if (child is WarpText && child.modifier.hasWeight()) {
+    if (child is WarpTextNode && child.modifier.hasWeight()) {
         RenderWeightedText(child, clickAction, GlanceModifier.defaultWeight())
         return
     }
@@ -365,7 +365,7 @@ private fun ColumnScope.RenderScopedChild(
 
 @Composable
 private fun RenderWeightedText(
-    node: WarpText,
+    node: WarpTextNode,
     clickAction: (ClickAction) -> Action,
     weightModifier: GlanceModifier,
 ) {
@@ -389,17 +389,17 @@ private fun WarpTextAlign.toBoxAlignment(): Alignment = when (this) {
 }
 
 private fun WarpNode.warpModifier() = when (this) {
-    is WarpColumn -> modifier
-    is WarpLazyColumn -> modifier
-    is WarpRow -> modifier
-    is WarpLazyRow -> modifier
-    is WarpBox -> modifier
-    is WarpText -> modifier
-    is WarpButton -> modifier
-    is WarpSpacer -> modifier
-    is WarpDivider -> modifier
-    is WarpProgressIndicator -> modifier
-    is WarpImage -> modifier
+    is WarpColumnNode -> modifier
+    is WarpLazyColumnNode -> modifier
+    is WarpRowNode -> modifier
+    is WarpLazyRowNode -> modifier
+    is WarpBoxNode -> modifier
+    is WarpTextNode -> modifier
+    is WarpButtonNode -> modifier
+    is WarpSpacerNode -> modifier
+    is WarpDividerNode -> modifier
+    is WarpProgressIndicatorNode -> modifier
+    is WarpImageNode -> modifier
 }
 
 @Composable
@@ -409,12 +409,12 @@ private fun RenderNodeWithExtra(
     extra: GlanceModifier,
 ) {
     when (node) {
-        is WarpColumn -> RenderColumn(node, clickAction, extra)
-        is WarpLazyColumn -> RenderLazyColumn(node, clickAction, extra)
-        is WarpRow -> RenderRow(node, clickAction, extra)
-        is WarpLazyRow -> RenderLazyRow(node, clickAction, extra)
+        is WarpColumnNode -> RenderColumn(node, clickAction, extra)
+        is WarpLazyColumnNode -> RenderLazyColumn(node, clickAction, extra)
+        is WarpRowNode -> RenderRow(node, clickAction, extra)
+        is WarpLazyRowNode -> RenderLazyRow(node, clickAction, extra)
 
-        is WarpBox -> Box(
+        is WarpBoxNode -> Box(
             modifier = node.modifier.toGlanceModifier(clickAction).then(extra),
             contentAlignment = node.contentAlignment.toGlance(),
         ) {
@@ -423,11 +423,11 @@ private fun RenderNodeWithExtra(
             }
         }
 
-        is WarpText -> RenderText(node, clickAction, extra)
-        is WarpButton -> RenderButton(node, clickAction, extra)
-        is WarpSpacer -> Spacer(modifier = node.modifier.toGlanceModifier(clickAction).then(extra))
-        is WarpDivider -> RenderDivider(node, clickAction, extra)
-        is WarpProgressIndicator -> RenderProgressIndicator(node, clickAction, extra)
-        is WarpImage -> RenderImage(node, clickAction, extra)
+        is WarpTextNode -> RenderText(node, clickAction, extra)
+        is WarpButtonNode -> RenderButton(node, clickAction, extra)
+        is WarpSpacerNode -> Spacer(modifier = node.modifier.toGlanceModifier(clickAction).then(extra))
+        is WarpDividerNode -> RenderDivider(node, clickAction, extra)
+        is WarpProgressIndicatorNode -> RenderProgressIndicator(node, clickAction, extra)
+        is WarpImageNode -> RenderImage(node, clickAction, extra)
     }
 }

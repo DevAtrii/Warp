@@ -7,21 +7,18 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * A vertical scrollable/lazy layout container.
+ * A vertical layout container — Glance `Column`-shaped API.
  *
- * On iOS WidgetKit, this renders as a `LazyVStack` (just like [WarpColumn]). On Android Glance app widgets,
- * this renders as a scrollable Glance `LazyColumn`.
+ * JSON `"type"` value: `"column"`.
  *
- * JSON `"type"` value: `"lazy_column"`.
- *
- * @property modifier Layout styling applied to this lazy column.
+ * @property modifier Layout styling applied to this column.
  * @property verticalAlignment Pack children when shorter than the column (default [WarpVerticalAlignment.Top]).
  * @property horizontalAlignment Align children across the width (default [WarpHorizontalAlignment.Start]).
- * @property children Nested [WarpNode] instances inside this lazy column.
+ * @property children Nested [WarpNode] instances inside this column.
  */
 @Serializable
-@SerialName("lazy_column")
-data class WarpLazyColumn(
+@SerialName("column")
+data class WarpColumnNode(
     val modifier: WarpModifier = WarpModifier(),
     val verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
     val horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,

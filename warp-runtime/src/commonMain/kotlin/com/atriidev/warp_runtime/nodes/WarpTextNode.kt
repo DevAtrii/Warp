@@ -17,7 +17,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 @SerialName("text")
-data class WarpText(
+data class WarpTextNode(
     val text: String,
     val modifier: WarpModifier = WarpModifier(),
     val style: WarpTextStyle? = null,

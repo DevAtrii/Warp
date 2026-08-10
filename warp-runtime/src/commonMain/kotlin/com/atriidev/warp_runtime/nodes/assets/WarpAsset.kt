@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Logical image reference for [com.atriidev.warp_runtime.nodes.WarpImage].
+ * Logical image reference for [com.atriidev.warp_runtime.nodes.WarpImageNode].
  *
  * Wire format is a small JSON ref — never raw pixels. Hosts resolve at paint time:
  *
