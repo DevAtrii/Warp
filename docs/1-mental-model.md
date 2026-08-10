@@ -1,139 +1,55 @@
-# Mental Model & Architecture
+---
+icon: lucide/brain
+---
 
-Understanding WARP requires understanding its core paradigm: **State → AST Tree → Native Platform Renderers**.
+# Mental Model - WARP
 
-WARP decouples your Kotlin widget code from native platform UI frameworks (Android Glance & iOS SwiftUI / WidgetKit) by producing a lightweight, serializable Abstract Syntax Tree (AST) called **`WarpNode`**.
-
+A common misconception among developers is assuming a widget operates just like a standalone application—expecting to initialize dependency injection modules, perform asynchronous network requests, or execute heavy background logic directly within the widget process. **That is not how widgets work.**
 
 ---
 
-## The Core Pipeline
+## What is a Widget?
 
-```
-┌────────────────────────────────────────────────────────┐
-│                   1. KMP Widget Code                   │
-│   Compose DSL -> Builds WarpNode AST Tree              │
-└───────────────────────────┬────────────────────────────┘
-                            │
-┌───────────────────────────▼────────────────────────────┐
-│                2. State & Action Engine                │
-│   @Serializable State <---> WarpWidgetStateStore       │
-└─────────────┬───────────────────────────┬──────────────┘
-              │                           │
-┌─────────────▼───────────────┐ ┌─────────▼──────────────┐
-│     3a. Android Glance      │ │     3b. iOS SwiftUI    │
-│  WarpNode -> Glance Composables│ │ WarpNode -> SwiftUIRenderer│
-│     -> RemoteViews          │ │     -> WidgetKit       │
-└─────────────────────────────┘ └────────────────────────┘
-```
+A **widget** is a lightweight UI component designed to surface glanceable, high-priority information on the home screen without requiring the user to open the full app.
+
+* **Strict Resource Limits**: Operating systems enforce strict memory and power constraints on widgets to preserve battery life.
+* **Data Lifecycle**: Widget data should be loaded following OS guidelines or pre-fetched within the main application before triggering a widget refresh.
+
+!!! warning "Important"
+    💡 **Core Rule**: Supply **pre-fetched data** (from a local database or remote API) directly to your widget. The widget's sole responsibility is to render the UI for that state.
+
+!!! note
+    *Note: Although you can request periodic background updates, the operating system retains ultimate control over execution scheduling and priority.*
 
 ---
 
-## The 4 Pillars of a WARP Widget
+## Anatomy of a Widget
 
-Every widget built with WARP consists of four distinct, type-safe components:
+Every widget consists of three essential parts:
 
-### 1. State Model (`WarpState`)
-The state model represents all dynamic data rendered by the widget. It MUST be annotated with `@Serializable` from `kotlinx.serialization`.
+1. **State**: The data payload powering the view.
+2. **UI**: The visual representation rendered from the current state.
+3. **Actions / Events**: Touch interactions triggered by the user.
 
-```kotlin
-@Serializable
-data class WeatherState(
-    val city: String = "San Francisco",
-    val temperatureC: Int = 22,
-    val condition: String = "Sunny",
-)
+```
+[ State ] ──> Renders ──> [ UI ] ──> Triggers ──> [ Actions / Clicks ]
 ```
 
-### 2. Actions (`WarpAction`)
-Actions represent user interactions (such as button taps, chip selections, or toggle switches). Actions are declared as `@Serializable` sealed classes or data objects.
-
-```kotlin
-@Serializable
-sealed class WeatherAction {
-    @Serializable data object Refresh : WeatherAction()
-    @Serializable data class SelectCity(val city: String) : WeatherAction()
-}
-```
-
-### 3. Click Handler (`WarpClickHandler`)
-Click handlers receive user actions, execute background logic or API calls, and update the persistent state using `updateWarpWidgetState`:
-
-```kotlin
-class WeatherClickHandler : WarpClickHandler<WeatherState, WeatherAction> {
-    override suspend fun onClick(
-        context: PlatformContext,
-        action: WeatherAction,
-        widgetId: WarpWidgetId,
-    ) {
-        updateWarpWidgetState<WeatherState>(context, widgetId) { current ->
-            when (action) {
-                WeatherAction.Refresh -> fetchLatestWeather(current)
-                is WeatherAction.SelectCity -> current.copy(city = action.city)
-            }
-        }
-    }
-}
-```
-
-### 4. Widget Specification (`WarpWidget`)
-The `WarpWidget` object binds state, click handler, and UI together:
-
-```kotlin
-object WeatherWarpWidget : WarpWidget<WeatherState> {
-    override val id: String = "weather_widget"
-    override val initialState: WeatherState = WeatherState()
-    override val clickHandler: WarpClickHandler<WeatherState, *>? = WeatherClickHandler()
-
-    @Composable
-    override fun Content(state: WeatherState) {
-        WarpTheme {
-            WarpColumn(modifier = WarpModifier.fillMaxSize().padding(12)) {
-                WarpText(text = state.city, style = WarpTextStyle(fontSize = 18, fontWeight = WarpFontWeight.Bold))
-                WarpText(text = "${state.temperatureC}°C - ${state.condition}")
-                WarpSpacer(height = 8)
-                WarpButton(text = "Refresh", onClick = WeatherAction.Refresh)
-            }
-        }
-    }
-}
-```
+The widget accepts the **State**, renders the **UI**, and optionally routes user **Actions** back to the application to trigger business logic (such as launching a service or updating application state).
 
 ---
 
-## State Scoping: Shared vs. Instance
+## Why WARP?
 
-WARP supports two levels of state persistence depending on your widget requirements:
+**WARP** (**W**idget **A**bstraction **R**endering **P**ipeline) provides a platform-independent abstraction layer to define widgets once and render them using native framework components on each target platform.
 
-| State Scope | Scope Behavior | Android Storage | iOS Storage |
-| :--- | :--- | :--- | :--- |
-| `WarpWidgetStateScope.Shared` | All instances of the widget share the **same** global state. | `SharedPreferences` | App Group `NSUserDefaults` |
-| `WarpWidgetStateScope.Instance` | Each pinned instance of the widget on the home screen maintains its **own independent** state. | Glance `GlanceId` DataStore | Instance Prefix in App Group `NSUserDefaults` |
+### Native Rendering Constraints
+Due to strict OS resource boundaries, embedding heavy custom renderers (like Skia) inside widget processes is impossible. Both Android and iOS strictly limit supported layout nodes and composables.
 
-### Selecting State Scope
-
-By default, WARP widgets use `Shared` state scope. To specify instance-level scoping:
-
-```kotlin
-object WeatherWarpWidget : WarpWidget<WeatherState> {
-    override val id = "weather_widget"
-    override val stateScope = WarpWidgetStateScope.Instance
-    // ...
-}
-```
+WARP solves this by pairing a unified developer API with native platform execution:
+* **Declarative DSL**: Write clean, declarative UI code using a Compose-style DSL.
+* **Native Output**: WARP converts your abstract layout tree into true **native platform views** on Android and iOS.
 
 ---
 
-## Platform Rendering Engines
-
-### Android (Glance AppWidget)
-1. `WarpGlanceWidgetReceiver` receives OS update broadcasts.
-2. Reads state from `WarpWidgetStateStore`.
-3. Invokes `@Composable Content(state)` to generate the `WarpNode` AST tree.
-4. Translates `WarpNode` AST to Android Glance Composables (`Column`, `Row`, `Text`, `Button`), which Android converts into system `RemoteViews`.
-
-### iOS (WidgetKit & SwiftUI)
-1. `WarpWidgetBridge` triggers `WidgetCenter.shared.reloadTimelines(ofKind: widget.id)`.
-2. Swift `Provider` reads state JSON from shared App Group `NSUserDefaults`.
-3. Calls KMP `renderWarpWidgetToNodeJson()` to get the AST JSON string.
-4. `WarpSwiftUIRenderer.swift` parses the JSON and renders native SwiftUI views (`VStack`, `HStack`, `Text`, `Button`, `ZStack`).
+Ready to jump in? Let's create our first widget!

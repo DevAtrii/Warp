@@ -15,8 +15,6 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "SharedLogic"
             isStatic = true
-            export(libs.warp.runtime)
-            export(libs.warp.ui)
             export(libs.warp.widget)
         }
     }
@@ -42,8 +40,6 @@ kotlin {
         }
         commonMain.dependencies {
             // put your Multiplatform dependencies here
-            api(libs.warp.runtime)
-            api(libs.warp.ui)
             api(libs.warp.widget)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.compose.runtime)

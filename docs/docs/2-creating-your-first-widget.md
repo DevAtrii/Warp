@@ -1,3 +1,7 @@
+---
+icon: lucide/sparkles
+---
+
 # Creating Your First Widget
 
 Welcome to **Warp**! Warp allows you to build cross-platform home screen widgets for **Android (Glance)** and **iOS (WidgetKit)** using a single, unified Kotlin Multiplatform codebase.

@@ -1,3 +1,7 @@
+---
+icon: lucide/proportions
+---
+
 # WARP Composables Reference
 
 WARP provides a set of declarative, platform-agnostic Compose primitives that render natively on both Android (Glance) and iOS (WidgetKit/SwiftUI).

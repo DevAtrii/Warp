@@ -1,3 +1,7 @@
+---
+icon: lucide/paintbrush
+---
+
 # Styling & Theme System
 
 WARP provides a comprehensive styling system built around `WarpTheme`, dynamic `WarpColor` tokens, text typography models (`WarpTextStyle`), and chainable `WarpModifier` elements.

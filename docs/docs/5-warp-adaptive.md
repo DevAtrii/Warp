@@ -1,3 +1,7 @@
+---
+icon: lucide/scan-line
+---
+
 # Adaptive Widgets & Multi-Size Support
 
 Widgets come in various shapes and sizes on user home screens and lock screens. WARP provides built-in environment context allowing your Compose UI code to adapt dynamically to small, medium, large, and accessory lock screen widgets.

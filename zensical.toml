@@ -7,11 +7,14 @@ repo_url="https://github.com/DevAtrii/Warp"
 nav = [
   {"Home" = "index.md"},
   {"Mental Model" = "1-mental-model.md"},
-  {"Creating Your First Widget" = "2-creating-your-first-widget.md"},
-  {"Composables Reference" = "3-warp-composables.md"},
-  {"Styling & Theme" = "4-warp-theme.md"},
-  {"Adaptive Widgets" = "5-warp-adaptive.md"},
-  {"How WARP Works" = "6-how-warp-works.md"},
+  {"Documentation" = [
+    "docs/1-setup.md",
+    "docs/2-creating-your-first-widget.md",
+    "docs/3-warp-composables.md",
+    "docs/4-warp-theme.md",
+    "docs/5-warp-adaptive.md",
+  ]},
+  {"How WARP Works" = "docs/2-how-warp-works.md"},
   {"Widget Wizard" = "wizard.html"},
 ]
 
