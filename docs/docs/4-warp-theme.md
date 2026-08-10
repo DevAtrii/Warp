@@ -2,153 +2,169 @@
 icon: lucide/paintbrush
 ---
 
-# Styling & Theme System
+# Theming Widget
 
-WARP provides a comprehensive styling system built around `WarpTheme`, dynamic `WarpColor` tokens, text typography models (`WarpTextStyle`), and chainable `WarpModifier` elements.
+WARP provides a Material 3-inspired theme system built around `WarpTheme` and cross-platform `WarpColors` tokens. It automatically adapts to platform defaults (Material 3 on Android, System Blue on iOS) and handles dynamic Light/Dark mode switching based on the `WidgetEnvironment`.
 
 ---
 
-## `WarpTheme`
+## 1. Overview of `WarpTheme`
 
-Wrap your widget content inside `WarpTheme` to set global defaults for text colors, typography, background colors, and light/dark mode adaptations.
+Wrap your widget content inside `WarpTheme` to set up color tokens for all nested composables. You can access the active color scheme anywhere in your composition via `WarpTheme.colors`.
 
-```kotlin
+```kotlin title="Basic Theme Usage"
+@Composable
+override fun Content(env: WidgetEnvironment, state: CounterState) {
+    WarpTheme(environment = env) {
+        WarpBox(
+            modifier = WarpModifier
+                .fillMaxSize()
+                .background(WarpTheme.colors.widgetBackground)
+                .padding(16.dp),
+        ) {
+            WarpText(
+                text = "Hello WARP Widget",
+                style = WarpTextStyle(
+                    color = WarpTheme.colors.onSurface,
+                    fontSize = 18.sp,
+                    fontWeight = WarpFontWeight.Bold,
+                ),
+            )
+        }
+    }
+}
+```
+
+---
+
+## 2. Automatic Environment & Dark Mode Resolution
+
+The standard `WarpTheme` overload accepts a `WidgetEnvironment` object to dynamically resolve theme palettes:
+
+```kotlin title="Environment Theme Signature"
 @Composable
 fun WarpTheme(
-    colors: WarpThemeColors = WarpThemeColors.default(),
-    typography: WarpTypography = WarpTypography.default(),
+    environment: WidgetEnvironment,
+    lightColors: WarpColors = WarpColors.defaultLight(environment.platform),
+    darkColors: WarpColors = WarpColors.defaultDark(environment.platform),
+    darkTheme: Boolean? = null,
     content: @Composable () -> Unit,
 )
 ```
 
-**Example:**
-```kotlin
-val CustomPalette = WarpThemeColors(
-    primary = WarpColor.Hex(0xFF1E88E5),
-    background = WarpColor.Hex(0xFF121212),
-    surface = WarpColor.Hex(0xFF1E1E1E),
-    onPrimary = WarpColor.White,
-    onBackground = WarpColor.White,
-)
-
-WarpTheme(colors = CustomPalette) {
-    // Widget Composables
-}
-```
+### Key Behaviors:
+- **Platform Defaults**:
+  - **Android**: Defaults to Material 3 baseline palettes (`Material3Light` / `Material3Dark`).
+  - **iOS**: Defaults to iOS System Blue baseline palettes (`IosLight` / `IosDark`).
+- **Dark Mode Resolution**: Reads `environment.theme`. When the host OS switches between Light and Dark appearance, `WarpTheme` updates its active `WarpColors` automatically.
+- **Explicit Theme Override**: You can force light or dark mode using the `darkTheme` parameter (e.g. `darkTheme = false.takeIf { env.platform.isAndroid }`).
 
 ---
 
-## `WarpColor` Representation
+## 3. Color Roles (`WarpColors`)
 
-Colors in WARP are platform-agnostic tokens serialized cleanly across Kotlin, Glance, and SwiftUI.
+`WarpColors` mirrors Material 3 color roles using serializable `WarpColor` tokens across platforms:
 
-### Color Declarations
+### Primary & Accent Roles
+- `primary` / `onPrimary`: Main brand accent color and text/icon color on primary backgrounds.
+- `primaryContainer` / `onPrimaryContainer`: Tonal container backgrounds and text.
+- `secondary` / `onSecondary` / `secondaryContainer` / `onSecondaryContainer`: Secondary accent elements.
+- `tertiary` / `onTertiary` / `tertiaryContainer` / `onTertiaryContainer`: Contrast accent highlights.
 
-```kotlin
-// Hex Color (ARGB / RGB)
-val primaryColor = WarpColor.Hex(0xFF6200EE)
+### Surface & Background Roles
+- **`widgetBackground`**: Tailored background color for the main widget surface card.
+- `background` / `onBackground`: General background colors.
+- `surface` / `onSurface`: Main surface card and text colors.
+- `surfaceVariant` / `onSurfaceVariant`: Elevated or subtle container chips and row backgrounds.
+- `outline`: Divider lines and border outlines.
 
-// RGB Color
-val accentColor = WarpColor.Rgb(red = 255, green = 111, blue = 0)
-
-// Predefined System Colors
-val white = WarpColor.White
-val black = WarpColor.Black
-val transparent = WarpColor.Transparent
-```
-
----
-
-## Typography & `WarpTextStyle`
-
-`WarpTextStyle` defines text styling for `WarpText`.
-
-```kotlin
-data class WarpTextStyle(
-    val fontSize: Int = 14,
-    val fontWeight: WarpFontWeight = WarpFontWeight.Normal,
-    val color: WarpColor = WarpColor.Unspecified,
-    val textAlign: WarpTextAlign = WarpTextAlign.Start,
-)
-```
-
-### Font Weight Options
-- `WarpFontWeight.Thin`
-- `WarpFontWeight.Light`
-- `WarpFontWeight.Normal`
-- `WarpFontWeight.Medium`
-- `WarpFontWeight.SemiBold`
-- `WarpFontWeight.Bold`
-- `WarpFontWeight.ExtraBold`
-
-**Example Usage:**
-```kotlin
-WarpText(
-    text = "Dashboard Title",
-    style = WarpTextStyle(
-        fontSize = 20,
-        fontWeight = WarpFontWeight.Bold,
-        color = WarpColor.Hex(0xFF00E676),
-        textAlign = WarpTextAlign.Center
-    )
-)
-```
+### Feedback Roles
+- `error` / `onError` / `errorContainer` / `onErrorContainer`: Validation or error indicator colors.
 
 ---
 
-## The `WarpModifier` System
+## 4. Custom Color Schemes
 
-`WarpModifier` elements let you chain layout constraints, spacing, backgrounds, borders, and touch gestures onto any WARP composable node.
+You can create custom light and dark color schemes using `WarpColors.light(...)` and `WarpColors.dark(...)` with hex strings:
 
-### Padding
-```kotlin
-// Uniform padding
-WarpModifier.padding(16)
+```kotlin title="Custom Color Palette Example"
+val CustomLightColors = WarpColors.light(
+    primary = "#1E88E5",
+    onPrimary = "#FFFFFF",
+    primaryContainer = "#D6EBFF",
+    onPrimaryContainer = "#004080",
+    secondary = "#625B71",
+    onSecondary = "#FFFFFF",
+    secondaryContainer = "#E8DEF8",
+    onSecondaryContainer = "#1D192B",
+    tertiary = "#7D5260",
+    onTertiary = "#FFFFFF",
+    tertiaryContainer = "#FFD8E4",
+    onTertiaryContainer = "#31111D",
+    error = "#B3261E",
+    onError = "#FFFFFF",
+    errorContainer = "#F9DEDC",
+    onErrorContainer = "#410E0B",
+    background = "#F4F6F8",
+    onBackground = "#1C1B1F",
+    surface = "#FFFFFF",
+    onSurface = "#1C1B1F",
+    surfaceVariant = "#E7E0EC",
+    onSurfaceVariant = "#49454F",
+    outline = "#79747E",
+    inverseSurface = "#313033",
+    inverseOnSurface = "#F4EFF4",
+    inversePrimary = "#D0BCFF",
+    widgetBackground = "#FFFFFF",
+)
 
-// Axis padding
-WarpModifier.padding(horizontal = 16, vertical = 8)
+val CustomDarkColors = WarpColors.dark(
+    primary = "#90CAF9",
+    onPrimary = "#0D47A1",
+    primaryContainer = "#1565C0",
+    onPrimaryContainer = "#D6EBFF",
+    secondary = "#CCC2DC",
+    onSecondary = "#332D41",
+    secondaryContainer = "#4A4458",
+    onSecondaryContainer = "#E8DEF8",
+    tertiary = "#EFB8C8",
+    onTertiary = "#492532",
+    tertiaryContainer = "#633B48",
+    onTertiaryContainer = "#FFD8E4",
+    error = "#F2B8B5",
+    onError = "#601410",
+    errorContainer = "#8C1D18",
+    onErrorContainer = "#F9DEDC",
+    background = "#121212",
+    onBackground = "#E6E1E5",
+    surface = "#1E1E1E",
+    onSurface = "#E6E1E5",
+    surfaceVariant = "#2C2C2E",
+    onSurfaceVariant = "#CAC4D0",
+    outline = "#938F99",
+    inverseSurface = "#E6E1E5",
+    inverseOnSurface = "#313033",
+    inversePrimary = "#1E88E5",
+    widgetBackground = "#121212",
+)
 
-// Directional padding
-WarpModifier.padding(top = 12, bottom = 12, start = 8, end = 8)
-```
-
-### Layout Constraints
-```kotlin
-WarpModifier.fillMaxSize()       // Fills available container space
-WarpModifier.fillMaxWidth()      // Fills container width
-WarpModifier.fillMaxHeight()     // Fills container height
-WarpModifier.size(width = 100, height = 40) // Fixed size
-WarpModifier.height(48)          // Fixed height
-WarpModifier.width(120)          // Fixed width
-WarpModifier.weight(1f)          // Flex weight inside Column/Row
-```
-
-### Appearance & Decoration
-```kotlin
-WarpModifier.background(WarpColor.Hex(0xFF212121))
-WarpModifier.corner(16)          // Rounded corners (dp/pt)
-WarpModifier.border(color = WarpColor.Hex(0xFF00E676), width = 2)
-WarpModifier.alpha(0.8f)         // Transparency
-```
-
-### Interactions & Visibility
-```kotlin
-WarpModifier.clickable(CounterAction.Increment) // Click gesture binding
-WarpModifier.visibility(visible = state.showBadge) // Conditional rendering
-```
-
-### Chaining Example
-```kotlin
-WarpBox(
-    modifier = WarpModifier
-        .fillMaxWidth()
-        .height(60)
-        .background(WarpColor.Hex(0xFF1F1B24))
-        .corner(16)
-        .border(WarpColor.Hex(0xFFBB86FC), width = 1)
-        .padding(horizontal = 16)
-        .clickable(CounterAction.Reset)
+// Pass custom color schemes into WarpTheme:
+WarpTheme(
+    environment = env,
+    lightColors = CustomLightColors,
+    darkColors = CustomDarkColors,
 ) {
-    WarpText(text = "Reset Counter", style = WarpTextStyle(color = WarpColor.White))
+    // Widget UI
 }
 ```
+
+---
+
+## 5. Direct `WarpColor` Usage
+
+Outside of `WarpTheme`, you can declare explicit `WarpColor` instances directly:
+
+- **Hex String**: `WarpColor("#1E88E5")` or `WarpColor("#FF1E88E5")`
+- **ARGB Int**: `WarpColor(0xFF1E88E5.toInt())`
+- **Predefined System Colors**: `WarpColor.White`, `WarpColor.Black`, `WarpColor.Transparent`, `WarpColor.Red`, `WarpColor.Green`, `WarpColor.Blue`, `WarpColor.Gray`
+- **Tailwind Palette Tokens**: `WarpColor.Blue500`, `WarpColor.Red600`, `WarpColor.Green600`, etc.

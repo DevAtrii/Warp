@@ -14,7 +14,7 @@ nav = [
     "docs/4-warp-theme.md",
     "docs/5-warp-adaptive.md",
   ]},
-  {"How WARP Works" = "docs/2-how-warp-works.md"},
+  {"How WARP Works" = "2-how-warp-works.md"},
   {"Widget Wizard" = "wizard.html"},
 ]
 

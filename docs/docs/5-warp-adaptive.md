@@ -2,116 +2,119 @@
 icon: lucide/scan-line
 ---
 
-# Adaptive Widgets & Multi-Size Support
+# Adaptive Widgets
 
-Widgets come in various shapes and sizes on user home screens and lock screens. WARP provides built-in environment context allowing your Compose UI code to adapt dynamically to small, medium, large, and accessory lock screen widgets.
+Home screen widgets come in various shapes and sizes—from compact 2x2 squares to wide rectangular cards and full-grid dashboards. **WARP** provides built-in adaptive utilities allowing your declarative UI to scale seamlessly across **Small**, **Medium**, and **Large** layout sizes on both Android and iOS.
 
 ---
 
-## Supported Widget Families
+## 1. Cross-Platform Size Buckets (`WarpAdaptiveSize`)
 
-WARP unifies Android Glance size ranges and iOS WidgetKit families into standard `WarpWidgetFamily` enums:
+WARP unifies widget dimensions into three standard `WarpAdaptiveSize` buckets:
 
-| `WarpWidgetFamily` | Description | Typical Use Cases |
+| `WarpAdaptiveSize` | Description | Platform Resolution |
 | :--- | :--- | :--- |
-| `SYSTEM_SMALL` | Small square widget (2x2 grid) | Quick metric, single counter, icon badge |
-| `SYSTEM_MEDIUM` | Wide rectangular widget (4x2 grid) | List previews, dual metrics, header + action buttons |
-| `SYSTEM_LARGE` | Large square widget (4x4 grid) | Full task lists, detailed graphs, multi-column views |
-| `SYSTEM_EXTRA_LARGE` | Extra large widget (iPadOS / Tablet) | Full dashboard views |
-| `ACCESSORY_CIRCULAR` | Circular lock screen gauge / icon | iOS Lock Screen / Watch circular complication |
-| `ACCESSORY_RECTANGULAR` | Rectangular lock screen widget | iOS Lock Screen multi-line status update |
-| `ACCESSORY_INLINE` | Single-line lock screen text | iOS Lock Screen top status text |
+| `Small` | Compact square widget (2x2 grid) | **iOS**: `systemSmall`<br>**Android**: `widthDp < 250dp` |
+| `Medium` | Wide rectangular widget (4x2 grid) | **iOS**: `systemMedium`<br>**Android**: `250dp ≤ widthDp < 550dp` |
+| `Large` | Large multi-row widget (4x4 grid) | **iOS**: `systemLarge` / `systemExtraLarge`<br>**Android**: `widthDp ≥ 550dp` or `heightDp ≥ 170dp` |
 
 ---
 
-## Accessing Widget Environment Context
+## 2. Adaptive Layouts (`WarpAdaptiveContent`)
 
-Inside any `@Composable` content function, access the current widget size, family, and theme environment using `LocalWidgetEnvironment.current`:
+Use `WarpAdaptiveContent` to swap composable layouts dynamically based on the active widget size bucket:
 
-```kotlin
+```kotlin title="WarpAdaptiveContent Usage"
 @Composable
-override fun Content(state: CounterState) {
-    val environment = LocalWidgetEnvironment.current
-    val family = environment.family
-
-    when (family) {
-        WarpWidgetFamily.SYSTEM_SMALL -> SmallWidgetView(state)
-        WarpWidgetFamily.SYSTEM_MEDIUM -> MediumWidgetView(state)
-        WarpWidgetFamily.SYSTEM_LARGE -> LargeWidgetView(state)
-        WarpWidgetFamily.ACCESSORY_CIRCULAR -> CircularLockScreenView(state)
-        else -> SmallWidgetView(state)
-    }
-}
-```
-
----
-
-## Responsive Layout Examples
-
-### Small Widget View (`SYSTEM_SMALL`)
-Focuses on a single primary metric or minimal control:
-
-```kotlin
-@Composable
-fun SmallWidgetView(state: CounterState) {
-    WarpColumn(
-        modifier = WarpModifier.fillMaxSize().padding(12),
-        horizontalAlignment = WarpHorizontalAlignment.CenterHorizontally,
-        verticalAlignment = WarpVerticalAlignment.CenterVertically
-    ) {
-        WarpText(text = "Count", style = WarpTextStyle(fontSize = 12))
-        WarpText(text = "${state.count}", style = WarpTextStyle(fontSize = 32, fontWeight = WarpFontWeight.Bold))
-        WarpButton(text = "+1", onClick = CounterAction.Increment)
-    }
-}
-```
-
-### Medium Widget View (`SYSTEM_MEDIUM`)
-Presents extended metrics, progress indicators, or multiple action buttons:
-
-```kotlin
-@Composable
-fun MediumWidgetView(state: CounterState) {
-    WarpRow(
-        modifier = WarpModifier.fillMaxSize().padding(16),
-        verticalAlignment = WarpVerticalAlignment.CenterVertically
-    ) {
-        WarpColumn(modifier = WarpModifier.weight(1f)) {
-            WarpText(text = "Total Count", style = WarpTextStyle(fontSize = 14, fontWeight = WarpFontWeight.Bold))
-            WarpText(text = "${state.count}", style = WarpTextStyle(fontSize = 36, fontWeight = WarpFontWeight.Bold))
-            WarpProgressIndicator(progress = (state.count % 10) / 10f, modifier = WarpModifier.fillMaxWidth().height(6))
-        }
-        WarpSpacer(width = 16)
-        WarpColumn {
-            WarpButton(text = "Increment", onClick = CounterAction.Increment)
-            WarpSpacer(height = 8)
-            WarpButton(text = "Decrement", onClick = CounterAction.Decrement)
-        }
-    }
-}
-```
-
----
-
-## Lock Screen & Accessory Widgets (iOS & Android)
-
-For lock screen widgets (`ACCESSORY_CIRCULAR` or `ACCESSORY_RECTANGULAR`), render ultra-compact UIs without heavy background colors:
-
-```kotlin
-@Composable
-fun CircularLockScreenView(state: CounterState) {
-    WarpBox(
-        modifier = WarpModifier.fillMaxSize(),
-        contentAlignment = WarpContentAlignment.Center
-    ) {
-        WarpProgressIndicator(
-            progress = (state.count % 100) / 100f,
-            style = WarpProgressIndicatorStyle.Circular
-        )
-        WarpText(
-            text = "${state.count}",
-            style = WarpTextStyle(fontSize = 14, fontWeight = WarpFontWeight.Bold)
+override fun Content(env: WidgetEnvironment, state: CounterState) {
+    WarpTheme(environment = env) {
+        WarpAdaptiveContent(
+            environment = env,
+            small = { CompactCounterWidget(state) },
+            medium = { WideCounterWidget(state) },
+            large = { FullDashboardWidget(state) },
         )
     }
 }
+```
+
+*Note: `medium` defaults to `small` if omitted, and `large` defaults to `medium` if omitted.*
+
+---
+
+## 3. Dynamic Values (`env.adaptiveValue`)
+
+When you don't need a full layout swap, use `env.adaptiveValue()` to pick scalable UI properties (such as font sizes, padding, corner radii, or icon sizes) without adding composable wrapper nodes:
+
+```kotlin title="adaptiveValue Usage"
+val buttonSize = env.adaptiveValue(small = 36.dp, medium = 40.dp, large = 48.dp)
+val countFontSize = env.adaptiveValue(small = 22.sp, medium = 26.sp, large = 32.sp)
+val cornerRadius = env.adaptiveValue(small = 12.dp, medium = 16.dp, large = 20.dp)
+
+WarpButton(
+    text = "+",
+    onClick = CounterActions.Increment.asClickAction(),
+    modifier = WarpModifier.size(buttonSize).cornerRadius(cornerRadius),
+)
+```
+
+---
+
+## 4. Remembering Adaptive Size (`rememberWarpAdaptiveSize`)
+
+To branch logic or remember the current size bucket across recompositions (recalculating automatically when dimensions change during user resize):
+
+```kotlin title="rememberWarpAdaptiveSize Usage"
+@Composable
+fun MyWidget(env: WidgetEnvironment) {
+    val adaptiveSize = rememberWarpAdaptiveSize(env)
+
+    if (adaptiveSize == WarpAdaptiveSize.Large) {
+        // Render detailed multi-column view
+    } else {
+        // Render compact view
+    }
+}
+```
+
+---
+
+## 5. Size Queries & Helpers
+
+Use boolean environment extension properties for quick layout branching:
+
+```kotlin title="Environment Extension Helpers"
+if (env.isSmallAdaptive()) {
+    // Small widget specific adjustments
+}
+
+if (env.isMediumAdaptive()) {
+    // Medium widget specific adjustments
+}
+
+if (env.isLargeAdaptive()) {
+    // Large widget specific adjustments
+}
+```
+
+---
+
+## 6. Custom Breakpoint Calculation
+
+If your widget design requires custom dp thresholds (e.g. switching to Large at 400dp instead of 550dp), pass a custom `calc` lambda to `WarpAdaptiveContent` or `rememberWarpAdaptiveSize`:
+
+```kotlin title="Custom Breakpoints Example"
+WarpAdaptiveContent(
+    environment = env,
+    calc = { widthDp, heightDp ->
+        when {
+            widthDp < 200f -> WarpAdaptiveSize.Small
+            widthDp >= 400f -> WarpAdaptiveSize.Large
+            else -> WarpAdaptiveSize.Medium
+        }
+    },
+    small = { SmallLayout() },
+    medium = { MediumLayout() },
+    large = { LargeLayout() },
+)
 ```

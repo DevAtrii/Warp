@@ -4,20 +4,22 @@ icon: lucide/proportions
 
 # WARP Composables Reference
 
-WARP provides a set of declarative, platform-agnostic Compose primitives that render natively on both Android (Glance) and iOS (WidgetKit/SwiftUI).
+WARP provides a declarative, platform-agnostic Compose DSL to build cross-platform home screen widgets for **Android (Glance)** and **iOS (WidgetKit/SwiftUI)**.
 
 ---
 
-## Layout Composables
+## 1. Layout Composables
+
+Layout composables structure child elements vertically, horizontally, or stacked in layers.
 
 ### `WarpColumn`
-Arranges items vertically from top to bottom.
+Arranges child composables vertically in a top-to-bottom column layout.
 
-```kotlin
+```kotlin title="WarpColumn Signature"
 @Composable
 fun WarpColumn(
-    modifier: WarpModifier = WarpModifier,
-    verticalArrangement: WarpVerticalAlignment = WarpVerticalAlignment.Top,
+    modifier: WarpModifier = WarpModifier(),
+    verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
     horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
     content: @Composable () -> Unit,
 )
@@ -26,26 +28,26 @@ fun WarpColumn(
 **Example:**
 ```kotlin
 WarpColumn(
-    modifier = WarpModifier.fillMaxSize().padding(16),
+    modifier = WarpModifier.fillMaxWidth().padding(16.dp),
     horizontalAlignment = WarpHorizontalAlignment.CenterHorizontally,
-    verticalArrangement = WarpVerticalAlignment.CenterVertically
+    verticalAlignment = WarpVerticalAlignment.Center,
 ) {
-    WarpText(text = "Header")
-    WarpSpacer(height = 8)
-    WarpText(text = "Subheader")
+    WarpText(text = "Header Title", style = WarpTextStyle(fontWeight = WarpFontWeight.Bold))
+    WarpSpacer(modifier = WarpModifier.height(8.dp))
+    WarpText(text = "Subtitle description goes here.")
 }
 ```
 
 ---
 
 ### `WarpRow`
-Arranges items horizontally from left to right.
+Arranges child composables horizontally from left to right.
 
-```kotlin
+```kotlin title="WarpRow Signature"
 @Composable
 fun WarpRow(
-    modifier: WarpModifier = WarpModifier,
-    horizontalArrangement: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
+    modifier: WarpModifier = WarpModifier(),
+    horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
     verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
     content: @Composable () -> Unit,
 )
@@ -54,25 +56,25 @@ fun WarpRow(
 **Example:**
 ```kotlin
 WarpRow(
-    modifier = WarpModifier.fillMaxWidth().padding(horizontal = 12),
-    verticalAlignment = WarpVerticalAlignment.CenterVertically
+    modifier = WarpModifier.fillMaxWidth().padding(horizontal = 12.dp),
+    verticalAlignment = WarpVerticalAlignment.Center,
 ) {
-    WarpText(text = "Left Item")
+    WarpText(text = "Left Label")
     WarpSpacer(modifier = WarpModifier.weight(1f))
-    WarpText(text = "Right Item")
+    WarpText(text = "Right Status")
 }
 ```
 
 ---
 
 ### `WarpBox`
-Stacks items on top of each other (like a `ZStack` in SwiftUI or `Box` in Jetpack Compose).
+Stacks child composables on top of each other (similar to Jetpack Compose `Box` or SwiftUI `ZStack`).
 
-```kotlin
+```kotlin title="WarpBox Signature"
 @Composable
 fun WarpBox(
-    modifier: WarpModifier = WarpModifier,
-    contentAlignment: WarpContentAlignment = WarpContentAlignment.Center,
+    modifier: WarpModifier = WarpModifier(),
+    contentAlignment: WarpContentAlignment = WarpContentAlignment.TopStart,
     content: @Composable () -> Unit,
 )
 ```
@@ -80,128 +82,184 @@ fun WarpBox(
 **Example:**
 ```kotlin
 WarpBox(
-    modifier = WarpModifier.size(100).background(WarpColor.Hex(0xFF1E88E5)).corner(12),
-    contentAlignment = WarpContentAlignment.Center
+    modifier = WarpModifier
+        .fillMaxSize()
+        .background(WarpColor.Blue600)
+        .cornerRadius(16.dp),
+    contentAlignment = WarpContentAlignment.Center,
 ) {
-    WarpText(text = "Badge", style = WarpTextStyle(color = WarpColor.White))
+    WarpText(text = "Centered Badge", style = WarpTextStyle(color = WarpColor.White))
 }
 ```
 
 ---
 
-### `WarpLazyColumn` & `WarpLazyRow`
-Scrollable / list layouts for displaying dynamic collections of items.
+### `WarpSpacer`
+Creates empty space within a `WarpColumn`, `WarpRow`, or `WarpBox`. Use size modifiers (`width`, `height`, `size`, `weight`) to specify spacing.
 
+```kotlin title="WarpSpacer Signature"
+@Composable
+fun WarpSpacer(
+    modifier: WarpModifier = WarpModifier(),
+)
+```
+
+**Example:**
 ```kotlin
-WarpLazyColumn(modifier = WarpModifier.fillMaxSize()) {
-    items(state.todos) { todo ->
-        WarpRow(modifier = WarpModifier.fillMaxWidth().clickable(CounterAction.Toggle(todo.id))) {
-            WarpText(text = if (todo.done) "✓ " + todo.title else "○ " + todo.title)
-        }
-    }
-}
+WarpSpacer(modifier = WarpModifier.height(12.dp))
+WarpSpacer(modifier = WarpModifier.weight(1f)) // Fills remaining flex space
 ```
 
 ---
 
-## Content Composables
+### `WarpLazyColumn` & `WarpLazyRow` (Experimental)
+Scrollable list containers for displaying dynamic collections of items.
+
+```kotlin title="WarpLazyColumn Signature"
+@WarpExperimentalApi
+@Composable
+fun WarpLazyColumn(
+    modifier: WarpModifier = WarpModifier(),
+    verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
+    horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
+    content: @Composable () -> Unit,
+)
+```
+
+```kotlin title="WarpLazyRow Signature"
+@WarpExperimentalApi
+@Composable
+fun WarpLazyRow(
+    modifier: WarpModifier = WarpModifier(),
+    horizontalAlignment: WarpHorizontalAlignment = WarpHorizontalAlignment.Start,
+    verticalAlignment: WarpVerticalAlignment = WarpVerticalAlignment.Top,
+    content: @Composable () -> Unit,
+)
+```
+
+!!! danger "Experimental APIs & Platform Limitations"
+    `WarpLazyColumn` and `WarpLazyRow` are marked with `@WarpExperimentalApi`. 
+    
+    - **iOS (WidgetKit)**: WidgetKit does not support interactive scrolling lists. WARP falls back to rendering items inside standard static `VStack` or `HStack` layouts.
+    - **Android (Glance)**: Uses Glance `LazyColumn`, but widget memory budgets can cause list scrolling to feel laggy or truncate large item sets.
+    
+    *Best Practice*: Limit items to a small fixed count (e.g. 3–5 items) or use standard `WarpColumn` / `WarpRow` loops where possible.
+
+---
+
+## 2. Content Composables
+
+Content composables render visual elements such as text, images, buttons, dividers, and progress indicators.
 
 ### `WarpText`
-Renders formatted text content with styling options.
+Renders read-only text with customizable font size, weight, color, alignment, and maximum lines.
 
-```kotlin
+```kotlin title="WarpText Signature"
 @Composable
 fun WarpText(
     text: String,
-    modifier: WarpModifier = WarpModifier,
-    style: WarpTextStyle = WarpTextStyle(),
-    maxLines: Int? = null,
+    modifier: WarpModifier = WarpModifier(),
+    style: WarpTextStyle? = null,
+    maxLines: Int = Int.MAX_VALUE,
 )
 ```
 
 **Example:**
 ```kotlin
 WarpText(
-    text = "Hello WARP",
+    text = "Hello WARP Widget",
+    modifier = WarpModifier.fillMaxWidth(),
     style = WarpTextStyle(
-        fontSize = 22,
+        color = WarpColor.Blue700,
+        fontSize = 18.sp,
         fontWeight = WarpFontWeight.Bold,
-        color = WarpColor.Hex(0xFF6200EE),
-        textAlign = WarpTextAlign.Center
-    )
+        textAlign = WarpTextAlign.Center,
+    ),
+    maxLines = 1,
 )
 ```
 
 ---
 
 ### `WarpButton`
-Renders an interactive button component that dispatches a type-safe `WarpAction` when clicked.
+Renders an interactive button component that dispatches a type-safe action upon user taps. Supports simple text labels or trailing composable content blocks.
 
-```kotlin
+```kotlin title="WarpButton Signature (Label Overload)"
 @Composable
 fun WarpButton(
     text: String,
     onClick: WarpAction,
-    modifier: WarpModifier = WarpModifier,
+    modifier: WarpModifier = WarpModifier(),
     enabled: Boolean = true,
-    colors: WarpButtonColors = WarpButtonColors.default(),
+    style: WarpTextStyle? = null,
+    colors: WarpButtonColors? = null,
+    maxLines: Int = Int.MAX_VALUE,
+)
+```
+
+```kotlin title="WarpButton Signature (Container Overload)"
+@Composable
+fun WarpButton(
+    onClick: WarpAction,
+    modifier: WarpModifier = WarpModifier(),
+    enabled: Boolean = true,
+    content: @Composable () -> Unit,
 )
 ```
 
 **Example:**
 ```kotlin
+// Text button with custom colors
 WarpButton(
-    text = "Increment Count",
-    onClick = CounterAction.Increment,
-    modifier = WarpModifier.fillMaxWidth().height(44),
+    text = "+ Increment",
+    onClick = CounterActions.Increment.asClickAction(),
+    modifier = WarpModifier.height(40.dp).cornerRadius(8.dp),
     colors = WarpButtonColors(
-        backgroundColor = WarpColor.Hex(0xFF00C853),
-        contentColor = WarpColor.White
-    )
+        backgroundColor = WarpColor.Green,
+        contentColor = WarpColor.White,
+    ),
 )
 ```
 
 ---
 
 ### `WarpImage`
-Displays local resource assets or remote image URLs.
+Renders cross-platform image assets, including native iOS **SF Symbols**, app-bundled drawables, and local URIs.
 
-```kotlin
+```kotlin title="WarpImage Signature"
 @Composable
 fun WarpImage(
     asset: WarpAsset,
-    modifier: WarpModifier = WarpModifier,
     contentDescription: String? = null,
+    modifier: WarpModifier = WarpModifier(),
     contentScale: WarpContentScale = WarpContentScale.Fit,
+    tint: WarpColor? = null,
 )
 ```
 
 **Example:**
 ```kotlin
-// Resource asset
 WarpImage(
-    asset = WarpAsset.Resource("ic_widget_logo"),
-    modifier = WarpModifier.size(40)
-)
-
-// Remote image URL
-WarpImage(
-    asset = WarpAsset.Url("https://example.com/avatar.png"),
-    modifier = WarpModifier.size(48).corner(24)
+    asset = CounterAssets.Plus.asSystem(),
+    contentDescription = "Add Item",
+    modifier = WarpModifier.size(24.dp),
+    tint = WarpColor.Blue600,
 )
 ```
 
 ---
 
 ### `WarpProgressIndicator`
-Renders linear or circular progress indicators for task status.
+Renders determinate (`progress = 0f..1f`) or indeterminate (`progress = null`) linear or circular progress indicators.
 
-```kotlin
+```kotlin title="WarpProgressIndicator Signature"
 @Composable
 fun WarpProgressIndicator(
-    progress: Float,
-    modifier: WarpModifier = WarpModifier,
-    style: WarpProgressIndicatorStyle = WarpProgressIndicatorStyle.Linear,
+    modifier: WarpModifier = WarpModifier(),
+    style: WarpProgressIndicatorStyle = WarpProgressIndicatorStyle.Circular,
+    progress: Float? = null,
+    color: WarpColor? = null,
+    backgroundColor: WarpColor? = null,
 )
 ```
 
@@ -209,25 +267,103 @@ fun WarpProgressIndicator(
 ```kotlin
 WarpProgressIndicator(
     progress = 0.75f,
-    modifier = WarpModifier.fillMaxWidth().height(8),
-    style = WarpProgressIndicatorStyle.Linear
+    modifier = WarpModifier.fillMaxWidth().height(6.dp),
+    style = WarpProgressIndicatorStyle.Linear,
+    color = WarpColor.Blue600,
+    backgroundColor = WarpColor.Blue100,
 )
 ```
 
 ---
 
-### `WarpSpacer` & `WarpDivider`
-Helper composables for controlling spacing and visual dividers.
+### `WarpDivider`
+Renders a thin horizontal separator line.
 
+```kotlin title="WarpDivider Signature"
+@Composable
+fun WarpDivider(
+    modifier: WarpModifier = WarpModifier(),
+    thickness: Dp = 1.dp,
+    color: WarpColor? = null,
+)
+```
+
+**Example:**
 ```kotlin
-// Spacer
-WarpSpacer(width = 16)
-WarpSpacer(height = 12)
-
-// Divider
 WarpDivider(
     modifier = WarpModifier.fillMaxWidth(),
-    color = WarpColor.Hex(0xFFE0E0E0),
-    thickness = 1
+    thickness = 0.5.dp,
+    color = WarpColor.Gray,
 )
+```
+
+---
+
+## 3. Modifiers (`WarpModifier`)
+
+`WarpModifier` is an immutable, chainable modifier sequence used to apply dimensions, padding, background colors, borders, corner radii, visibility, and click listeners.
+
+### 3.1 Dimensions & Layout Constraints
+
+| Modifier | Description | Example |
+| :--- | :--- | :--- |
+| `fillMaxWidth()` | Expands the component's width to fill parent constraints. | `WarpModifier.fillMaxWidth()` |
+| `fillMaxHeight()` | Expands the component's height to fill parent constraints. | `WarpModifier.fillMaxHeight()` |
+| `fillMaxSize()` | Expands both width and height to fill parent constraints. | `WarpModifier.fillMaxSize()` |
+| `width(width)` | Sets a fixed width (`Dp` or `Number`). | `WarpModifier.width(100.dp)` |
+| `height(height)` | Sets a fixed height (`Dp` or `Number`). | `WarpModifier.height(44.dp)` |
+| `size(size)` | Sets equal fixed width and height. | `WarpModifier.size(36.dp)` |
+| `size(width, height)` | Sets explicit width and height. | `WarpModifier.size(120.dp, 40.dp)` |
+| `weight(weight)` | Assigns flex weight inside `WarpRow` or `WarpColumn`. | `WarpModifier.weight(1f)` |
+| `wrapContentWidth()` | Wraps content width based on children. | `WarpModifier.wrapContentWidth()` |
+| `wrapContentHeight()` | Wraps content height based on children. | `WarpModifier.wrapContentHeight()` |
+| `wrapContentSize()` | Wraps both width and height. | `WarpModifier.wrapContentSize()` |
+
+---
+
+### 3.2 Spacing & Padding
+
+| Modifier | Description | Example |
+| :--- | :--- | :--- |
+| `padding(all)` | Applies uniform padding to all 4 edges. | `WarpModifier.padding(16.dp)` |
+| `padding(horizontal, vertical)` | Applies symmetric horizontal and vertical padding. | `WarpModifier.padding(horizontal = 12.dp, vertical = 8.dp)` |
+| `padding(start, end, top, bottom)` | Applies explicit padding to individual edges. | `WarpModifier.padding(start = 8.dp, top = 4.dp)` |
+| `padding(WarpPadding)` | Accepts a pre-constructed `WarpPadding` object. | `WarpModifier.padding(WarpPadding(8.dp))` |
+
+---
+
+### 3.3 Appearance & Styling
+
+| Modifier | Description | Example |
+| :--- | :--- | :--- |
+| `background(color)` | Sets background color using `WarpColor`. | `WarpModifier.background(WarpColor.Blue600)` |
+| `cornerRadius(radius)` | Applies rounded corners (`Dp` or `Number`). | `WarpModifier.cornerRadius(12.dp)` |
+| `border(width, color)` | Applies an outline border with color or hex string. | `WarpModifier.border(1.dp, WarpColor.Gray)` |
+| `alpha(alpha)` | Adjusts opacity (`0f` transparent to `1f` opaque). | `WarpModifier.alpha(0.8f)` |
+| `visibility(visibility)` | Controls component visibility (`Visible`, `Invisible`, `Gone`). | `WarpModifier.visibility(WarpVisibility.Visible)` |
+
+---
+
+### 3.4 Interactive Click Listeners
+
+| Modifier | Description | Example |
+| :--- | :--- | :--- |
+| `clickable(action)` | Attaches a type-safe `WarpAction` tap listener to any node. | `WarpModifier.clickable(CounterActions.Reset.asClickAction())` |
+
+---
+
+### Complete Modifier Chaining Example
+
+```kotlin
+WarpColumn(
+    modifier = WarpModifier
+        .fillMaxWidth()
+        .background(WarpColor.White)
+        .cornerRadius(16.dp)
+        .border(1.dp, WarpColor.Blue200)
+        .padding(horizontal = 16.dp, vertical = 12.dp)
+        .clickable(CounterActions.Reset.asClickAction()),
+) {
+    WarpText(text = "Tap to Reset")
+}
 ```
