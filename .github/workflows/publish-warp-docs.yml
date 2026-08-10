@@ -8,6 +8,7 @@ on:
     paths:
       - zensical.toml
       - docs/**
+      - iosApp/CounterWidget/**
 permissions:
   contents: read
   pages: write

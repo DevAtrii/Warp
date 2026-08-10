@@ -15,7 +15,7 @@ struct CounterWidgetEntry: TimelineEntry {
     let displayHeight: CGFloat
 }
 
-private let UPDATE_PERIOD_MILLIS: Double = 60 * 60 * 1000 // 1 hour
+private let UPDATE_SAFETY_MARGIN_MILLIS: Int64 = 60 * 1000 // 1 minute
 
 /// Refreshes timeline schedule only. UI JSON is built in [CounterWidgetEntryView] from
 /// `@Environment(\.colorScheme)` so theme matches what WidgetKit is drawing (including
@@ -29,26 +29,13 @@ struct CounterWidgetProvider: TimelineProvider {
         completion(entry(from: context))
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<CounterWidgetEntry>) -> Void) {
+    func getTimeline(
+        in context: Context,
+        completion: @escaping (Timeline<CounterWidgetEntry>) -> Void
+    ) {
         let now = Date()
 
         print("🔥 WidgetKit requested new timeline:", now)
-
-        let session = WarpWidgetHost.shared.iosSession(
-            widget: CounterWarpWidget.shared,
-            kitFields: WarpWidgetKitEnv.from(context: context).asKitFields(
-                appGroupId: CounterWarpWidget.shared.iosGroupId
-            )
-        )
-        WarpWidgetHost.shared.dispatchOnUpdate(widget: CounterWarpWidget.shared, session: session, nowMillis: Int64(now.timeIntervalSince1970 * 1000), minIntervalMillis:Int64(UPDATE_PERIOD_MILLIS), force: false)
-
-        let size = context.displaySize
-
-        let entry = CounterWidgetEntry(
-            date: now,
-            displayWidth: size.width,
-            displayHeight: size.height
-        )
 
         let nextHour = Calendar.current.nextDate(
             after: now,
@@ -57,9 +44,40 @@ struct CounterWidgetProvider: TimelineProvider {
                 second: 0
             ),
             matchingPolicy: .nextTime
-        ) ?? Date(timeIntervalSinceNow: UPDATE_PERIOD_MILLIS / 1000)
+        ) ?? now.addingTimeInterval(60 * 60)
 
-        print("🔥 Next requested refresh:", nextHour)
+        let intervalMillis = max(
+            0,
+            Int64(nextHour.timeIntervalSince(now) * 1000)
+                - UPDATE_SAFETY_MARGIN_MILLIS
+        )
+
+        print("🔥 Next hour:", nextHour)
+        print("🔥 Min interval:", intervalMillis, "ms")
+
+        let session = WarpWidgetHost.shared.iosSession(
+            widget: CounterWarpWidget.shared,
+            kitFields: WarpWidgetKitEnv.from(context: context)
+                .asKitFields(
+                    appGroupId: CounterWarpWidget.shared.iosGroupId
+                )
+        )
+
+        WarpWidgetHost.shared.dispatchOnUpdate(
+            widget: CounterWarpWidget.shared,
+            session: session,
+            nowMillis: Int64(now.timeIntervalSince1970 * 1000),
+            minIntervalMillis: intervalMillis,
+            force: false
+        )
+
+        let size = context.displaySize
+
+        let entry = CounterWidgetEntry(
+            date: now,
+            displayWidth: size.width,
+            displayHeight: size.height
+        )
 
         completion(
             Timeline(
