@@ -34,8 +34,9 @@
 
 https://github.com/user-attachments/assets/50072112-45a3-4bab-bba5-46d696108ec4
 
+> ⚠️ **Alpha Stage**: WARP is currently in **Alpha**. APIs and implementation details may evolve based on community feedback. If you discover any bugs or have feature requests, please [open an issue on GitHub Issues](https://github.com/DevAtrii/Warp/issues).
 
-**WARP** is a production-ready, declarative widget engine for Kotlin Multiplatform developers. 
+**WARP** is a declarative widget engine for Kotlin Multiplatform developers. 
 
 It allows you to describe home screen widget UI using familiar Compose syntax (`WarpColumn`, `WarpRow`, `WarpText`, `WarpButton`), serialize the resulting Abstract Syntax Tree (AST) to JSON, and render it using 100% native platform frameworks on each OS:
 
