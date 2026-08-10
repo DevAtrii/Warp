@@ -326,6 +326,77 @@ Clicking **Download Source (.zip)** produces a ready-to-use archive containing 6
 
 ---
 
+## Managing & Updating Widget State from Main App
+
+Besides interactive button tap handlers inside the widget UI, your main application (Android App, iOS App, ViewModels, or Background Workers) can read and update widget state programmatically.
+
+### 1. Updating All Installed Widget Instances
+
+When updating state across all home screen instances (for example, after syncing network data or completing a background task):
+
+```kotlin title="Updating All Widget Instances"
+import com.atriidev.warp_widget.api.PlatformContext
+import com.atriidev.warp_widget.listWarpWidgetIds
+import com.atriidev.warp_widget.updateWarpWidgetState
+
+suspend fun updateAllCounterWidgetInstances(
+    context: PlatformContext,
+    transform: (CounterState) -> CounterState,
+) {
+    listWarpWidgetIds(context, CounterWarpWidget).forEach { id ->
+        updateWarpWidgetState(context, CounterWarpWidget, id, transform)
+    }
+}
+```
+
+---
+
+### 2. Updating Single or Shared Instance State
+
+If your widget uses `WarpWidgetStateScope.Shared`, or when targeting the primary widget instance directly:
+
+```kotlin title="Updating Primary Instance"
+import com.atriidev.warp_widget.api.PlatformContext
+import com.atriidev.warp_widget.updateWarpWidgetState
+
+suspend fun updateCounterWidget(
+    context: PlatformContext,
+    newCount: Int,
+) {
+    updateWarpWidgetState(context, CounterWarpWidget) { state ->
+        state.copy(count = newCount)
+    }
+}
+```
+
+---
+
+### 3. Reading Widget State from Host App
+
+To inspect the currently saved state of an installed widget instance from your main application (or fall back to `defaultState()` if no widget has been added yet):
+
+```kotlin title="Reading State from Host App"
+import com.atriidev.warp_widget.api.PlatformContext
+import com.atriidev.warp_widget.listWarpWidgetIds
+import com.atriidev.warp_widget.readWarpWidgetState
+
+suspend fun readCounterWidgetState(context: PlatformContext): CounterState {
+    val ids = listWarpWidgetIds(context, CounterWarpWidget)
+    if (ids.isEmpty()) return CounterWarpWidget.defaultState()
+    return readWarpWidgetState(context, CounterWarpWidget, ids.first())
+}
+```
+
+!!! note "Obtaining `PlatformContext` in Compose UI & Multiplatform Code"
+    * In Compose UI multiplatform screens or composables, you can easily obtain `PlatformContext` using `rememberPlatformContext`:
+      ```kotlin
+      val platformContext = rememberPlatformContext(widget = CounterWarpWidget)
+      ```
+    * **Android**: `PlatformContext` resolves to your Android `android.content.Context` (or application context).
+    * **iOS**: `PlatformContext` resolves to iOS `PlatformContext()` (providing access to App Group `UserDefaults`).
+
+---
+
 !!! tip "IDE Plugin Roadmap & Project Support ☕️"
     We know writing iOS Swift boilerplate manually can feel repetitive. That's why we created the **Widget Wizard** generator. 
     
