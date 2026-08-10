@@ -1,38 +1,94 @@
+<p align="center">
+  <img src="docs/assets/logo.webp" alt="WARP Logo" width="160"/>
+</p>
+
+<h1 align="center">WARP</h1>
+
+<p align="center">
+  Widget Abstraction & Rendering Pipeline for <b>Kotlin Multiplatform</b>.<br>
+  Write home screen widgets once in Kotlin — render natively on Android (Glance) and iOS (WidgetKit + SwiftUI).
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin 2.4.0" />
+  <img src="https://img.shields.io/badge/Java-17-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17" />
+  <img src="https://img.shields.io/badge/iOS-17+-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 17+" />
+  <img src="https://img.shields.io/badge/Android-7+-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android 7+" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="MIT License" />
+  <img src="https://img.shields.io/maven-central/v/io.github.devatrii/warp-widget?style=for-the-badge&label=Version&color=6C63FF" alt="Maven Central Version" />
+  <img src="https://hits.sh/github.com/DevAtrii/Warp.svg?style=for-the-badge&label=Views&logo=github" alt="Repository Views" />
+</p>
+
+<p align="center">
+  <a href="https://warp.atherio.dev">
+    <img src="https://img.shields.io/badge/READ%20DOCUMENTATION-Click%20Here-6C63FF?style=for-the-badge" alt="Read Documentation"/>
+  </a>
+  <a href="https://buymeacoffee.com/devatrii" target="_blank">
+    <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20Project-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"/>
+  </a>
+</p>
+
+---
+
+## Overview
+
 https://github.com/user-attachments/assets/6bcdd802-41fc-4ac7-8629-e9711f0fb1f8
 
+**WARP** is a production-ready, declarative widget engine for Kotlin Multiplatform developers. 
 
-## WARP
+It allows you to describe home screen widget UI using familiar Compose syntax (`WarpColumn`, `WarpRow`, `WarpText`, `WarpButton`), serialize the resulting Abstract Syntax Tree (AST) to JSON, and render it using 100% native platform frameworks on each OS:
 
-> **Alpha Stage** — APIs and architecture are in alpha. Follow [@dev_atrii on X](https://x.com/dev_atrii) for updates.
-> **Dummy Docs** - currently public docs are dummy, i'm writing please wait
-
-**WARP** (**W**idget **A**bstraction, **R**endering **P**ipeline) is a unified API for creating home-screen widgets in **Kotlin Multiplatform**.
-
-Write widget UI once in Kotlin → render on **Android** (Jetpack Glance) and **iOS** (WidgetKit + SwiftUI).
+- **Android**: Compiles to **Jetpack Glance RemoteViews**.
+- **iOS**: Compiles to **SwiftUI WidgetKit** extensions with interactive **AppIntents**.
 
 ```
-Compose-like Kotlin UI  →  WarpNode tree  →  JSON  →  platform renderer
-                              ↑
-                         shared state & click handlers
+Declarative Compose Kotlin UI  ──>  WarpNode AST  ──>  JSON  ──>  Native Platform Renderers
+                                          │
+                             Shared State & Action Handlers
 ```
 
-### Installation & Dependencies
+---
 
-You can configure dependencies via `gradle/libs.versions.toml`:
+## Key Features
+
+- ⚡ **100% Shared UI Code**: Write layout logic, state models, and click actions once in `commonMain`.
+- 🎨 **True Native Views**: No canvas painting or heavy Skia runtime. Renders native platform views on both Android and iOS.
+- 🪶 **Zero App Size Inflation**: Only depends on `compose.runtime` — does not pull in `compose.ui` graphics pipelines.
+- 🔄 **Automatic State Store**: Persistent widget state saved across system restarts using `SharedPreferences` (Android) and `UserDefaults` App Groups (iOS).
+- 📐 **Adaptive Size Bucketing**: Automatically scales UI across `Small`, `Medium`, and `Large` widget sizes.
+- 🧙 **Interactive Swift Wizard**: Generate iOS WidgetKit SwiftUI and AppIntent boilerplate instantly via [warp.atherio.dev/wizard.html](https://warp.atherio.dev/wizard.html).
+
+---
+
+## Getting Started
+
+### 1. Version Catalog (`libs.versions.toml`)
+
+Add WARP and serialization dependencies to your catalog:
+
+<p>
+  <img src="https://img.shields.io/maven-central/v/io.github.devatrii/warp-widget?style=for-the-badge&label=Maven&color=6C63FF" alt="Maven Central Version" />
+</p>
 
 ```toml
 [versions]
 warp = "0.1.4"
-kotlinx-serialization-json = "1.6.3"
+kotlinx-serialization-json = "1.11.0"
+compose-multiplatform = "1.11.1"
 
 [libraries]
-warp-runtime = { module = "dev.atherio.warp:warp-runtime", version.ref = "warp" }
-warp-ui = { module = "dev.atherio.warp:warp-ui", version.ref = "warp" }
-warp-widget = { module = "dev.atherio.warp:warp-widget", version.ref = "warp" }
+warp-widget = { group = "io.github.devatrii", name = "warp-widget", version.ref = "warp" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+
+[plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ```
 
-In your shared module's `build.gradle.kts`:
+### 2. Shared Gradle Configuration (`build.gradle.kts`)
+
+In your shared KMP module `build.gradle.kts`:
 
 ```kotlin
 plugins {
@@ -41,173 +97,110 @@ plugins {
 }
 
 kotlin {
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            export(libs.warp.widget)
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.warp.runtime)
-            implementation(libs.warp.widget)
-            implementation(libs.warp.ui)
+            api(libs.warp.widget)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.compose.runtime)
         }
     }
 }
 ```
 
-> 🪄 **Interactive Setup Wizard**: Easily customize dependency snippets and project setups for iOS at [warp.atherio.dev](https://warp.atherio.dev/).
-
 ---
 
-### iOS Setup with Wizard
-
-To quickly configure iOS WidgetKit extensions, Swift AppIntents, and Swift Package Manager (`warpWidgetKit`) integrations, generate ready-to-use Xcode & Swift snippets using the **WARP Setup Wizard**:
-
-🔗 **[https://warp.atherio.dev/](https://warp.atherio.dev/)**
-
-The wizard guides you through:
-1. Configuring your **App Group ID** (e.g. `group.com.yourcompany.app`).
-2. Setting up `warpWidgetKit` SPM dependency in Xcode.
-3. Generating Swift AppIntent (`WarpClickAppIntent`) and `WidgetBundle` entry points.
-
----
-
-## Implementing `TodoWarpWidget` — Overview & Guide
-
-The [`TodoWarpWidget`](./examples/todo-widget/sharedLogic/src/commonMain/kotlin/com/atriidev/todowidget/widgets/TodoWarpWidget.kt) in `examples/todo-widget` demonstrates how to build interactive, stateful, and responsive widgets with WARP across Android and iOS.
-
-### 1. State Definition
-Define serializable data structures representing the state of your widget:
+## Creating Your First Widget
 
 ```kotlin
+/** 1. State */
 @Serializable
-@Stable
-data class TodoWidgetState(
-    val todos: List<TodoItem> = emptyList()
-)
+data class CounterState(val count: Int = 0)
 
+/** 2. Type-Safe Actions */
 @Serializable
-data class TodoItem(val id: Int, val title: String, val done: Boolean)
-```
-
-### 2. Sealed Actions & Click Handlers
-Define type-safe actions using `@Serializable` sealed interfaces and handle state updates asynchronously in a `WarpClickHandler`:
-
-```kotlin
-@Serializable
-sealed interface TodoActions {
-    @Serializable data class Toggle(val todoId: Int) : TodoActions
-    @Serializable data object Clear : TodoActions
-    @Serializable data object AddSample : TodoActions
+sealed class CounterActions {
+    @Serializable data object Increment : CounterActions()
+    @Serializable data object Decrement : CounterActions()
 }
 
-private class TodoClickHandler(
-    private val session: WarpWidgetSession
-) : WarpClickHandler<TodoActions>(serializer = TodoActions.serializer()) {
-    override suspend fun onAction(action: TodoActions) {
-        when (action) {
-            is TodoActions.Toggle -> updateWarpWidgetState(session, TodoWarpWidget) { state ->
-                state.copy(todos = state.todos.map { 
-                    if (it.id == action.todoId) it.copy(done = !it.done) else it 
-                })
-            }
-            is TodoActions.Clear -> updateWarpWidgetState(session, TodoWarpWidget) { state.copy(todos = emptyList()) }
-            is TodoActions.AddSample -> updateWarpWidgetState(session, TodoWarpWidget) { sampleTodoWidgetState }
-        }
-    }
-}
-```
-
-### 3. Type-Safe Assets
-Declare asset identifiers shared between Kotlin UI and platform asset catalogs:
-
-```kotlin
-object TodoAssets {
-    val Circle = WarpAssetId("circle")
-    val CheckCircle = WarpAssetId("checkmark.circle.fill")
-    val Plus = WarpAssetId("plus")
-    val Trash = WarpAssetId("trash")
-}
-```
-
-### 4. Widget Definition & Adaptive UI
-Inherit from `WarpWidget<State>`, define state scopes, and specify UI layouts for different widget family sizes using `WarpAdaptiveContent`:
-
-```kotlin
-object TodoWarpWidget : WarpWidget<TodoWidgetState>(stateSerializer = TodoWidgetState.serializer()) {
-    override val id: String = "TodoWidget"
-    override val iosGroupId: String = "group.warpexample.todowidget"
-    override val defaultState: TodoWidgetState = TodoWidgetState()
+/** 3. Widget Definition */
+object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
+    override val id: String = "CounterWidget"
+    override val iosGroupId: String = "group.com.example.app"
     override val stateScope: WarpWidgetStateScope = WarpWidgetStateScope.Shared
 
+    override suspend fun defaultState(): CounterState = CounterState()
+
     @Composable
-    override fun Content(env: WidgetEnvironment, state: TodoWidgetState) {
+    override fun Content(env: WidgetEnvironment, state: CounterState) {
         WarpTheme(environment = env) {
-            WarpAdaptiveContent(
-                environment = env,
-                small = { TodoWidgetContent(state, env, compact = true) },
-                medium = { TodoWidgetContent(state, env) },
-                large = { TodoWidgetContent(state, env, spacious = true) }
-            )
+            WarpRow(
+                modifier = WarpModifier.fillMaxWidth().padding(16.dp),
+                verticalAlignment = WarpVerticalAlignment.Center
+            ) {
+                WarpButton("−", CounterActions.Decrement.asClickAction())
+                WarpText("${state.count}", modifier = WarpModifier.weight())
+                WarpButton("+", CounterActions.Increment.asClickAction())
+            }
         }
     }
 
-    override fun clickHandlers(session: WarpWidgetSession): List<WarpClickHandler<*>> = listOf(
-        TodoClickHandler(session)
-    )
+    override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> =
+        listOf(CounterActionHandler(session))
 }
 ```
 
 ---
 
-### Modules
+## iOS Build Size & Benchmark Report
+
+Below is the real-world iOS build size report for the [Todo Widget Example App](https://github.com/DevAtrii/Warp/tree/main/examples/todo-widget):
+
+| Artifact | Component / Path | Release Size | Note |
+| :--- | :--- | :--- | :--- |
+| **Xcode App Store Archive (`.ipa`)** | `TodoWidget.ipa` *(App Thinning Export)* | **1.8 MB** | **Official App Store Download Size** |
+| **Installed App Size (Thinned)** | On-Device Installed Footprint | **5.8 MB** | **Official App Store Install Size** |
+| **Shared KMP Framework** | `SharedLogic.framework` | **18.0 MB** | **~73% Release Binary Stripping** |
+| **Widget Extension Bundle** | `TodoWidgetExtension.appex` | **8.50 MB** | Uncompressed bundle on-disk |
+
+---
+
+## Module Overview
 
 | Module | Role |
-|--------|------|
-| [warp-runtime](./warp-runtime/) | Author widget UI (`WarpColumn`, `WarpText`, `WarpButton`), compose to tree/JSON, click wire format |
-| [warp-ui](./warp-ui/) | Platform renderers — Glance (Android), iOS via [spm4Kmp](https://github.com/frankois944/spm4Kmp) |
-| [warp-widget](./warp-widget/) | Shared `WarpWidget` definition, session/env, prefs store, host API (`WarpWidgetHost`) |
-| [warpWidgetKit](./warpWidgetKit/) | **SPM** SwiftUI / WidgetKit package (`import warpWidgetKit`) — local now, remote later |
-| [shared](./shared/) | App + demo widgets (counter), shared click handlers, DataStore |
+| :--- | :--- |
+| [warp-runtime](./warp-runtime/) | Compose compiler DSL, `WarpNode` AST tree, `WarpModifier` chain, serializable actions |
+| [warp-ui](./warp-ui/) | Native platform renderers — Jetpack Glance (Android) & SwiftUI generator (iOS) |
+| [warp-widget](./warp-widget/) | Shared `WarpWidget` API, session manager, persistent state store, `WarpTheme`, `WarpAdaptive` |
+| [warpWidgetKit](./warpWidgetKit/) | **SPM** SwiftUI / WidgetKit package (`import warpWidgetKit`) for Xcode extensions |
+| [shared](./shared/) | Shared KMP module with Counter widget demo |
 | [examples/todo-widget](./examples/todo-widget) | Complete full-featured Todo Widget example application |
-| [androidApp](./androidApp/) | Android host app + Glance widget |
-| [iosApp](./iosApp/) | iOS host app + Counter Widget extension (`.systemSmall`) |
-
-### Docs
-
-- [warp-runtime README](./warp-runtime/README.md) — composing widgets, JSON, click actions
-- [warp-runtime click guide](./warp-runtime/README_CLICK.md) — handler registry & dispatch
-- [warp-ui README](./warp-ui/README.md) — `WarpRender`, `warpRender`, iOS WidgetKit setup
-- [warp-widget README](./warp-widget/README.md) — `WarpWidget`, session, state, Glance / WidgetKit hosts
-
-### Status
-
-| Platform | Renderer | Demo |
-|----------|----------|------|
-| Android | Jetpack Glance ✓ | Counter widget & Todo widget ✓ |
-| iOS | WidgetKit + SwiftUI ✓ | Counter widget & Todo widget (`.systemSmall`, `.systemMedium`, `.systemLarge`) ✓ |
-| API stability | Early / experimental | — |
 
 ---
 
-## Running the apps
+## Documentation & Resources
 
-- **Android:** `./gradlew :androidApp:assembleDebug` — install app, add Counter or Todo widget from launcher
-- **iOS:** open [iosApp](./iosApp) in Xcode, run **iosApp**, add **Counter** / **Todo** widget (requires App Group + iOS 17+)
-
-### Verify builds
-
-```bash
-./gradlew :warp-runtime:jvmTest
-./gradlew :warp-ui:compileKotlinIosSimulatorArm64
-./gradlew :androidApp:assembleDebug
-```
+- 📖 **Official Documentation**: [https://warp.atherio.dev](https://warp.atherio.dev)
+- 🧙 **iOS Widget Wizard**: [https://warp.atherio.dev/wizard.html](https://warp.atherio.dev/wizard.html)
+- 💡 **How WARP Works**: [How WARP Works Under the Hood](https://warp.atherio.dev/2-how-warp-works)
 
 ---
 
-## Project layout
+## License & Usage
 
-* [/iosApp](./iosApp) — iOS application and Widget Extension entry points
-* [/shared](./shared/src) — shared Kotlin (commonMain, androidMain, iosMain)
-* [/examples/todo-widget](./examples/todo-widget) — full sample Todo Widget implementation
-* [/androidApp](./androidApp) — Android application
+WARP is open-source software released under the [MIT License](LICENSE). You are free to use, modify, and distribute it in personal or commercial applications.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html).
-
+<p align="center">
+  <a href="https://warp.atherio.dev">
+    <img src="https://img.shields.io/badge/READ%20DOCUMENTATION-Click%20Here-6C63FF?style=for-the-badge" alt="Read Documentation"/>
+  </a>
+  <a href="https://buymeacoffee.com/devatrii" target="_blank">
+    <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20Project-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"/>
+  </a>
+</p>
