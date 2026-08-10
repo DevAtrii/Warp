@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARP — Cross-Platform Widgets for KMP</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <meta name="description"
+        content="Write home screen widgets once in Kotlin Multiplatform with Compose syntax. Render natively on Android (Glance) and iOS (WidgetKit).">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Iconify CDN -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Shared Stylesheet -->
+    <link rel="stylesheet" href="assets/pages.css">
+
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(18, 24, 38, 0.7);
+            --bg-card-hover: rgba(28, 36, 56, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-highlight: rgba(16, 185, 129, 0.3);
+
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.4);
+            --primary-dark: #059669;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+
+            --code-bg: #070a12;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            background: rgba(11, 15, 25, 0.75);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+            color: #000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transition: color 0.2s;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #000;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0 3rem 0;
+            text-align: center;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--border-highlight);
+            border-radius: 9999px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin: 0 auto 2.5rem auto;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Interactive Showcase Grid */
+        .showcase {
+            padding: 3rem 0 5rem 0;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Code Editor Window */
+        .editor-window {
+            background: var(--code-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .editor-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .editor-tab {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .code-container {
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #d4d4d4;
+            min-height: 380px;
+            max-height: 420px;
+            overflow-y: auto;
+            white-space: pre;
+        }
+
+        /* Syntax Highlighting Mock */
+        .kw {
+            color: #569cd6;
+            font-weight: 600;
+        }
+
+        .cls {
+            color: #4ec9b0;
+        }
+
+        .fn {
+            color: #dcdcaa;
+        }
+
+        .str {
+            color: #ce9178;
+        }
+
+        .num {
+            color: #b5cea8;
+        }
+
+        .ann {
+            color: #cc6633;
+        }
+
+        .cm {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--primary);
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .editor-footer {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.6rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .status-pulse {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
+        /* Preview Cards Side */
+        .previews-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .preview-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .platform-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Android Mock Widget */
+        .android-widget {
+            background: #1b2838;
+            border-radius: 16px;
+            padding: 1.25rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .widget-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .widget-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .widget-btn:active {
+            transform: scale(0.9);
+        }
+
+        .btn-minus {
+            background: #e74c3c;
+        }
+
+        .btn-plus {
+            background: #27ae60;
+        }
+
+        .widget-count {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            flex: 1;
+        }
+
+        /* iOS Mock Widget */
+        .ios-widget {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            padding: 1.25rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            background: rgba(7, 10, 18, 0.8);
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .footer-socials a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 960px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 3rem 0 2rem 0;
+            }
+
+            .hero h1 {
+                font-size: 1.85rem !important;
+                line-height: 1.25;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .showcase-grid {
+                padding: 1rem !important;
+                gap: 1rem !important;
+            }
+
+            .code-container {
+                font-size: 0.72rem !important;
+                padding: 0.85rem !important;
+                min-height: 280px !important;
+                max-height: 340px !important;
+            }
+
+            .widget-count {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <iconify-icon icon="lucide:cpu" style="color: var(--primary); font-size: 1.5rem;"></iconify-icon>
+                    WARP
+                    <span class="logo-badge">KMP</span>
+                </a>
+
+                <div class="nav-links">
+                    <a href="docs/2-creating-your-first-widget">First Widget</a>
+                    <a href="2-how-warp-works">How It Works</a>
+                    <a href="wizard.html">Widget Wizard</a>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="https://github.com/DevAtrii/Warp" target="_blank" class="btn btn-outline">
+                        <iconify-icon icon="lucide:github"></iconify-icon>
+                        GitHub Repo
+                    </a>
+                    <a href="docs/2-creating-your-first-widget" class="btn btn-primary">
+                        <iconify-icon icon="lucide:rocket"></iconify-icon>
+                        Get Started
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge-pill">
+                <iconify-icon icon="lucide:sparkles"></iconify-icon>
+                Kotlin Multiplatform Widget Engine
+            </div>
+            <h1>
+                Build Home Screen Widgets for <span class="gradient-text">Android & iOS</span> from Shared Code
+            </h1>
+            <p>
+                Write declarative Compose UI once in KMP. WARP compiles your code into native <b>Jetpack Glance
+                    RemoteViews</b> on Android and native <b>SwiftUI WidgetKit</b> on iOS.
+            </p>
+            <div class="hero-buttons">
+                <a href="docs/2-creating-your-first-widget" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                    <iconify-icon icon="lucide:book-open"></iconify-icon>
+                    Get Started
+                </a>
+                <a href="https://github.com/DevAtrii/Warp" target="_blank" class="btn btn-outline"
+                    style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                    <iconify-icon icon="lucide:github"></iconify-icon>
+                    GitHub Repo
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Showcase Section -->
+    <section class="showcase">
+        <div class="container">
+            <div class="showcase-grid">
+
+                <!-- Code Editor Panel -->
+                <div class="editor-window">
+                    <div class="editor-header">
+                        <div class="window-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="editor-tab">
+                            <iconify-icon icon="vscode-icons:file-type-kotlin"></iconify-icon>
+                            CounterWarpWidget.kt
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-dim);">commonMain</div>
+                    </div>
+
+                    <div class="code-container" id="typewriterCode"></div>
+
+                    <div class="editor-footer">
+                        <div class="status-pulse">
+                            <div class="pulse-dot"></div>
+                            <span id="statusText">COMPILING WARP AST...</span>
+                        </div>
+                        <div>DEPLOYED TO 2 TARGETS</div>
+                    </div>
+                </div>
+
+                <!-- Dual Platform Widgets Side -->
+                <div class="previews-column">
+
+                    <!-- Android Preview Card -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="platform-tag">
+                                <iconify-icon icon="logos:android-icon" style="font-size: 1.1rem;"></iconify-icon>
+                                Android Glance (RemoteViews)
+                            </div>
+                            <span style="font-size: 0.75rem; color: var(--primary);">ACTIVE</span>
+                        </div>
+
+                        <div class="android-widget">
+                            <div class="widget-row">
+                                <button class="widget-btn btn-minus" onclick="updateCount(-1)">−</button>
+                                <div class="widget-count" id="androidCount">0</div>
+                                <button class="widget-btn btn-plus" onclick="updateCount(1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- iOS Preview Card -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="platform-tag">
+                                <iconify-icon icon="logos:apple"
+                                    style="font-size: 1.1rem; filter: invert(1);"></iconify-icon>
+                                iOS WidgetKit (SwiftUI)
+                            </div>
+                            <span style="font-size: 0.75rem; color: var(--primary);">ACTIVE</span>
+                        </div>
+
+                        <div class="ios-widget">
+                            <div class="widget-row">
+                                <button class="widget-btn btn-minus" onclick="updateCount(-1)">−</button>
+                                <div class="widget-count" id="iosCount">0</div>
+                                <button class="widget-btn btn-plus" onclick="updateCount(1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Grid -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose WARP?</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:layers"></iconify-icon>
+                    </div>
+                    <h3>100% Shared Compose UI</h3>
+                    <p>Write your widget layout using familiar Compose DSL primitives (`WarpColumn`, `WarpRow`,
+                        `WarpText`, `WarpButton`).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:cpu"></iconify-icon>
+                    </div>
+                    <h3>True Native Execution</h3>
+                    <p>No heavy canvas renderers or Skia runtime. WARP compiles directly into native Glance RemoteViews
+                        on Android and native SwiftUI on iOS.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:feather"></iconify-icon>
+                    </div>
+                    <h3>Zero App Size Overhead</h3>
+                    <p>Only uses `compose.runtime`. Does not pull in Compose UI graphics, preserving minimal binary size
+                        for your app.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:database"></iconify-icon>
+                    </div>
+                    <h3>Persistent State Store</h3>
+                    <p>Automatic state persistence across system restarts via SharedPreferences (Android) and App Group
+                        UserDefaults (iOS).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:scan-line"></iconify-icon>
+                    </div>
+                    <h3>Adaptive Layouts</h3>
+                    <p>Built-in size bucketing (`Small`, `Medium`, `Large`) dynamically resizes layouts for different
+                        home screen widget dimensions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <iconify-icon icon="lucide:sparkles"></iconify-icon>
+                    </div>
+                    <h3>Swift Code Wizard</h3>
+                    <p>Generate iOS WidgetKit SwiftUI and AppIntent boilerplate instantly using the web-based Widget
+                        Wizard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Size Benchmark Section -->
+    <section class="app-size-section" style="padding: 4rem 0 5rem 0; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">
+                <div class="badge-pill" style="margin-bottom: 1rem;">
+                    <iconify-icon icon="lucide:gauge"></iconify-icon>
+                    Real-World Benchmark Report
+                </div>
+                <h2 class="section-title" style="margin-bottom: 1rem;">Minimal App Size Footprint</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">
+                    WARP relies exclusively on lightweight <code style="color: var(--primary); font-family: 'JetBrains Mono', monospace;">compose.runtime</code> without pulling in Compose UI rendering pipelines or heavy graphics engines. Your app remains fast, lean, and small.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <div class="feature-card" style="text-align: center; border-color: var(--border-highlight);">
+                    <div style="font-size: 2.75rem; font-weight: 800; color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif;">1.8 MB</div>
+                    <div style="font-weight: 700; font-size: 1.05rem; margin-top: 0.25rem;">App Store Download Size</div>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.5rem;">Xcode App Thinning export (<code style="font-family: monospace;">TodoWidget.ipa</code>)</p>
+                </div>
+
+                <div class="feature-card" style="text-align: center;">
+                    <div style="font-size: 2.75rem; font-weight: 800; color: var(--accent-blue); font-family: 'Plus Jakarta Sans', sans-serif;">5.8 MB</div>
+                    <div style="font-weight: 700; font-size: 1.05rem; margin-top: 0.25rem;">On-Device Installed Footprint</div>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.5rem;">Uncompressed installed app & widget extension footprint</p>
+                </div>
+
+                <div class="feature-card" style="text-align: center;">
+                    <div style="font-size: 2.75rem; font-weight: 800; color: var(--accent-purple); font-family: 'Plus Jakarta Sans', sans-serif;">73%</div>
+                    <div style="font-weight: 700; font-size: 1.05rem; margin-top: 0.25rem;">Release Binary Stripping</div>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.5rem;">Automatic LTO & Kotlin/Native dead-code elimination</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://github.com/DevAtrii/Warp/tree/main/examples/todo-widget" target="_blank" class="btn btn-outline" style="padding: 0.85rem 1.75rem; font-size: 0.95rem;">
+                    <iconify-icon icon="lucide:external-link"></iconify-icon>
+                    Verify Todo Widget App Source & Benchmark Report
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                    © 2026 WARP • Built for Kotlin Multiplatform Developers by <a href="https://github.com/DevAtrii"
+                        style="color: var(--primary); font-weight: 600;">DevAtrii</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="https://github.com/DevAtrii/Warp" target="_blank" title="GitHub">
+                        <iconify-icon icon="lucide:github"></iconify-icon>
+                    </a>
+                    <a href="https://x.com/dev_atrii" target="_blank" title="Twitter/X">
+                        <iconify-icon icon="lucide:twitter"></iconify-icon>
+                    </a>
+                    <a href="https://youtube.com/@devatrii" target="_blank" title="YouTube">
+                        <iconify-icon icon="lucide:youtube"></iconify-icon>
+                    </a>
+                    <a href="https://buymeacoffee.com/devatrii" target="_blank" title="Buy Me A Coffee">
+                        <iconify-icon icon="lucide:coffee"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Typewriter & State Sync Script -->
+    <script>
+        let currentCount = 0;
+
+        function updateCount(delta) {
+            currentCount += delta;
+            document.getElementById('androidCount').innerText = currentCount;
+            document.getElementById('iosCount').innerText = currentCount;
+        }
+
+        const codeText = `<span class="kw">object</span> <span class="cls">CounterWarpWidget</span> : <span class="cls">WarpWidget</span>&lt;<span class="cls">CounterState</span>&gt;(<span class="cls">CounterState</span>.serializer()) {
+    <span class="kw">override val</span> id = <span class="str">"CounterWidget"</span>
+
+    <span class="ann">@Composable</span>
+    <span class="kw">override fun</span> <span class="fn">Content</span>(env: <span class="cls">WidgetEnvironment</span>, state: <span class="cls">CounterState</span>) {
+        <span class="cls">WarpTheme</span>(environment = env) {
+            <span class="cls">WarpRow</span>(
+                modifier = <span class="cls">WarpModifier</span>.<span class="fn">fillMaxWidth</span>(),
+                verticalAlignment = <span class="cls">WarpVerticalAlignment</span>.Center
+            ) {
+                <span class="cls">WarpButton</span>(
+                    text = <span class="str">"−"</span>,
+                    onClick = <span class="cls">CounterActions</span>.Decrement.<span class="fn">asClickAction</span>(),
+                    colors = <span class="cls">WarpButtonColors</span>(backgroundColor = <span class="cls">WarpColor</span>.Red)
+                )
+                <span class="cls">WarpText</span>(
+                    text = <span class="str">"\${state.count}"</span>,
+                    modifier = <span class="cls">WarpModifier</span>.<span class="fn">weight</span>()
+                )
+                <span class="cls">WarpButton</span>(
+                    text = <span class="str">"+"</span>,
+                    onClick = <span class="cls">CounterActions</span>.Increment.<span class="fn">asClickAction</span>(),
+                    colors = <span class="cls">WarpButtonColors</span>(backgroundColor = <span class="cls">WarpColor</span>.Green)
+                )
+            }
+        }
+    }
+}`;
+
+        const codeContainer = document.getElementById('typewriterCode');
+        let index = 0;
+
+        function typeCode() {
+            if (index <= codeText.length) {
+                codeContainer.innerHTML = codeText.substring(0, index) + '<span class="typing-cursor"></span>';
+                index += 4;
+                setTimeout(typeCode, 15);
+            } else {
+                codeContainer.innerHTML = codeText;
+                document.getElementById('statusText').innerText = "LIVE DEPLOYED TO BOTH PLATFORMS";
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeCode, 300);
+        });
+    </script>
+
+</body>
+
+</html>

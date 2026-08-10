@@ -5,8 +5,9 @@ site_url="https://warp.atherio.dev"
 repo_name = "devatrii/warp"
 repo_url="https://github.com/DevAtrii/Warp"
 nav = [
-  {"Home" = "index.md"},
+  {"Home" = "index.html"},
   {"Mental Model" = "1-mental-model.md"},
+
   {"Documentation" = [
     "docs/1-setup.md",
     "docs/2-creating-your-first-widget.md",

@@ -105,10 +105,14 @@ object CounterAssets {
 
 Implement `WarpWidget<CounterState>` and compose your UI using WARP primitives:
 
+!!! warning "Important ID & Group Configuration"
+    * **`id` (`override val id: String = "CounterWidget"`)**: Must strictly match the **iOS Widget `kind` identifier** specified in your Swift Widget Extension target (e.g. `"CounterWidget"`).
+    * **`iosGroupId` (`override val iosGroupId: String = "group.com.example.app"`)**: Crucial for iOS state persistence across your main app and widget extension. See the [Setup Guide](1-setup.md#3-ios-target-setup) to configure your App Group ID.
+
 ```kotlin title="CounterWarpWidget.kt"
 object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
     override val id: String = "CounterWidget"
-    override val iosGroupId: String = APP_GROUP_ID
+    override val iosGroupId: String = "group.com.example.app"
     override val stateScope: WarpWidgetStateScope = WarpWidgetStateScope.Shared
 
     override suspend fun defaultState(): CounterState = CounterState()
