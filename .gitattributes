@@ -1,2 +1,2 @@
-*.html linguist-detectable=false
-docs/** linguist-detectable=false
+/docs/index.html linguist-vendored
+/graphify-out/graph.html linguist-vendored
