@@ -434,11 +434,6 @@ html_content = f"""<!DOCTYPE html>
         const elCurrentFileName = document.getElementById('currentFileName');
         const elCodeBlock = document.getElementById('codeBlock');
 
-        // Load from LocalStorage
-        if (localStorage.getItem('warp_widgetName')) elWidgetName.value = localStorage.getItem('warp_widgetName');
-        if (localStorage.getItem('warp_warpObjectName')) elWarpObjectName.value = localStorage.getItem('warp_warpObjectName');
-        if (localStorage.getItem('warp_sharedModuleName')) elSharedModuleName.value = localStorage.getItem('warp_sharedModuleName');
-
         // Defaults if empty
         if (!elWidgetName.value) elWidgetName.value = "Counter";
         if (!elWarpObjectName.value) elWarpObjectName.value = "CounterWarpWidget";
@@ -453,11 +448,6 @@ html_content = f"""<!DOCTYPE html>
             const widget = elWidgetName.value.trim() || 'Counter';
             const warpObject = elWarpObjectName.value.trim() || 'CounterWarpWidget';
             const sharedModule = elSharedModuleName.value.trim() || 'Shared';
-            
-            // Save to LocalStorage
-            localStorage.setItem('warp_widgetName', elWidgetName.value.trim());
-            localStorage.setItem('warp_warpObjectName', elWarpObjectName.value.trim());
-            localStorage.setItem('warp_sharedModuleName', elSharedModuleName.value.trim());
 
             return {{ widget, warpObject, sharedModule }};
         }}
