@@ -4,15 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import com.atriidev.warp_runtime.compose.composeWarp
 import com.atriidev.warp_runtime.compose.toJson
+import com.atriidev.warp_runtime.log.WarpLogger
 import com.atriidev.warp_runtime.nodes.WarpNode
 import com.atriidev.warp_ui.WarpActionHandler
+import com.atriidev.warp_widget.WarpWidgetHost.compose
 import com.atriidev.warp_widget.api.PlatformContext
 import com.atriidev.warp_widget.api.WidgetEnvironment
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import com.atriidev.warp_runtime.log.WarpLogger
+import kotlin.time.Duration
 
 /**
  * One render / click pass from a platform host.
@@ -22,6 +24,7 @@ import com.atriidev.warp_runtime.log.WarpLogger
  * - **Android:** [rememberGlanceWidgetSession] / [glanceWidgetEnvironment]
  * - **iOS:** [WarpWidgetHost.iosSession] with Kit `asKitFields`
  */
+@Stable
 data class WarpWidgetSession(
     val context: PlatformContext,
     val environment: WidgetEnvironment,
@@ -43,7 +46,14 @@ interface WarpWidgetHostApi {
     fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>>
 
     @Composable
-    fun ComposeContent(env: WidgetEnvironment, preferences: WarpWidgetPreferences)
+    fun ComposeContent(session: WarpWidgetSession, preferences: WarpWidgetPreferences)
+
+
+//    fun onUpdate(
+//        previous: Duration,
+//        current: Duration,
+//        session: WarpWidgetSession,
+//    )
 }
 
 /**
@@ -103,10 +113,10 @@ abstract class WarpWidget<S : Any>(
     open val stateScope: WarpWidgetStateScope get() = WarpWidgetStateScope.Shared
 
     /**
-     * Declarative UI for [env] + decoded [state].
+     * Declarative UI for [session] + decoded [state].
      */
     @Composable
-    abstract fun Content(env: WidgetEnvironment, state: S)
+    abstract fun Content(session: WarpWidgetSession, state: S)
 
     /**
      * Click handlers for wire `actionId`s used in [Content].
@@ -130,9 +140,12 @@ abstract class WarpWidget<S : Any>(
      * Host entry: resolve [state] from [preferences] and call [Content].
      */
     @Composable
-    final override fun ComposeContent(env: WidgetEnvironment, preferences: WarpWidgetPreferences) {
+    final override fun ComposeContent(
+        session: WarpWidgetSession,
+        preferences: WarpWidgetPreferences,
+    ) {
         val state = runBlocking { decodeState(preferences) }
-        Content(env, state)
+        Content(session, state)
     }
 
     companion object {
@@ -184,7 +197,7 @@ object WarpWidgetHost {
         val prefs = preferences(widget, session)
         return composeWarp {
             ProvideWarpWidgetPreferences(prefs) {
-                widget.ComposeContent(session.environment, prefs)
+                widget.ComposeContent(session, prefs)
             }
         }
     }
@@ -232,7 +245,7 @@ object WarpWidgetHost {
         WarpLogger.d(
             "WarpWidgetHost",
             "WARP_CLICK: dispatch kind=${widget.id} actionId=$actionId " +
-                "widgetId=$resolvedId params=$parametersJson"
+                    "widgetId=$resolvedId params=$parametersJson"
         )
         WarpWidgetClickScope.withWidgetId(resolvedId) {
             prepare(widget, resolved)

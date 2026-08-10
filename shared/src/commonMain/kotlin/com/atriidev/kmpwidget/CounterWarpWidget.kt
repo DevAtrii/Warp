@@ -16,7 +16,6 @@ import com.atriidev.warp_runtime.compose.WarpSpacer
 import com.atriidev.warp_runtime.compose.WarpText
 import com.atriidev.warp_runtime.log.WarpLogger
 import com.atriidev.warp_runtime.log.WarpLoggerLevel
-import com.atriidev.warp_runtime.nodes.WarpIntentFlags
 import com.atriidev.warp_runtime.nodes.WarpUrl
 import com.atriidev.warp_runtime.nodes.actions.asClickAction
 import com.atriidev.warp_runtime.nodes.assets.WarpAssetId
@@ -141,7 +140,8 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
     override suspend fun defaultState(): CounterState = CounterState()
 
     @Composable
-    override fun Content(env: WidgetEnvironment, state: CounterState) {
+    override fun Content(session: WarpWidgetSession, state: CounterState) {
+        val env = session.environment
         WarpLogger.level = WarpLoggerLevel.Debug
         WarpTheme(
             environment = env,
