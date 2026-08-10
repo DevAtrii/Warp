@@ -9,6 +9,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.atriidev.warp_runtime.log.WarpLogger
 
 private const val ACTION_UI_MODE_CHANGED = "android.intent.action.UI_MODE_CHANGED"
+const val ACTION_UPDATE_WIDGET = "com.atriidev.warp.ACTION_WIDGET_UPDATE"
 
 /**
  * Glance [GlanceAppWidgetReceiver] that auto-registers with [WarpWidgetAndroidRegistry].
@@ -47,12 +48,73 @@ abstract class WarpGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
         ensureRegistered()
         WarpLogger.d("WarpGlanceWidgetReceiver", "onReceive: intent action = ${intent.action}")
         when (intent.action) {
+            ACTION_UPDATE_WIDGET -> {
+                val appWidgetManager = AppWidgetManager.getInstance(context)
+                val componentName = android.content.ComponentName(context, javaClass)
+                val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+                val warp = createWarpWidget()
+                val platformContext = com.atriidev.warp_widget.api.PlatformContext(context.applicationContext)
+                val now = currentTimeMillis()
+                for (appWidgetId in appWidgetIds) {
+                    val warpWidgetId = resolveSessionWidgetId(
+                        widget = warp,
+                        androidAppWidgetId = appWidgetId,
+                    )
+                    val session = WarpWidgetSession(
+                        context = platformContext,
+                        environment = glanceWidgetEnvironment(
+                            context = context,
+                            size = androidx.compose.ui.unit.DpSize.Zero,
+                            appWidgetId = appWidgetId,
+                        ),
+                        widgetId = warpWidgetId,
+                    )
+                    WarpWidgetHost.dispatchOnUpdate(warp, session, nowMillis = now, force = true)
+                }
+            }
             Intent.ACTION_CONFIGURATION_CHANGED,
             ACTION_UI_MODE_CHANGED,
                 -> WarpWidgetAndroidReload.scheduleReloadAll(context, "receiver:${intent.action}")
         }
         super.onReceive(context, intent)
     }
+
+
+
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray,
+    ) {
+        ensureRegistered()
+        WarpLogger.d(
+            "WarpGlanceWidgetReceiver",
+            "onUpdate: periodic system update triggered for appWidgetIds count = ${appWidgetIds.size}"
+        )
+        val warp = createWarpWidget()
+        val platformContext = com.atriidev.warp_widget.api.PlatformContext(context.applicationContext)
+        val now = currentTimeMillis()
+
+        for (appWidgetId in appWidgetIds) {
+            val warpWidgetId = resolveSessionWidgetId(
+                widget = warp,
+                androidAppWidgetId = appWidgetId,
+            )
+            val session = WarpWidgetSession(
+                context = platformContext,
+                environment = glanceWidgetEnvironment(
+                    context = context,
+                    size = androidx.compose.ui.unit.DpSize.Zero,
+                    appWidgetId = appWidgetId,
+                ),
+                widgetId = warpWidgetId,
+            )
+            WarpWidgetHost.dispatchOnUpdate(warp, session, nowMillis = now)
+        }
+
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+    }
+
 
     override fun onAppWidgetOptionsChanged(
         context: Context,

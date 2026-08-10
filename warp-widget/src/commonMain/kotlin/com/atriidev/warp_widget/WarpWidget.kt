@@ -15,6 +15,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * One render / click pass from a platform host.
@@ -48,12 +49,21 @@ interface WarpWidgetHostApi {
     @Composable
     fun ComposeContent(session: WarpWidgetSession, preferences: WarpWidgetPreferences)
 
-
-//    fun onUpdate(
-//        previous: Duration,
-//        current: Duration,
-//        session: WarpWidgetSession,
-//    )
+    /**
+     * Called when the widget is refreshed by system timeline / update interval.
+     *
+     * - **Android:** Triggered when system update interval (`android:updatePeriodMillis`) fires.
+     * - **iOS:** Triggered when WidgetKit requests a timeline update (`getTimeline`).
+     *
+     * @param previous [Duration] timestamp of the previous update pass (or [Duration.ZERO] on initial run).
+     * @param current [Duration] timestamp of the current update pass.
+     * @param session Active [WarpWidgetSession] for the widget being updated.
+     */
+    fun onUpdate(
+        previous: Duration,
+        current: Duration,
+        session: WarpWidgetSession,
+    ) {}
 }
 
 /**
@@ -124,6 +134,23 @@ abstract class WarpWidget<S : Any>(
      * Prefer [updateWarpWidgetState] with a `(S) -> S` transform.
      */
     override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> = emptyList()
+
+    /**
+     * Optional override called when the widget is refreshed by system timeline / update interval.
+     *
+     * Override this method in your [WarpWidget] subclass to perform periodic data fetching or
+     * state updates when the host system refreshes the widget.
+     *
+     * @param previous [Duration] timestamp of the previous update pass (or [Duration.ZERO] on initial run).
+     * @param current [Duration] timestamp of the current update pass.
+     * @param session Active [WarpWidgetSession] for the widget being updated.
+     */
+    open override fun onUpdate(
+        previous: Duration,
+        current: Duration,
+        session: WarpWidgetSession,
+    ) {}
+
 
     /** Decode [S] from prefs (key = [id]); falls back to [defaultState]. */
     suspend fun decodeState(preferences: WarpWidgetPreferences): S {
@@ -280,5 +307,55 @@ object WarpWidgetHost {
             environment = session.environment,
             preferences = prefs,
         )
+    }
+
+    /**
+     * Dispatch system timeline / periodic update event to [widget].
+     *
+     * Calculates `previous` timestamp from preferences and `current` timestamp from [nowMillis].
+     * To prevent accidental invocations during rapid UI re-renders or state-change timeline reloads,
+     * updates occurring within [minIntervalMillis] of the previous update are skipped unless [force] is true.
+     *
+     * @param widget Target widget definition.
+     * @param session Active session.
+     * @param nowMillis Epoch milliseconds of the current update pass.
+     * @param minIntervalMillis Minimum elapsed milliseconds required between periodic updates (default 60,000ms / 1 min).
+     * @param force Set to true to bypass interval throttling (e.g. manual ADB test broadcasts).
+     */
+    fun dispatchOnUpdate(
+        widget: WarpWidgetHostApi,
+        session: WarpWidgetSession,
+        nowMillis: Long = currentTimeMillis(),
+        minIntervalMillis: Long = 60_000L,
+        force: Boolean = false,
+    ) {
+        val prefs = preferences(widget, session)
+        val lastUpdateKey = WarpStateKey.long("__warp_last_update_millis")
+        val previousMillis = prefs[lastUpdateKey] ?: 0L
+        val currentMillis = nowMillis
+
+        if (!force && previousMillis > 0L && (currentMillis - previousMillis) < minIntervalMillis) {
+            WarpLogger.d(
+                "WarpWidgetHost",
+                "dispatchOnUpdate kind=${widget.id} skipped (elapsed ${currentMillis - previousMillis}ms < ${minIntervalMillis}ms threshold)",
+            )
+            return
+        }
+
+        val previous = previousMillis.milliseconds
+        val current = currentMillis.milliseconds
+
+        WarpLogger.d(
+            "WarpWidgetHost",
+            "dispatchOnUpdate kind=${widget.id} previous=$previous current=$current",
+        )
+
+        runBlocking {
+            WarpWidgetStateStore.update(session.context, widget, session.widgetId) {
+                set(lastUpdateKey, currentMillis)
+            }
+        }
+
+        widget.onUpdate(previous, current, session)
     }
 }

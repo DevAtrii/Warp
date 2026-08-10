@@ -46,6 +46,7 @@ import com.atriidev.warp_widget.updateWarpWidgetState
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.math.abs
+import kotlin.time.Duration
 
 /** Type-safe click actions for [CounterWarpWidget]. */
 @Serializable
@@ -158,6 +159,14 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
 
     override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> =
         listOf(CounterWarpActionHandler(session))
+
+    override fun onUpdate(
+        previous: Duration,
+        current: Duration,
+        session: WarpWidgetSession,
+    ) {
+        WarpLogger.d("CounterWarpWidget", "onUpdate: periodic system update (previous=$previous, current=$current)")
+    }
 }
 
 @Composable

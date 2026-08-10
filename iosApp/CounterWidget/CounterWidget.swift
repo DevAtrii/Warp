@@ -15,6 +15,8 @@ struct CounterWidgetEntry: TimelineEntry {
     let displayHeight: CGFloat
 }
 
+private let UPDATE_PERIOD_MILLIS: Double = 60 * 60 * 1000 // 1 hour
+
 /// Refreshes timeline schedule only. UI JSON is built in [CounterWidgetEntryView] from
 /// `@Environment(\.colorScheme)` so theme matches what WidgetKit is drawing (including
 /// light/dark pre-render passes).
@@ -28,8 +30,45 @@ struct CounterWidgetProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<CounterWidgetEntry>) -> Void) {
-        completion(Timeline(entries: [entry(from: context)], policy: .atEnd))
+        let now = Date()
+
+        print("🔥 WidgetKit requested new timeline:", now)
+
+        let session = WarpWidgetHost.shared.iosSession(
+            widget: CounterWarpWidget.shared,
+            kitFields: WarpWidgetKitEnv.from(context: context).asKitFields(
+                appGroupId: CounterWarpWidget.shared.iosGroupId
+            )
+        )
+        WarpWidgetHost.shared.dispatchOnUpdate(widget: CounterWarpWidget.shared, session: session, nowMillis: Int64(now.timeIntervalSince1970 * 1000), minIntervalMillis:Int64(UPDATE_PERIOD_MILLIS), force: false)
+
+        let size = context.displaySize
+
+        let entry = CounterWidgetEntry(
+            date: now,
+            displayWidth: size.width,
+            displayHeight: size.height
+        )
+
+        let nextHour = Calendar.current.nextDate(
+            after: now,
+            matching: DateComponents(
+                minute: 0,
+                second: 0
+            ),
+            matchingPolicy: .nextTime
+        ) ?? Date(timeIntervalSinceNow: UPDATE_PERIOD_MILLIS / 1000)
+
+        print("🔥 Next requested refresh:", nextHour)
+
+        completion(
+            Timeline(
+                entries: [entry],
+                policy: .after(nextHour)
+            )
+        )
     }
+
 
     private func entry(from context: Context) -> CounterWidgetEntry {
         let size = context.displaySize
