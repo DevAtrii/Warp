@@ -32,7 +32,8 @@
 
 ## Overview
 
-https://github.com/user-attachments/assets/6bcdd802-41fc-4ac7-8629-e9711f0fb1f8
+https://github.com/user-attachments/assets/50072112-45a3-4bab-bba5-46d696108ec4
+
 
 **WARP** is a production-ready, declarative widget engine for Kotlin Multiplatform developers. 
 
