@@ -16,6 +16,7 @@ struct CounterWidgetEntry: TimelineEntry {
 }
 
 private let UPDATE_SAFETY_MARGIN_MILLIS: Int64 = 60 * 1000 // 1 minute
+private let UPDATE_HOUR: Int = 1
 
 /// Refreshes timeline schedule only. UI JSON is built in [CounterWidgetEntryView] from
 /// `@Environment(\.colorScheme)` so theme matches what WidgetKit is drawing (including
@@ -34,26 +35,40 @@ struct CounterWidgetProvider: TimelineProvider {
         completion: @escaping (Timeline<CounterWidgetEntry>) -> Void
     ) {
         let now = Date()
+        let calendar = Calendar.current
 
-        print("🔥 WidgetKit requested new timeline:", now)
+        let currentHour = calendar.component(.hour, from: now)
 
-        let nextHour = Calendar.current.nextDate(
-            after: now,
-            matching: DateComponents(
+        let nextUpdateHour =
+            ((currentHour / UPDATE_HOUR) + 1) * UPDATE_HOUR
+
+        let nextHour: Date
+
+        if nextUpdateHour >= 24 {
+            nextHour = calendar.date(
+                byAdding: .day,
+                value: 1,
+                to: calendar.startOfDay(for: now)
+            )!
+        } else {
+            nextHour = calendar.date(
+                bySettingHour: nextUpdateHour,
                 minute: 0,
-                second: 0
-            ),
-            matchingPolicy: .nextTime
-        ) ?? now.addingTimeInterval(60 * 60)
+                second: 0,
+                of: now
+            )!
+        }
 
         let intervalMillis = max(
             0,
             Int64(nextHour.timeIntervalSince(now) * 1000)
                 - UPDATE_SAFETY_MARGIN_MILLIS
         )
-
-        print("🔥 Next hour:", nextHour)
-        print("🔥 Min interval:", intervalMillis, "ms")
+        
+        print("CounterWidgetProvider: 🔥 WidgetKit requested new timeline:", now)
+        print("CounterWidgetProvider: 🔥 Update hour:", UPDATE_HOUR)
+        print("CounterWidgetProvider: 🔥 Next update:", nextHour)
+        print("CounterWidgetProvider: 🔥 Min interval:", intervalMillis, "ms")
 
         let session = WarpWidgetHost.shared.iosSession(
             widget: CounterWarpWidget.shared,
