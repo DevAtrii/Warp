@@ -43,7 +43,7 @@ One shared definition with `@Serializable` state `S`:
 - `id` — stable kind (`"CounterWidget"`); prefs JSON key + iOS `Widget.kind`
 - `iosGroupId` — iOS App Group suite (`group.*`); ignored on Android
 - `defaultState` — used when prefs empty / decode fails
-- `Content(env, state)` — WARP composables with decoded `S`
+- `Content(session, state)` — WARP composables with active `session` and decoded `S`
 - `clickHandlers(session)` — persist via `updateWarpWidgetState(session, widget) { (S) -> S }`
 - `stateScope` — [WarpWidgetStateScope.Shared] (default) or [WarpWidgetStateScope.Instance] for per-placement state
 
@@ -85,7 +85,8 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
     override suspend fun defaultState() = CounterState()
 
     @Composable
-    override fun Content(env: WidgetEnvironment, state: CounterState) {
+    override fun Content(session: WarpWidgetSession, state: CounterState) {
+        val env = session.environment
         WarpColumn {
             WarpText("Counter")
             WarpRow {
@@ -121,12 +122,12 @@ See demo: [`CounterWarpWidget.kt`](../shared/src/commonMain/kotlin/com/atriidev/
 
 Material-style color roles for widget UI — cross-platform `WarpColor` values for Glance + WidgetKit.
 
-Wrap `Content` in `WarpTheme(environment = env)` and read colors via `WarpTheme.colors`:
+Wrap `Content` in `WarpTheme(environment = session.environment)` and read colors via `WarpTheme.colors`:
 
 ```kotlin
 @Composable
-override fun Content(env: WidgetEnvironment, state: CounterState) {
-    WarpTheme(environment = env) {
+override fun Content(session: WarpWidgetSession, state: CounterState) {
+    WarpTheme(environment = session.environment) {
         val colors = WarpTheme.colors
         WarpBox(
             modifier = WarpModifier

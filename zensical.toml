@@ -11,6 +11,7 @@ nav = [
   {"Documentation" = [
     "docs/1-setup.md",
     "docs/2-creating-your-first-widget.md",
+    "docs/3-updating-widget-state.md",
     "docs/3-warp-composables.md",
     "docs/4-warp-theme.md",
     "docs/5-warp-adaptive.md",

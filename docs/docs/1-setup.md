@@ -38,7 +38,7 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 
 In your shared module's `build.gradle.kts` (e.g., `shared/build.gradle.kts`), apply the serialization plugin, export `warp-widget` in iOS framework binaries, and declare dependencies in `commonMain`:
 
-```kotlin title="shared/build.gradle.kts" hl_lines="3 13 25-27"
+```kotlin title="shared/build.gradle.kts" hl_lines="3-4 14 26-28"
 plugins {
     // ...
     alias(libs.plugins.kotlin.serialization)

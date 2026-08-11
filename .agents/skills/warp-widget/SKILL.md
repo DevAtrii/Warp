@@ -105,7 +105,8 @@ object MyWarpWidget : WarpWidget<MyWidgetState>(MyWidgetState.serializer()) {
     override suspend fun defaultState(): MyWidgetState = MyWidgetState()
 
     @Composable
-    override fun Content(env: WidgetEnvironment, state: MyWidgetState) {
+    override fun Content(session: WarpWidgetSession, state: MyWidgetState) {
+        val env = session.environment
         WarpTheme(environment = env) {
             WarpBox(
                 modifier = WarpModifier

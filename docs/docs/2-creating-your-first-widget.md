@@ -118,7 +118,8 @@ object CounterWarpWidget : WarpWidget<CounterState>(CounterState.serializer()) {
     override suspend fun defaultState(): CounterState = CounterState()
 
     @Composable
-    override fun Content(env: WidgetEnvironment, state: CounterState) {
+    override fun Content(session: WarpWidgetSession, state: CounterState) {
+        val env = session.environment
         WarpTheme(environment = env) {
             WarpBox(
                 modifier = WarpModifier

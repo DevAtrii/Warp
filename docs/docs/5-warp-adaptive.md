@@ -26,7 +26,8 @@ Use `WarpAdaptiveContent` to swap composable layouts dynamically based on the ac
 
 ```kotlin title="WarpAdaptiveContent Usage"
 @Composable
-override fun Content(env: WidgetEnvironment, state: CounterState) {
+override fun Content(session: WarpWidgetSession, state: CounterState) {
+    val env = session.environment
     WarpTheme(environment = env) {
         WarpAdaptiveContent(
             environment = env,

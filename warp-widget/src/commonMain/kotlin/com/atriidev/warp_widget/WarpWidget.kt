@@ -81,7 +81,7 @@ interface WarpWidgetHostApi {
  *     override suspend fun defaultState() = CounterState()
  *
  *     @Composable
- *     override fun Content(env: WidgetEnvironment, state: CounterState) {
+ *     override fun Content(session: WarpWidgetSession, state: CounterState) {
  *         WarpText("${state.count}")
  *     }
  * }

@@ -119,9 +119,10 @@ object TodoWarpWidget :
 
     @Composable
     override fun Content(
-        env: WidgetEnvironment,
+        session: WarpWidgetSession,
         state: TodoWidgetState,
     ) {
+        val env = session.environment
         WarpLogger.level = WarpLoggerLevel.Debug
         WarpTheme(
             environment = env,

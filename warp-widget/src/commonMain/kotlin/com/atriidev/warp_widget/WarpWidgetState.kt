@@ -117,7 +117,7 @@ fun currentPreferences(): WarpWidgetPreferences = LocalWarpWidgetPreferences.cur
  *
  * ```
  * @Composable
- * override fun Content(env: WidgetEnvironment) {
+ * override fun Content(session: WarpWidgetSession, state: CounterState) {
  *     val count = currentState(CounterKeys.Count) ?: 0
  *     WarpText("$count")
  * }

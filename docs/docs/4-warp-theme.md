@@ -14,7 +14,8 @@ Wrap your widget content inside `WarpTheme` to set up color tokens for all neste
 
 ```kotlin title="Basic Theme Usage"
 @Composable
-override fun Content(env: WidgetEnvironment, state: CounterState) {
+override fun Content(session: WarpWidgetSession, state: CounterState) {
+    val env = session.environment
     WarpTheme(environment = env) {
         WarpBox(
             modifier = WarpModifier
