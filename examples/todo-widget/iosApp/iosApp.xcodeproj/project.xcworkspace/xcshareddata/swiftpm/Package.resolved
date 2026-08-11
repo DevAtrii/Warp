@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DevAtrii/Warp.git",
       "state" : {
-        "revision" : "2a581c65bf235843b88117013a1a6a8329fe35e4",
-        "version" : "0.1.4"
+        "revision" : "36668c16a995607b6892e214fe5ce62edef870a7",
+        "version" : "0.1.8"
       }
     }
   ],

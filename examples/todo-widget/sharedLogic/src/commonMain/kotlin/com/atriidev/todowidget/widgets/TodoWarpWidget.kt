@@ -6,12 +6,14 @@ import com.atriidev.warp_runtime.compose.WarpBox
 import com.atriidev.warp_runtime.compose.WarpColumn
 import com.atriidev.warp_runtime.compose.WarpDivider
 import com.atriidev.warp_runtime.compose.WarpImage
+import com.atriidev.warp_runtime.compose.WarpLink
 import com.atriidev.warp_runtime.compose.WarpProgressIndicator
 import com.atriidev.warp_runtime.compose.WarpRow
 import com.atriidev.warp_runtime.compose.WarpSpacer
 import com.atriidev.warp_runtime.compose.WarpText
 import com.atriidev.warp_runtime.log.WarpLogger
 import com.atriidev.warp_runtime.log.WarpLoggerLevel
+import com.atriidev.warp_runtime.nodes.WarpUrl
 import com.atriidev.warp_runtime.nodes.actions.asClickAction
 import com.atriidev.warp_runtime.nodes.assets.WarpAsset
 import com.atriidev.warp_runtime.nodes.assets.WarpAssetId
@@ -24,7 +26,7 @@ import com.atriidev.warp_runtime.nodes.style.WarpTextStyle
 import com.atriidev.warp_runtime.nodes.style.WarpVerticalAlignment
 import com.atriidev.warp_runtime.unit.dp
 import com.atriidev.warp_runtime.unit.sp
-import com.atriidev.warp_ui.WarpClickHandler
+import com.atriidev.warp_ui.WarpActionHandler
 import com.atriidev.warp_widget.WarpWidget
 import com.atriidev.warp_widget.WarpWidgetSession
 import com.atriidev.warp_widget.WarpWidgetStateScope
@@ -36,10 +38,12 @@ import com.atriidev.warp_widget.ui.adaptiveValue
 import com.atriidev.warp_widget.ui.isMediumAdaptive
 import com.atriidev.warp_widget.updateWarpWidgetState
 import kotlinx.serialization.Serializable
+import kotlin.time.Duration
 
 
 /** Type-safe asset keys — share with GlanceWidgets Assets. */
 object TodoAssets {
+    val App = WarpAssetId("app.fill")
     val Plus = WarpAssetId("plus")
     val Trash = WarpAssetId("trash")
 
@@ -138,15 +142,19 @@ object TodoWarpWidget :
     }
 
 
-    override fun clickHandlers(session: WarpWidgetSession): List<WarpClickHandler<*>> = listOf(
+    override fun clickHandlers(session: WarpWidgetSession): List<WarpActionHandler<*>> = listOf(
         TodoClickHandler(session)
     )
+
+    override fun onUpdate(previous: Duration, current: Duration, session: WarpWidgetSession) {
+        WarpLogger.i("TodoWarpWidget", "onUpdate: $previous -> $current")
+    }
 }
 
 
 private class TodoClickHandler(
     private val session: WarpWidgetSession,
-) : WarpClickHandler<TodoActions>(serializer = TodoActions.serializer()) {
+) : WarpActionHandler<TodoActions>(serializer = TodoActions.serializer()) {
     override suspend fun onAction(action: TodoActions) {
         when (action) {
             is TodoActions.Toggle -> updateWarpWidgetState(session, TodoWarpWidget) { state ->
@@ -230,6 +238,17 @@ private fun TodoWidgetContent(
                     action = TodoActions.AddSample,
                     compact = compact
                 )
+                WarpSpacer(modifier = WarpModifier.width(if (compact) 4 else 6))
+
+                WarpLink(
+                    deeplink = WarpUrl("todo-widget://simple?fontScale=${env.fontScale}")
+                ) {
+                    IconButton(
+                        asset = TodoAssets.App.asSystem(),
+                        action = null,
+                        compact = compact
+                    )
+                }
 
 
             }
@@ -266,7 +285,7 @@ private fun TodoWidgetContent(
 @Composable
 private fun IconButton(
     asset: WarpAsset,
-    action: TodoActions,
+    action: TodoActions?,
     compact: Boolean,
 ) {
     val colors = WarpTheme.colors
@@ -280,7 +299,12 @@ private fun IconButton(
             .background(bg)
             .cornerRadius(20)
             .padding(horizontal = chipPaddingH, vertical = chipPaddingV)
-            .clickable(action.asClickAction()),
+            .then(
+                if (action == null)
+                    WarpModifier()
+                else
+                    WarpModifier.clickable(action.asClickAction())
+            ),
         verticalAlignment = WarpVerticalAlignment.Center,
     ) {
         WarpImage(

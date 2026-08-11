@@ -15,7 +15,7 @@ kotlin = "2.4.10"
 material3 = "1.11.0-alpha07"
 kotlinx-serialization-json = "1.11.0"
 
-warp = "0.1.4"
+warp = "0.1.8"
 
 [libraries]
 warp-ui = { group = "io.github.devatrii", name = "warp-ui",version.ref="warp" }

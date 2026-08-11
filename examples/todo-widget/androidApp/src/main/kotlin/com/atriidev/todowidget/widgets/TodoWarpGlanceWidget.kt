@@ -24,6 +24,7 @@ class TodoWarpGlanceWidget(
         WarpDrawableAsset(TodoAssets.Trash, R.drawable.ic_trash),
         WarpDrawableAsset(TodoAssets.Plus, R.drawable.ic_add),
         WarpDrawableAsset(TodoAssets.Circle, R.drawable.ic_circle),
-        WarpDrawableAsset(TodoAssets.CheckCircle, R.drawable.ic_check_circle),
+        WarpDrawableAsset(TodoAssets.CheckCircle, R.drawable.ic_app),
+        WarpDrawableAsset(TodoAssets.App, R.drawable.ic_app),
     )
 }

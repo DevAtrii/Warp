@@ -601,7 +601,7 @@
 			repositoryURL = "https://github.com/DevAtrii/Warp.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
+				minimumVersion = 0.1.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
