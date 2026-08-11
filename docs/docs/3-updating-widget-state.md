@@ -31,7 +31,7 @@ WARP widget state is defined as a `@Serializable` Kotlin data class. State paylo
             ▼                               ▼
 ┌───────────────────────┐       ┌───────────────────────┐
 │ Android SharedPreferences     │ iOS App Group         │
-│ & Glance Recompose    │         UserDefaults & Reload │
+│ & Glance Recompose    │       │ UserDefaults & Reload │
 └───────────────────────┘       └───────────────────────┘
 ```
 
